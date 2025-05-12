@@ -8,7 +8,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'homemaker',
       title: 'Homemaker',
-      description: 'AI-powered content generation for websites, blogs, and marketing materials.',
+      description: 'Generate high-converting content at scale that outperforms competitors and drives traffic.',
       features: ['Custom content briefs', 'SEO optimization', 'Brand voice adaptation', 'Multi-format output'],
       color: 'electric' as const,
       icon: <Lightbulb className="w-6 h-6" />,
@@ -18,7 +18,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'intelligence',
       title: 'Intelligence',
-      description: 'Smart lead scoring and enrichment using machine learning algorithms.',
+      description: 'Identify your highest-value prospects instantly with AI that predicts buying intent with uncanny accuracy.',
       features: ['Predictive lead scoring', 'Data enrichment', 'Behavioral insights', 'Integration with CRMs'],
       color: 'purple' as const,
       icon: <Brain className="w-6 h-6" />,
@@ -28,7 +28,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'snipper',
       title: 'Snipper',
-      description: 'AI-assisted outreach campaigns for personalized communications.',
+      description: 'Supercharge your outreach with hyper-personalized messaging that converts at unprecedented rates.',
       features: ['Personalized templates', 'Sentiment analysis', 'Response predictions', 'A/B testing'],
       color: 'neon' as const,
       icon: <Send className="w-6 h-6" />,
@@ -38,7 +38,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'signals',
       title: 'Signals',
-      description: 'Real-time market signal tracking to identify buying intent.',
+      description: 'Gain an unfair advantage with real-time intelligence that reveals precisely when prospects are ready to buy.',
       features: ['Intent data collection', 'Competitor monitoring', 'Market trend analysis', 'Alert notifications'],
       color: 'gray' as const,
       icon: <Activity className="w-6 h-6" />,
@@ -58,7 +58,7 @@ const ProductSuite: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            PRODUCT SUITE
+            GAME-CHANGING SOLUTIONS
           </motion.p>
           <motion.h2 
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
@@ -67,7 +67,7 @@ const ProductSuite: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Four powerful AI tools for modern GTM teams
+            Unleash the Ultimate AI Arsenal for GTM Excellence
           </motion.h2>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -76,8 +76,8 @@ const ProductSuite: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Each product in our suite addresses a specific challenge in the GTM process, 
-            working together or independently to drive results.
+            Deploy our battle-tested suite of AI tools to conquer every aspect of your go-to-market
+            strategy. Outperform competitors and drive explosive business growth with unmatched efficiency.
           </motion.p>
         </div>
 
