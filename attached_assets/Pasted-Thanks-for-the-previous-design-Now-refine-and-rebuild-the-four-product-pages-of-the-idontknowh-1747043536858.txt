@@ -1,0 +1,86 @@
+Thanks for the previous design. Now refine and rebuild the **four product pages** of the *idontknowhelpme* SaaS website with a new approach.
+
+---
+
+🛑 What to REMOVE:
+- Remove all demo forms, interactive trials, or mock input/output blocks
+- These pages should **not** include try buttons, live inputs, or example generations
+
+✅ What to ADD:
+- Replace them with **enterprise-style product marketing sections** — like you’d find on Clay, Apollo, or Mutiny
+- Focus on high-value positioning and detailed feature blocks
+
+---
+
+🧱 Pages to Modify:
+
+1. `/product/homemaker` (Content AI)
+2. `/product/intelligence` (Lead Scoring & Enrichment)
+3. `/product/snipper` (AI Outreach)
+4. `/product/signals` (Buyer Intent Tracking)
+
+---
+
+📦 Each Page Should Have:
+
+- Hero section with product name, one-line elevator pitch, and supporting sentence
+- Feature section with **3-6 clear, enterprise-grade feature cards**
+  - Each card should have:
+    - Icon or flat visual
+    - Feature title
+    - 1–2 sentence description of how it adds value
+
+- “Why it matters” block or stat section (optional)
+- Trusted by / use case mini-strip (e.g., growth teams, SDRs, founders)
+- Global CTA (e.g., [Contact Sales] or [Explore Platform])
+
+---
+
+🧠 Sample Feature Lists (Use These as Content):
+
+### 1. Homemaker (Content AI)
+- **Auto-generate SEO-rich landing pages**  
+- **Maintain brand tone across campaigns**  
+- **Support for multi-format outputs** (ads, blogs, social)  
+- **Collaborative editing support for teams**  
+- **Audit trail & version control**  
+- **Plugs into your CMS or CRM directly**
+
+---
+
+### 2. Intelligence (Lead Scoring & Enrichment)
+- **Real-time data enrichment from 30+ sources**  
+- **AI-driven ICP scoring model**  
+- **CRM sync and auto-tagging**  
+- **Custom scoring rules per segment or region**  
+- **Lead list deduplication + cleansing**  
+- **Confidence scores for transparency**
+
+---
+
+### 3. Snipper (AI Outreach)
+- **Auto-personalized outbound email copy**  
+- **Call script generation with role-based tonality**  
+- **Context-aware follow-up sequencing**  
+- **Field-merging with CRM tokens**  
+- **Smart send-time optimization**  
+- **One-click export to outreach platforms**
+
+---
+
+### 4. Signals (Buyer Intent Tracking)
+- **Real-time LinkedIn activity overlays**  
+- **Email open + website visit signal detection**  
+- **Chrome extension for SDR workflow**  
+- **Lead scoring boosted by real-world activity**  
+- **Push alerts in Slack or Email**  
+- **Unified signal timeline per lead**
+
+---
+
+🧑‍💻 Design Like a World-Class SaaS:
+- Enterprise aesthetic (like Clay.run or Apollo.io)
+- Flat design, icon-driven, responsive
+- No filler. No placeholders. Realistic, polished layout
+- Tailwind components only — no images, no stock photos
+
