@@ -102,7 +102,7 @@ export const getQueryFn: <T>(options: {
       console.log(`[Static Mode][Query] Using mock data for: ${url}`);
       const mockData = getMockResponse(url);
       if (mockData) {
-        return mockData as T;
+        return mockData as any;
       }
       console.warn(`[Static Mode][Query] No mock data available for: ${url}`);
       // Return empty object to prevent errors in static mode
