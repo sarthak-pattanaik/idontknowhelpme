@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
+import BrandLogo from '@/components/common/BrandLogo';
 
 type NavLink = {
   name: string;
@@ -56,12 +57,10 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="w-8 h-8 rounded-lg bg-electric-500 flex items-center justify-center mr-2">
-              <span className="text-white text-lg font-bold">i</span>
-            </div>
-            <span className="text-lg font-bold text-gray-900">idontknowhelpme</span>
-          </Link>
+          <BrandLogo 
+            size="sm" 
+            colorMode={isHome && !isScrolled ? 'light' : 'light'} 
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">

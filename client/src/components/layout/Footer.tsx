@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
+import BrandLogo from '@/components/common/BrandLogo';
 
 const footerLinks = [
   {
@@ -77,15 +78,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
           {/* Logo and tagline */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center">
-              <div className="w-10 h-10 rounded-lg bg-electric-500 flex items-center justify-center mr-3">
-                <span className="text-white text-xl font-bold">i</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold tracking-tight text-gray-900">idontknowhelpme</span>
-                <span className="text-xs text-gray-500">AI-powered GTM suite</span>
-              </div>
-            </Link>
+            <BrandLogo size="md" />
             <p className="mt-4 text-gray-600 text-sm">
               The modern AI toolkit to enhance your content creation, lead generation, 
               outreach campaigns, and market signal analysis.
