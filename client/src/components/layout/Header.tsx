@@ -63,7 +63,8 @@ const Header: React.FC = () => {
           {/* Logo */}
           <BrandLogo 
             size="sm" 
-            colorMode={isHome && !isScrolled ? 'light' : 'light'} 
+            colorMode={isHome && !isScrolled ? 'light' : 'light'}
+            className="transform transition-all duration-300"
           />
 
           {/* Desktop Navigation */}

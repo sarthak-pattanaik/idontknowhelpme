@@ -55,48 +55,72 @@ const BrandLogo: React.FC<BrandLogoProps> = ({
 
   return (
     <Link href="/" className={`flex items-center ${className}`}>
-      <div className={`relative ${logoSize} rounded-lg overflow-hidden`}>
+      <div className={`relative ${logoSize} rounded-lg overflow-hidden shadow-lg`}>
         {/* Background with animated gradient */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-electric-400 via-electric-500 to-purple-500"
+          className="absolute inset-0 bg-gradient-to-br from-electric-500 via-electric-600 to-purple-600"
           animate={{
             background: [
-              'linear-gradient(135deg, #0066FF 0%, #0066FF 50%, #6600CC 100%)',
-              'linear-gradient(135deg, #0066FF 0%, #39FF14 50%, #6600CC 100%)',
-              'linear-gradient(135deg, #6600CC 0%, #0066FF 50%, #0066FF 100%)',
-              'linear-gradient(135deg, #0066FF 0%, #0066FF 50%, #6600CC 100%)',
+              'linear-gradient(135deg, #0066FF 0%, #3366FF 50%, #6600CC 100%)',
+              'linear-gradient(135deg, #0066FF 0%, #00CCFF 50%, #6600CC 100%)',
+              'linear-gradient(135deg, #6600CC 0%, #3366FF 50%, #0066FF 100%)',
+              'linear-gradient(135deg, #0066FF 0%, #3366FF 50%, #6600CC 100%)',
             ],
           }}
-          transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse' }}
+          transition={{ duration: 15, repeat: Infinity, repeatType: 'reverse' }}
         />
+        
+        {/* Abstract geometric pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0,0 L100,0 L50,100 Z" fill="white" />
+          </svg>
+        </div>
 
         {/* Logo letter */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`${colors.logoText} font-bold text-center`} style={{ fontSize: `calc(${size === 'xs' ? '0.75' : size === 'sm' ? '1' : size === 'md' ? '1.25' : size === 'lg' ? '1.5' : '2'}rem)` }}>i</span>
+          <motion.span 
+            className={`${colors.logoText} font-bold text-center relative z-10`} 
+            style={{ fontSize: `calc(${size === 'xs' ? '0.875' : size === 'sm' ? '1.125' : size === 'md' ? '1.375' : size === 'lg' ? '1.625' : '2.125'}rem)` }}
+            animate={{ 
+              textShadow: [
+                '0 0 5px rgba(255,255,255,0.5)', 
+                '0 0 10px rgba(255,255,255,0.8)', 
+                '0 0 5px rgba(255,255,255,0.5)'
+              ] 
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            i
+          </motion.span>
         </div>
 
-        {/* Animated dot effect */}
+        {/* Shine effect */}
         <motion.div
-          className="absolute top-[15%] right-[15%] w-[20%] h-[20%] bg-white rounded-full opacity-80"
+          className="absolute -inset-full w-[200%] h-[200%] bg-gradient-to-br from-transparent via-white to-transparent opacity-30 transform rotate-12"
           animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.7, 0.9, 0.7],
+            left: ['-100%', '100%'],
           }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
+          transition={{ duration: 3, repeat: Infinity, repeatDelay: 5 }}
         />
       </div>
 
       {showText && (
-        <div className="flex flex-col ml-2">
+        <div className="flex items-center ml-3">
           <motion.span
-            className={`font-bold tracking-tight ${colors.brandName}`}
-            style={{ fontSize: `calc(${size === 'xs' ? '0.75' : size === 'sm' ? '0.875' : size === 'md' ? '1.125' : size === 'lg' ? '1.25' : '1.5'}rem)` }}
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            className={`font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-electric-600 to-purple-600 ${size === 'xs' || size === 'sm' ? 'tracking-tight' : 'tracking-tighter'}`}
+            style={{ fontSize: `calc(${size === 'xs' ? '0.875' : size === 'sm' ? '1.125' : size === 'md' ? '1.375' : size === 'lg' ? '1.625' : '1.875'}rem)` }}
+            whileHover={{ 
+              scale: 1.02, 
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{ 
+              scale: { type: 'spring', stiffness: 400, damping: 10 },
+              backgroundPosition: { duration: 1, repeat: 0 }
+            }}
           >
             idontknowhelpme
           </motion.span>
-          <span className={`${colors.tagline} text-xs`}>AI-powered GTM suite</span>
         </div>
       )}
     </Link>
