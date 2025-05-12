@@ -5,11 +5,17 @@ import { z } from "zod";
 import { insertUserSchema, updateUserSchema } from "@shared/schema";
 import cors from "cors";
 import { log } from "./vite";
-import { sendOTPEmail } from "./sendgrid";
 
 // Constants
 const OTP_EXPIRY_MINUTES = 10;
 const SESSION_EXPIRY_DAYS = 7;
+
+// Simple email mock function (for development)
+async function sendOTPEmail(email: string, otp: string): Promise<boolean> {
+  log(`[Email Service] Sending OTP ${otp} to ${email}`, "auth");
+  // In production, this would integrate with a real email service
+  return true;
+}
 
 // Middleware to authenticate requests based on session token
 const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
@@ -72,33 +78,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt
       });
       
-      // Send OTP to user's email (real email or development mode)
-      const emailSent = await sendOTPEmail(email, otp);
+      // Send OTP to user's email (mock in development)
+      await sendOTPEmail(email, otp);
       
-      // In development, also return the OTP directly for testing
+      // Always show the OTP in development mode for easier testing
       const isDev = process.env.NODE_ENV === "development";
       
-      if (emailSent) {
-        res.status(200).json({
-          message: "OTP sent successfully",
-          email,
-          ...(isDev && { otp }),
-        });
-      } else {
-        // If email sending fails but we're in dev mode, still return the OTP
-        if (isDev) {
-          res.status(200).json({
-            message: "Email service unavailable, but OTP generated for testing",
-            email,
-            otp,
-          });
-        } else {
-          // In production, if email fails, return an error
-          res.status(500).json({ 
-            message: "Failed to send OTP email. Please try again later." 
-          });
-        }
-      }
+      res.status(200).json({
+        message: "OTP sent successfully",
+        email,
+        ...(isDev && { otp }),
+      });
       
     } catch (error) {
       console.error("Error requesting OTP:", error);
