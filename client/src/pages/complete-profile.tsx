@@ -51,7 +51,8 @@ const CompleteProfilePage: React.FC = () => {
   const onSubmit = (data: ProfileFormValues) => {
     completeProfile(data, {
       onSuccess: () => {
-        setLocation('/product-access');
+        // Direct user to Homemaker app after completing profile
+        setLocation('/app/homemaker');
       },
       onError: (error) => {
         console.error('Error completing profile:', error);

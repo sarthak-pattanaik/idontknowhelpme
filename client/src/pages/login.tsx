@@ -94,11 +94,11 @@ const LoginPage: React.FC = () => {
     verifyOtp({ email, otp: data.otp }, {
       onSuccess: (response) => {
         // If new user, direct to complete profile 
-        // If existing user, take directly to product page
+        // If existing user, take directly to Homemaker app
         if (response.isNewUser) {
           setLocation('/complete-profile');
         } else {
-          setLocation('/product-access');
+          setLocation('/app/homemaker');
         }
       },
       onError: (error) => {

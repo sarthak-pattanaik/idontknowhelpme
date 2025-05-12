@@ -52,9 +52,33 @@ const StandaloneRoutes = [
   { path: "/complete-profile", component: CompleteProfilePage },
   { path: "/product-access", component: ProductAccessPage },
   
-  // Product app routes - includes child routes
-  { path: "/app/homemaker", component: HomemakerApp },
-  { path: "/app/homemaker/:subpage", component: HomemakerApp },
+  // Product app routes - includes child routes (protected by authentication)
+  { 
+    path: "/app/homemaker", 
+    component: () => {
+      // Check if user is authenticated
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        // Redirect to signup if not authenticated
+        window.location.href = '/signup';
+        return null;
+      }
+      return <HomemakerApp />;
+    } 
+  },
+  { 
+    path: "/app/homemaker/:subpage", 
+    component: () => {
+      // Check if user is authenticated
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        // Redirect to signup if not authenticated
+        window.location.href = '/signup';
+        return null;
+      }
+      return <HomemakerApp />;
+    } 
+  },
 ];
 
 function Router() {
