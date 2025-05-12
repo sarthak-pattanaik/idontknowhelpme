@@ -3,48 +3,52 @@ import { createServer, type Server } from "http";
 import { storage, generateOTP, generateSessionToken } from "./storage";
 import { z } from "zod";
 import { insertUserSchema, updateUserSchema } from "@shared/schema";
-import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
 import cors from "cors";
+import { log } from "./vite";
 
-// In a real production app, these would be sent via a real email service like SendGrid, Mailgun, etc.
-// For demo purposes, we'll just log them to the console
+// Constants
+const OTP_EXPIRY_MINUTES = 10;
+const SESSION_EXPIRY_DAYS = 7;
+
+// Mock email sending (in production, would use a real email service)
 async function sendOTPEmail(email: string, otp: string): Promise<void> {
-  console.log(`[EMAIL SERVICE] Sending OTP ${otp} to ${email}`);
-  // In production, implement actual email sending logic here
+  log(`[Email Service] Sending OTP ${otp} to ${email}`, "auth");
+  // In production: integrate with real email service like SendGrid, Mailgun, etc.
 }
 
-// JWT secret - in production, this should be a strong, secure value stored in environment variables
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
-const JWT_EXPIRES_IN = '7d'; // Token expiration time
-
-// Middleware to verify authenticated sessions
+// Middleware to authenticate requests based on session token
 const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies?.authToken || req.headers.authorization?.split(' ')[1];
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
   
   if (!token) {
-    return res.status(401).json({ message: 'Authentication required' });
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
-
+  
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: number };
-    const user = await storage.getUser(decoded.userId);
+    // Get session from the database
+    const session = await storage.getSessionByToken(token);
+    if (!session) {
+      return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    }
     
+    // Get user from session
+    const user = await storage.getUser(session.userId);
     if (!user) {
-      return res.status(401).json({ message: 'Invalid token' });
+      return res.status(401).json({ message: "Unauthorized: User not found" });
     }
     
     // Attach user to request
     (req as any).user = user;
     next();
   } catch (error) {
-    return res.status(403).json({ message: 'Invalid or expired token' });
+    console.error("Auth error:", error);
+    return res.status(403).json({ message: "Forbidden: Invalid token" });
   }
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Middleware
-  app.use(cookieParser());
+  // Enable CORS
   app.use(cors({
     origin: true,
     credentials: true,
@@ -56,27 +60,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/auth/request-otp', async (req, res) => {
     try {
       // Validate email
-      const emailSchema = z.object({
-        email: z.string().email()
-      });
-      
-      const result = emailSchema.safeParse(req.body);
-      
-      if (!result.success) {
-        return res.status(400).json({ 
-          message: 'Invalid email address',
-          errors: result.error.format() 
-        });
-      }
-      
-      const { email } = result.data;
+      const validatedEmail = insertUserSchema.parse(req.body);
+      const email = validatedEmail.email;
       
       // Generate OTP (6 digits)
       const otp = generateOTP(6);
       
       // Set expiration time (10 minutes from now)
       const expiresAt = new Date();
-      expiresAt.setMinutes(expiresAt.getMinutes() + 10);
+      expiresAt.setMinutes(expiresAt.getMinutes() + OTP_EXPIRY_MINUTES);
       
       // Store OTP in database
       await storage.createOtp({
@@ -85,156 +77,132 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt
       });
       
-      // In a real app, send email with OTP
+      // Send OTP to user's email (mock in development)
       await sendOTPEmail(email, otp);
       
-      res.status(200).json({ 
-        message: 'OTP sent successfully',
+      // In development, also return the OTP directly for testing
+      const isDev = process.env.NODE_ENV === "development";
+      
+      res.status(200).json({
+        message: "OTP sent successfully",
         email,
-        // Only include this in development - remove for production!
-        otp: process.env.NODE_ENV === 'development' ? otp : undefined
+        ...(isDev && { otp }),
       });
+      
     } catch (error) {
-      console.error('Error requesting OTP:', error);
-      res.status(500).json({ message: 'Failed to send OTP' });
+      console.error("Error requesting OTP:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid email address" });
+      }
+      res.status(500).json({ message: "Failed to send OTP" });
     }
   });
   
   // 2. Verify OTP and create/login user
   app.post('/api/auth/verify-otp', async (req, res) => {
     try {
-      // Validate input
-      const otpSchema = z.object({
-        email: z.string().email(),
-        otp: z.string().length(6)
-      });
+      const { email, otp } = req.body;
       
-      const result = otpSchema.safeParse(req.body);
-      
-      if (!result.success) {
-        return res.status(400).json({ 
-          message: 'Invalid input',
-          errors: result.error.format() 
-        });
+      if (!email || !otp) {
+        return res.status(400).json({ message: "Email and OTP are required" });
       }
       
-      const { email, otp } = result.data;
-      
-      // Verify OTP
+      // Validate OTP
       const isValid = await storage.validateOtp(email, otp);
       
       if (!isValid) {
-        return res.status(400).json({ message: 'Invalid or expired OTP' });
+        return res.status(400).json({ message: "Invalid or expired OTP" });
       }
       
       // Check if user exists
       let user = await storage.getUserByEmail(email);
       let isNewUser = false;
       
+      // If user doesn't exist, create them
       if (!user) {
         // Create new user
         user = await storage.createUser({ email });
         isNewUser = true;
-      } else {
-        // Update user's last login timestamp
-        user = await storage.updateUser(user.id, { updatedAt: new Date() } as any);
       }
       
-      // Generate JWT token
-      const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+      // Create session token
+      const token = generateSessionToken();
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + SESSION_EXPIRY_DAYS);
       
-      // Set token as httpOnly cookie
-      res.cookie('authToken', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        sameSite: 'lax'
+      await storage.createSession({
+        userId: user.id,
+        token,
+        expiresAt,
       });
       
-      res.status(200).json({ 
-        message: 'Authentication successful',
-        user: {
-          id: user.id,
-          email: user.email,
-          fullName: user.fullName,
-          verified: user.verified
-        },
-        isNewUser
+      // Set token in Authorization header
+      res.setHeader('Authorization', `Bearer ${token}`);
+      
+      res.status(200).json({
+        message: "Authentication successful",
+        user,
+        isNewUser,
       });
+      
     } catch (error) {
-      console.error('Error verifying OTP:', error);
-      res.status(500).json({ message: 'Failed to verify OTP' });
+      console.error("Error verifying OTP:", error);
+      res.status(500).json({ message: "Failed to verify OTP" });
     }
   });
   
-  // 3. Complete user profile (for new users)
-  app.post('/api/auth/complete-profile', authenticateToken, async (req, res) => {
+  // 3. Complete profile (for new users)
+  app.post("/api/auth/complete-profile", authenticateToken, async (req: Request, res: Response) => {
     try {
       const user = (req as any).user;
       
-      // Validate input
-      const profileSchema = z.object({
-        fullName: z.string().min(3).max(100),
-        phoneNumber: z.string().optional()
-      });
+      // Validate profile data
+      const validatedProfile = updateUserSchema.parse(req.body);
       
-      const result = profileSchema.safeParse(req.body);
-      
-      if (!result.success) {
-        return res.status(400).json({ 
-          message: 'Invalid input',
-          errors: result.error.format() 
-        });
-      }
-      
-      // Update user profile
+      // Update user profile and set verified
       const updatedUser = await storage.updateUser(user.id, {
-        ...result.data,
-        verified: true
+        ...validatedProfile,
+        verified: true,
       } as any);
       
       res.status(200).json({
-        message: 'Profile updated successfully',
-        user: {
-          id: updatedUser.id,
-          email: updatedUser.email,
-          fullName: updatedUser.fullName,
-          phoneNumber: updatedUser.phoneNumber,
-          verified: updatedUser.verified
-        }
+        message: "Profile completed successfully",
+        user: updatedUser,
       });
+      
     } catch (error) {
-      console.error('Error updating profile:', error);
-      res.status(500).json({ message: 'Failed to update profile' });
+      console.error("Error completing profile:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid profile data" });
+      }
+      res.status(500).json({ message: "Failed to complete profile" });
     }
   });
   
   // 4. Get current user
-  app.get('/api/auth/me', authenticateToken, async (req, res) => {
-    try {
-      const user = (req as any).user;
-      
-      res.status(200).json({
-        user: {
-          id: user.id,
-          email: user.email,
-          fullName: user.fullName,
-          phoneNumber: user.phoneNumber,
-          verified: user.verified
-        }
-      });
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      res.status(500).json({ message: 'Failed to fetch user data' });
-    }
+  app.get("/api/auth/user", authenticateToken, async (req: Request, res: Response) => {
+    res.status(200).json((req as any).user);
   });
   
   // 5. Logout
-  app.post('/api/auth/logout', (req, res) => {
-    res.clearCookie('authToken');
-    res.status(200).json({ message: 'Logged out successfully' });
+  app.post("/api/auth/logout", authenticateToken, async (req: Request, res: Response) => {
+    try {
+      const authHeader = req.headers.authorization;
+      const token = authHeader && authHeader.split(' ')[1];
+      
+      if (token) {
+        await storage.deleteSession(token);
+      }
+      
+      res.status(200).json({ message: "Logged out successfully" });
+      
+    } catch (error) {
+      console.error("Error logging out:", error);
+      res.status(500).json({ message: "Failed to logout" });
+    }
   });
 
+  // Create HTTP server
   const httpServer = createServer(app);
   return httpServer;
 }
