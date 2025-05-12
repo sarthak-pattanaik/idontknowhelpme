@@ -1,178 +1,159 @@
-import { Link } from "wouter";
-import GradientText from "@/components/common/GradientText";
-import { motion } from "framer-motion";
-import BrandLogo from "@/components/common/BrandLogo";
+import { Link } from 'wouter';
+import { motion } from 'framer-motion';
 
-// SVG Background with abstract curves and waves
-const FooterBackground = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-    <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path 
-        fill="url(#footer-gradient)" 
-        fillOpacity="1" 
-        d="M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,234.7C672,235,768,213,864,213.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-      ></path>
-      <defs>
-        <linearGradient id="footer-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#6366F1" />
-          <stop offset="50%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#EC4899" />
-        </linearGradient>
-      </defs>
-    </svg>
-  </div>
-);
+const footerLinks = [
+  {
+    title: 'Products',
+    links: [
+      { name: 'Homemaker', href: '/product/homemaker' },
+      { name: 'Intelligence', href: '/product/intelligence' },
+      { name: 'Snipper', href: '/product/snipper' },
+      { name: 'Signals', href: '/product/signals' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { name: 'About', href: '/about' },
+      { name: 'Blog', href: '/blog' },
+      { name: 'Careers', href: '#' },
+      { name: 'Contact', href: '#' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { name: 'Documentation', href: '#' },
+      { name: 'API', href: '#' },
+      { name: 'Guides', href: '#' },
+      { name: 'Help Center', href: '#' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { name: 'Privacy', href: '#' },
+      { name: 'Terms', href: '#' },
+      { name: 'Security', href: '#' },
+      { name: 'Cookies', href: '#' },
+    ],
+  },
+];
+
+const socialLinks = [
+  {
+    name: 'Twitter',
+    href: '#',
+    icon: (
+      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165v-.001z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'LinkedIn',
+    href: '#',
+    icon: (
+      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'GitHub',
+    href: '#',
+    icon: (
+      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+      </svg>
+    ),
+  },
+];
 
 const Footer = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white pt-16 pb-8 relative overflow-hidden">
-      <FooterBackground />
-      
-      {/* Decorative elements */}
-      <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-primary-500 opacity-10 blur-3xl"></div>
-      <div className="absolute bottom-10 left-10 w-60 h-60 rounded-full bg-accent-500 opacity-10 blur-3xl"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
-          className="grid md:grid-cols-5 gap-8 mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <motion.div className="md:col-span-2" variants={itemVariants}>
-            <div className="mb-4">
-              <BrandLogo size="md" colorMode="dark" />
+    <footer className="bg-gray-50 border-t border-gray-200">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
+          {/* Logo and tagline */}
+          <div className="col-span-2">
+            <Link href="/" className="flex items-center">
+              <div className="w-10 h-10 rounded-lg bg-electric-500 flex items-center justify-center mr-3">
+                <span className="text-white text-xl font-bold">i</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold tracking-tight text-gray-900">idontknowhelpme</span>
+                <span className="text-xs text-gray-500">AI-powered GTM suite</span>
+              </div>
+            </Link>
+            <p className="mt-4 text-gray-600 text-sm">
+              The modern AI toolkit to enhance your content creation, lead generation, 
+              outreach campaigns, and market signal analysis.
+            </p>
+            <div className="mt-6 flex space-x-4">
+              {socialLinks.map((item) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-400 hover:text-electric-500 transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="sr-only">{item.name}</span>
+                  {item.icon}
+                </motion.a>
+              ))}
             </div>
-            <p className="text-gray-300 mb-6">The modern toolkit for content, leads, outreach, and signals.</p>
-            
-            <div className="mb-6">
-              <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-4 shadow-lg border border-gray-700">
-                <p className="text-gray-200 text-sm mb-3 font-medium">Join our newsletter</p>
-                <div className="flex">
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    className="bg-gray-700 text-white px-3 py-2 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary-400 text-sm flex-grow"
-                  />
-                  <button className="bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white px-4 py-2 rounded-r-md text-sm transition-colors font-medium">
+          </div>
+
+          {/* Links */}
+          {footerLinks.map((group) => (
+            <div key={group.title} className="col-span-1">
+              <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">{group.title}</h3>
+              <ul className="mt-4 space-y-3">
+                {group.links.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-sm text-gray-600 hover:text-electric-500 transition-colors">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom section with newsletter */}
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">Subscribe to our newsletter</h3>
+              <p className="mt-2 text-sm text-gray-600">Stay updated with the latest product news and AI insights.</p>
+              <div className="mt-4 sm:flex sm:max-w-md">
+                <label htmlFor="email-address" className="sr-only">Email address</label>
+                <input
+                  type="email"
+                  name="email-address"
+                  id="email-address"
+                  autoComplete="email"
+                  required
+                  placeholder="Enter your email"
+                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-electric-500 focus:border-electric-500"
+                />
+                <div className="mt-3 sm:mt-0 sm:ml-3">
+                  <button
+                    type="submit"
+                    className="w-full bg-electric-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-electric-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-500"
+                  >
                     Subscribe
                   </button>
                 </div>
               </div>
             </div>
-            
-            <div className="flex space-x-4">
-              {[
-                { icon: "ri-twitter-x-line", gradient: "from-blue-400 to-blue-600" },
-                { icon: "ri-linkedin-box-line", gradient: "from-blue-500 to-blue-700" },
-                { icon: "ri-facebook-box-line", gradient: "from-blue-600 to-blue-800" },
-                { icon: "ri-instagram-line", gradient: "from-pink-500 to-purple-600" }
-              ].map((social, index) => (
-                <motion.a 
-                  key={index}
-                  href="#" 
-                  className={`flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 text-white transition-all hover:bg-gradient-to-r ${social.gradient}`}
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <i className={`${social.icon} text-xl`}></i>
-                </motion.a>
-              ))}
+            <div className="md:text-right text-sm text-gray-500">
+              <p>© {new Date().getFullYear()} idontknowhelpme. All rights reserved.</p>
+              <p className="mt-2">Made with ❤️ for busy GTM teams.</p>
             </div>
-          </motion.div>
-          
-          {[
-            {
-              title: "Products",
-              color: "primary",
-              links: [
-                { label: "Homemaker", href: "/product/homemaker" },
-                { label: "Intelligence", href: "/product/intelligence" },
-                { label: "Snipper", href: "/product/snipper" },
-                { label: "Signals", href: "/product/signals" }
-              ]
-            },
-            {
-              title: "Company",
-              color: "secondary",
-              links: [
-                { label: "About", href: "/about" },
-                { label: "Blog", href: "/blog" },
-                { label: "Careers", href: "#" },
-                { label: "Contact", href: "#" }
-              ]
-            },
-            {
-              title: "Resources",
-              color: "accent",
-              links: [
-                { label: "Documentation", href: "#" },
-                { label: "Help Center", href: "#" },
-                { label: "Guides", href: "#" },
-                { label: "API", href: "#" }
-              ]
-            }
-          ].map((section, sectionIndex) => (
-            <motion.div key={sectionIndex} variants={itemVariants}>
-              <h4 className={`font-semibold text-lg mb-4 pb-2 border-b border-gray-800 ${
-                section.color === 'primary' ? 'text-primary-400' : 
-                section.color === 'secondary' ? 'text-secondary-400' : 
-                'text-accent-400'
-              }`}>
-                {section.title}
-              </h4>
-              <ul className="space-y-3">
-                {section.links.map((link, linkIndex) => (
-                  <motion.li key={linkIndex} 
-                    whileHover={{ x: 5 }} 
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Link 
-                      href={link.href} 
-                      className="text-gray-300 hover:text-white transition flex items-center group"
-                    >
-                      <span className={`mr-2 w-1.5 h-1.5 rounded-full ${
-                        section.color === 'primary' ? 'bg-primary-500' : 
-                        section.color === 'secondary' ? 'bg-secondary-500' : 
-                        'bg-accent-500'
-                      } group-hover:w-2 group-hover:h-2 transition-all duration-300`}></span>
-                      {link.label}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </motion.div>
-        
-        <div className="border-t border-gray-800 pt-8 mt-8 text-center sm:flex sm:justify-between sm:text-left">
-          <p className="text-gray-500">© {new Date().getFullYear()} idontknowhelpme. All rights reserved.</p>
-          <div className="mt-4 sm:mt-0 flex items-center justify-center sm:justify-start flex-wrap">
-            {["Privacy", "Terms", "Cookies"].map((item, index) => (
-              <Link 
-                key={index}
-                href="#" 
-                className="text-gray-500 hover:text-gray-300 mx-3 sm:ml-6 transition-colors"
-              >
-                {item}
-              </Link>
-            ))}
           </div>
         </div>
       </div>

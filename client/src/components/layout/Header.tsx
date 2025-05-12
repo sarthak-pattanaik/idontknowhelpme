@@ -1,228 +1,159 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
-import GradientText from "@/components/common/GradientText";
-import { motion, AnimatePresence } from "framer-motion";
-import BrandLogo from "@/components/common/BrandLogo";
-import { X, Menu } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
+
+type NavLink = {
+  name: string;
+  path: string;
+};
+
+const navLinks: NavLink[] = [
+  { name: 'Products', path: '/product' },
+  { name: 'Pricing', path: '/pricing' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'About', path: '/about' },
+];
 
 const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [location] = useLocation();
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const isActive = (path: string) => {
-    return location === path;
-  };
-
-  // Animation variants
-  const headerVariants = {
-    hidden: { y: -100 },
-    visible: { 
-      y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
-        damping: 20 
-      }
-    }
-  };
-  
-  const navItemVariants = {
-    hover: { y: -2 },
-    tap: { scale: 0.95 }
-  };
-  
-  const buttonVariants = {
-    hover: { scale: 1.05 },
-    tap: { scale: 0.98 }
-  };
-
   return (
-    <motion.header 
-      className={`sticky top-0 z-50 backdrop-blur-sm border-b ${scrolled ? 'bg-white/95 shadow-sm' : 'bg-white/90 border-gray-100'} transition-all duration-300`}
-      variants={headerVariants}
-      initial="hidden"
-      animate="visible"
+    <header 
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+      }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <motion.div 
-            className="flex items-center"
-            whileHover="hover"
-            whileTap="tap"
-            variants={buttonVariants}
-          >
-            <BrandLogo size="md" />
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {[
-              { href: "/product", label: "Products" },
-              { href: "/pricing", label: "Pricing" },
-              { href: "/blog", label: "Blog" },
-              { href: "/about", label: "About" }
-            ].map((item) => (
-              <motion.div 
-                key={item.href} 
-                variants={navItemVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <Link 
-                  href={item.href} 
-                  className={`${isActive(item.href) ? 'text-primary-600' : 'text-gray-700'} hover:text-primary-600 font-medium transition relative`}
-                >
-                  {item.label}
-                  {isActive(item.href) && (
-                    <motion.span 
-                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 rounded-full"
-                      layoutId="navIndicator"
-                    />
-                  )}
-                </Link>
-              </motion.div>
-            ))}
-          </nav>
-
-          <div className="hidden md:flex items-center space-x-4">
-            <motion.div 
-              variants={navItemVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              <Link 
-                href="#" 
-                className="text-gray-700 hover:text-primary-600 font-medium transition"
-              >
-                Log in
-              </Link>
-            </motion.div>
-            <motion.div 
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              <Link 
-                href="#" 
-                className="bg-gradient-to-r from-primary-600 to-accent-600 text-white font-medium px-5 py-2.5 rounded-lg hover:shadow-md transition-all duration-300 border border-transparent hover:border-white/10"
-              >
-                Start Free
-              </Link>
-            </motion.div>
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <div className="w-10 h-10 rounded-lg bg-electric-500 flex items-center justify-center mr-3">
+            <span className="text-white text-xl font-bold">i</span>
           </div>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold tracking-tight text-gray-900">idontknowhelpme</span>
+            <span className="text-xs text-gray-500">AI-powered GTM suite</span>
+          </div>
+        </Link>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              type="button"
-              className="text-gray-700 hover:text-primary-600 focus:outline-none"
-              onClick={toggleMobileMenu}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              className={`text-sm font-medium transition-colors hover:text-electric-500 ${
+                location === link.path ? 'text-electric-500' : 'text-gray-700'
+              }`}
             >
-              {mobileMenuOpen ? (
-                <motion.div
-                  initial={{ rotate: 0, opacity: 0 }}
-                  animate={{ rotate: 90, opacity: 1 }}
-                  exit={{ rotate: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X className="text-primary-600 w-6 h-6" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ rotate: 0, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className="text-primary-600 w-6 h-6" />
-                </motion.div>
+              {location === link.path && (
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-full h-0.5 bg-electric-500"
+                  layoutId="navbar-indicator"
+                />
               )}
-            </button>
-          </div>
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Link href="/signin" className="text-sm font-medium text-gray-700 hover:text-electric-500">
+            Log in
+          </Link>
+          <Link href="/signup" className="bg-electric-500 hover:bg-electric-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            Try for free
+          </Link>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden flex items-center"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-gray-700"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            {isMobileMenuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence mode="wait">
-        {mobileMenuOpen && (
-          <motion.div 
-            className="md:hidden bg-white border-t border-gray-100"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white border-t border-gray-100"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {[
-                { href: "/product", label: "Products" },
-                { href: "/pricing", label: "Pricing" },
-                { href: "/blog", label: "Blog" },
-                { href: "/about", label: "About" }
-              ].map((item, index) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
+            <div className="container mx-auto px-4 py-4">
+              <nav className="flex flex-col space-y-4">
+                {navLinks.map((link) => (
                   <Link
-                    href={item.href}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
-                    onClick={() => setMobileMenuOpen(false)}
+                    key={link.path}
+                    href={link.path}
+                    className={`text-base font-medium transition-colors hover:text-electric-500 ${
+                      location === link.path ? 'text-electric-500' : 'text-gray-700'
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {item.label}
+                    {link.name}
                   </Link>
-                </motion.div>
-              ))}
-            </div>
-            <div className="pt-4 pb-3 border-t border-gray-200">
-              <div className="px-2 space-y-1">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
+                ))}
+                <div className="pt-4 border-t border-gray-100 flex flex-col space-y-3">
                   <Link
-                    href="#"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
-                    onClick={() => setMobileMenuOpen(false)}
+                    href="/signin"
+                    className="text-base font-medium text-gray-700 hover:text-electric-500"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Log in
                   </Link>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
                   <Link
-                    href="#"
-                    className="block px-3 py-2 rounded-md text-base font-medium bg-gradient-to-r from-primary-600 to-accent-600 text-white hover:opacity-90"
-                    onClick={() => setMobileMenuOpen(false)}
+                    href="/signup"
+                    className="bg-electric-500 hover:bg-electric-600 text-white px-4 py-2 rounded-md text-base font-medium transition-colors text-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Start Free
+                    Try for free
                   </Link>
-                </motion.div>
-              </div>
+                </div>
+              </nav>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 };
 
