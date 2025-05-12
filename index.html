@@ -12,20 +12,14 @@
     <meta property="og:image" content="/generated-icon.png" />
     <title>idkhelpme - AI Tools for GTM Teams</title>
     <script>
-      // Static build indicator
-      window.IS_STATIC_BUILD = true;
-      
-      // Environment variables for static builds
-      window.ENV = {
-        VITE_STATIC_MODE: "true",
-        VITE_API_URL: "https://api.idkhelpme.com",
-        VITE_APP_VERSION: "1.0.0",
-        VITE_BUILD_DATE: new Date().toISOString()
-      };
+      // Static mode detection for deployed sites
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('replit')) {
+        window.IS_STATIC_BUILD = true;
+      }
     </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/client/src/main.tsx"></script>
   </body>
 </html>
