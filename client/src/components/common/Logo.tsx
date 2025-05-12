@@ -95,7 +95,7 @@ const Logo: React.FC<LogoProps> = ({ size = 'md', showText = true }) => {
             variants={textVariants}
           >
             <GradientText className={`font-bold ${config.textSize}`}>
-              dontknowhelpme
+              idontknowhelpme
             </GradientText>
             
             {/* Tagline below logo */}

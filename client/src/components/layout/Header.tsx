@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import GradientText from "@/components/common/GradientText";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/common/Logo";
+import { X, Menu } from "lucide-react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -131,12 +132,25 @@ const Header = () => {
               className="text-gray-700 hover:text-primary-600 focus:outline-none"
               onClick={toggleMobileMenu}
             >
-              <motion.i 
-                className={`${mobileMenuOpen ? 'ri-close-line' : 'ri-menu-line'} text-2xl`}
-                initial={{ rotate: 0 }}
-                animate={{ rotate: mobileMenuOpen ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
-              />
+              {mobileMenuOpen ? (
+                <motion.div
+                  initial={{ rotate: 0, opacity: 0 }}
+                  animate={{ rotate: 90, opacity: 1 }}
+                  exit={{ rotate: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="text-primary-600 w-6 h-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ rotate: 0, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="text-primary-600 w-6 h-6" />
+                </motion.div>
+              )}
             </button>
           </div>
         </div>

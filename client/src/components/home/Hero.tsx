@@ -221,19 +221,23 @@ const Hero = () => {
           </motion.div>
           
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4"
+            className="flex flex-col sm:flex-row justify-center gap-4 mt-6"
             variants={itemVariants}
           >
             <motion.div
               whileHover="hover"
               whileTap="tap"
               variants={buttonVariants}
+              className="z-10"
             >
               <Link 
                 href="#" 
-                className="bg-gradient-to-r from-primary-600 to-accent-600 text-white font-medium px-8 py-4 rounded-xl text-lg hover:shadow-lg transition-all duration-300 shadow-lg shadow-primary-500/20 border border-transparent hover:border-white/10 inline-block"
+                className="bg-gradient-to-r from-primary-600 to-accent-600 text-white font-medium px-10 py-5 rounded-xl text-lg hover:shadow-lg transition-all duration-300 shadow-xl shadow-primary-500/30 border border-transparent hover:border-white/10 inline-flex items-center justify-center w-full sm:w-auto"
               >
-                Start Free Trial
+                <span className="mr-2">Start Free Trial</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
               </Link>
             </motion.div>
             
@@ -241,10 +245,11 @@ const Hero = () => {
               whileHover="hover"
               whileTap="tap"
               variants={buttonVariants}
+              className="z-10"
             >
               <Link 
                 href="#products" 
-                className="bg-white text-gray-800 font-medium px-8 py-4 rounded-xl text-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300 shadow-sm inline-block"
+                className="bg-white text-gray-800 font-medium px-10 py-5 rounded-xl text-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300 shadow-sm inline-flex items-center justify-center w-full sm:w-auto"
               >
                 Explore Platform
               </Link>
