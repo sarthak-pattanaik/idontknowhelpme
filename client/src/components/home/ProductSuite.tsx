@@ -41,7 +41,7 @@ const ProductSuite = () => {
           viewport={{ once: true }}
         >
           {products.map((product) => (
-            <motion.div key={product.id} variants={item}>
+            <motion.div key={product.id} variants={item} className="h-full">
               <ProductCard 
                 icon={product.icon} 
                 title={product.title} 
