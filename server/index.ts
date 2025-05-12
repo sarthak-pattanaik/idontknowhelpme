@@ -7,13 +7,21 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static files from the dist directory in production
+// Serve static files
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(process.cwd(), 'dist/public')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'dist/public/index.html'));
-  });
+} else {
+  app.use(express.static(path.join(process.cwd(), 'client')));
 }
+
+// Handle SPA routing
+app.get('*', (req, res) => {
+  if (process.env.NODE_ENV === 'production') {
+    res.sendFile(path.join(process.cwd(), 'dist/public/index.html'));
+  } else {
+    res.sendFile(path.join(process.cwd(), 'client/index.html'));
+  }
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
