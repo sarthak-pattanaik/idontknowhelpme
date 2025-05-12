@@ -28,6 +28,7 @@ import SignupPage from "@/pages/signup";
 import StartFreeTrialPage from "@/pages/start-free-trial";
 import CompleteProfilePage from "@/pages/complete-profile";
 import ProductAccessPage from "@/pages/product-access";
+import ProductSelectionPage from "@/pages/product-selection";
 
 // Define routes with or without layout
 const RoutesWithLayout = [
@@ -51,6 +52,7 @@ const StandaloneRoutes = [
   { path: "/start-free-trial", component: StartFreeTrialPage },
   { path: "/complete-profile", component: CompleteProfilePage },
   { path: "/product-access", component: ProductAccessPage },
+  { path: "/product-selection", component: ProductSelectionPage },
   
   // Product app routes - includes child routes (protected by authentication)
   { 
