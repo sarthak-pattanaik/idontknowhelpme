@@ -163,15 +163,18 @@ function Router() {
 function App() {
   // Handle static routing from 404.html page
   React.useEffect(() => {
-    // Check if we're in a static deployment with a path parameter
-    const query = new URLSearchParams(window.location.search);
-    const path = query.get('p');
+    // For static deployment routing
+    const handleStaticRouting = () => {
+      const query = new URLSearchParams(window.location.search);
+      const path = query.get('p');
+      
+      if (path) {
+        window.history.replaceState(null, '', path);
+        console.log('[Static Routing] Redirected from 404.html to:', path);
+      }
+    };
     
-    if (path) {
-      // Remove the query parameter and navigate to the actual path
-      window.history.replaceState(null, '', path);
-      console.log('[Static Routing] Redirected from 404.html to:', path);
-    }
+    handleStaticRouting();
   }, []);
 
   return (
