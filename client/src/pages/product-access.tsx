@@ -2,108 +2,165 @@ import React, { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { Helmet } from 'react-helmet';
-import { Loader, Rocket, AlertTriangle, LogOut } from 'lucide-react';
+import { Loader, CheckCircle, Settings, Cpu, Zap, BarChart3 } from 'lucide-react';
+import Button from '@/components/ui/Button';
 
 const ProductAccessPage: React.FC = () => {
-  const { user, isLoading, isAuthenticated, logout } = useAuth();
+  const { user, isLoading, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
-  
+
   // Redirect if not authenticated
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       setLocation('/login');
     }
   }, [isLoading, isAuthenticated, setLocation]);
-  
-  // Handle logout
-  const handleLogout = () => {
-    logout(undefined, {
-      onSuccess: () => {
-        setLocation('/');
-      },
-    });
-  };
-  
+
+  const products = [
+    {
+      id: 'homemaker',
+      name: 'Homemaker',
+      description: 'AI-powered content generation for marketing teams',
+      icon: <Settings className="h-6 w-6 text-electric-500" />,
+      color: 'bg-electric-50 border-electric-100',
+      textColor: 'text-electric-600',
+      link: '/product/homemaker',
+    },
+    {
+      id: 'intelligence',
+      name: 'Intelligence',
+      description: 'Lead scoring & enrichment using advanced AI models',
+      icon: <Cpu className="h-6 w-6 text-purple-500" />,
+      color: 'bg-purple-50 border-purple-100',
+      textColor: 'text-purple-600',
+      link: '/product/intelligence',
+    },
+    {
+      id: 'snipper',
+      name: 'Snipper',
+      description: 'AI-powered outreach and conversation helper',
+      icon: <Zap className="h-6 w-6 text-amber-500" />,
+      color: 'bg-amber-50 border-amber-100',
+      textColor: 'text-amber-600',
+      link: '/product/snipper',
+    },
+    {
+      id: 'signals',
+      name: 'Signals',
+      description: 'Buyer intent tracking and engagement analytics',
+      icon: <BarChart3 className="h-6 w-6 text-green-500" />,
+      color: 'bg-green-50 border-green-100',
+      textColor: 'text-green-600',
+      link: '/product/signals',
+    },
+  ];
+
   // Loading state
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
         <div className="flex items-center justify-center">
           <Loader className="animate-spin h-10 w-10 text-electric-600 mr-3" />
-          <span className="text-xl text-gray-600">Loading...</span>
+          <span className="text-xl text-gray-600">Loading your dashboard...</span>
         </div>
       </div>
     );
   }
-  
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Helmet>
-        <title>Product Access | idontknowhelpme</title>
+        <title>Your Products | idontknowhelpme</title>
         <meta
           name="description"
-          content="Access the idontknowhelpme AI platform."
+          content="Access your idontknowhelpme AI-powered tools and manage your subscription."
         />
       </Helmet>
-      
-      <div className="w-full max-w-3xl">
-        {/* Header */}
+
+      <div className="max-w-7xl mx-auto">
+        {/* Welcome section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Welcome, {user?.fullName || (user?.email ? user.email.split('@')[0] : 'User')}!
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-electric-100 text-electric-600 mb-6">
+            <CheckCircle className="h-8 w-8" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Welcome{user?.fullName ? `, ${user.fullName.split(' ')[0]}` : ''}!
           </h1>
-          <p className="text-xl text-gray-600">
-            You're now logged into the idontknowhelpme platform.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            You now have access to the idontknowhelpme suite of AI tools. 
+            Select a product below to get started.
           </p>
         </div>
-        
-        {/* Coming Soon Card */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-          <div className="h-2 w-full bg-gradient-to-r from-electric-500 via-purple-500 to-neon-500"></div>
-          
-          <div className="p-8 md:p-10">
-            <div className="flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
-              <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-8">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-100 text-purple-600">
-                  <Rocket className="h-10 w-10" />
-                </div>
-              </div>
-              
-              <div className="flex-grow">
-                <div className="flex items-center justify-center md:justify-start mb-3">
-                  <div className="bg-yellow-100 text-yellow-800 rounded-full px-3 py-1 text-xs font-medium inline-flex items-center">
-                    <AlertTriangle className="h-3 w-3 mr-1" />
-                    Coming Soon
+
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {products.map((product) => (
+            <div 
+              key={product.id}
+              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md"
+            >
+              <div className="p-6">
+                <div className="flex items-start">
+                  <div className={`p-3 rounded-lg ${product.color} mr-4`}>
+                    {product.icon}
                   </div>
-                </div>
-                
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  The full platform is coming soon. Stay tuned.
-                </h2>
-                
-                <p className="text-gray-600 mb-6 max-w-2xl">
-                  Thank you for signing up! We're working hard to bring you the best AI-powered tools for GTM teams. 
-                  You'll be the first to know when our platform launches. In the meantime, check your email for updates and exclusive early access opportunities.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href="/"
-                    className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg text-base font-medium text-white bg-electric-600 hover:bg-electric-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-500 shadow-sm"
-                  >
-                    Return to Homepage
-                  </a>
-                  
-                  <button
-                    onClick={handleLogout}
-                    className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 rounded-lg text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-500 shadow-sm"
-                  >
-                    <LogOut className="h-5 w-5 mr-2" />
-                    Log Out
-                  </button>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      {product.description}
+                    </p>
+                    <Button 
+                      href={product.link}
+                      variant="outline" 
+                      size="sm"
+                      className={`border ${product.textColor}`}
+                    >
+                      Access {product.name}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Account Info */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6 mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Account</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Email</p>
+              <p className="text-gray-900">{user?.email}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Name</p>
+              <p className="text-gray-900">{user?.fullName || 'Not provided'}</p>
+            </div>
+            {user?.phoneNumber && (
+              <div>
+                <p className="text-sm text-gray-500 mb-1">Phone Number</p>
+                <p className="text-gray-900">{user.phoneNumber}</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Need Help */}
+        <div className="bg-gradient-to-r from-electric-50 to-purple-50 rounded-xl p-6 border border-electric-100">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="mb-4 md:mb-0">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Need help getting started?
+              </h3>
+              <p className="text-gray-600">
+                Our team is available to help you make the most of our AI tools.
+              </p>
+            </div>
+            <Button href="/contact" variant="primary">
+              Contact Support
+            </Button>
           </div>
         </div>
       </div>

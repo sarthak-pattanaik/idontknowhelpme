@@ -1,103 +1,182 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { Helmet } from 'react-helmet';
-import { Rocket, Check, ArrowRight } from 'lucide-react';
+import { Mail, ArrowRight, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+
+// Signup Form Schema
+const emailSchema = z.object({
+  email: z.string().email('Please enter a valid email address'),
+});
+
+type EmailFormValues = z.infer<typeof emailSchema>;
 
 const StartFreeTrialPage: React.FC = () => {
+  const { requestOtp, requestOtpLoading } = useAuth();
   const [, setLocation] = useLocation();
   
-  // Redirect to sign up
-  const handleStartFreeTrial = () => {
+  // State management
+  const [step, setStep] = useState<'email' | 'success'>('email');
+  const [email, setEmail] = useState('');
+  
+  // Email form
+  const emailForm = useForm<EmailFormValues>({
+    resolver: zodResolver(emailSchema),
+    defaultValues: {
+      email: '',
+    },
+  });
+  
+  // Handle email submit
+  const onEmailSubmit = (data: EmailFormValues) => {
+    setEmail(data.email);
+    
+    requestOtp(data.email, {
+      onSuccess: () => {
+        setStep('success');
+      },
+      onError: (error) => {
+        console.error('Error requesting OTP:', error);
+        emailForm.setError('email', {
+          type: 'manual',
+          message: 'Failed to start trial. Please try again.',
+        });
+      },
+    });
+  };
+  
+  // Redirect to signup page to complete the process
+  const continueToSignup = () => {
     setLocation('/signup');
   };
   
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-50">
       <Helmet>
-        <title>Start Free Trial | idontknowhelpme</title>
+        <title>Start Your Free Trial | idontknowhelpme</title>
         <meta
           name="description"
-          content="Start your free trial of idontknowhelpme AI tools for content creation, lead generation, outreach campaigns, and market signal analysis."
+          content="Start your free trial of idontknowhelpme's AI-powered tools. No credit card required."
         />
       </Helmet>
       
-      <div className="w-full max-w-4xl py-8">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-electric-100 text-electric-600 mb-6">
-            <Rocket className="h-8 w-8" />
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Start Your Free Trial Today</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get full access to all our AI-powered tools during your trial period.
-            No credit card required.
-          </p>
+      <div className="w-full max-w-md">
+        {/* Logo and Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Start Your Free Trial</h1>
+          <p className="text-gray-600">Experience the power of AI for your marketing team - No credit card required</p>
         </div>
         
-        <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-          {/* Gradient border */}
-          <div className="h-1 w-full bg-gradient-to-r from-electric-500 via-purple-500 to-neon-500"></div>
-          
-          <div className="p-8">
-            <div className="grid md:grid-cols-2 gap-10">
-              {/* Trial Info */}
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">What's included in your trial</h2>
-                
-                <ul className="space-y-4 mt-6">
-                  {[
-                    'Full access to all AI tools in our suite',
-                    'Email support from our team',
-                    'Up to 100 AI requests per day',
-                    'Integration with up to 3 services',
-                    'Access to product tutorials and guides',
-                    'Export capabilities for all your data'
-                  ].map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mt-1 mr-3">
-                        <Check className="h-3 w-3 text-green-600" />
-                      </div>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+        {/* Card */}
+        <div className="bg-white rounded-xl shadow-md p-8 border border-gray-100">
+          {/* Email Step */}
+          {step === 'email' && (
+            <form onSubmit={emailForm.handleSubmit(onEmailSubmit)} className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    Work Email Address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      {...emailForm.register('email')}
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-electric-500 focus:border-electric-500"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                  {emailForm.formState.errors.email && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                      <AlertCircle className="h-4 w-4 mr-1" />
+                      {emailForm.formState.errors.email.message}
+                    </p>
+                  )}
+                </div>
               </div>
               
-              {/* Trial CTA */}
-              <div className="flex flex-col justify-between">
-                <div>
-                  <div className="bg-gray-50 rounded-lg p-6 mb-6">
-                    <div className="flex items-baseline mb-2">
-                      <span className="text-3xl font-bold text-gray-900">Free</span>
-                      <span className="ml-2 text-gray-600">for 14 days</span>
-                    </div>
-                    <p className="text-gray-600 mb-4">
-                      All features included. After trial, choose a plan that fits your needs.
-                    </p>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <svg className="h-4 w-4 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      No credit card required
-                    </div>
-                  </div>
-                  
-                  <button
-                    onClick={handleStartFreeTrial}
-                    className="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-lg shadow-sm text-white bg-electric-600 hover:bg-electric-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-500 transition-all"
-                  >
-                    <span className="text-lg font-medium">Start Free Trial</span>
+              <button
+                type="submit"
+                disabled={requestOtpLoading}
+                className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-electric-600 hover:bg-electric-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {requestOtpLoading ? (
+                  <>
+                    <Loader className="animate-spin h-5 w-5 mr-2" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    Start Free Trial
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </button>
-                </div>
-                
-                <div className="mt-6 text-sm text-gray-600 text-center">
-                  Already have an account?{' '}
-                  <a href="/login" className="text-electric-600 hover:text-electric-700 font-medium">
-                    Log in
+                  </>
+                )}
+              </button>
+              
+              <div className="pt-4 text-center text-sm">
+                <p className="text-gray-500">
+                  By signing up, you agree to our{' '}
+                  <a href="/terms" className="text-electric-600 hover:text-electric-700">
+                    Terms of Service
+                  </a>{' '}
+                  and{' '}
+                  <a href="/privacy" className="text-electric-600 hover:text-electric-700">
+                    Privacy Policy
                   </a>
+                </p>
+              </div>
+            </form>
+          )}
+          
+          {/* Success Step */}
+          {step === 'success' && (
+            <div className="space-y-6">
+              <div className="rounded-lg bg-green-50 p-4 mb-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <CheckCircle className="h-5 w-5 text-green-400" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm text-green-800">
+                      Success! We've sent a verification code to <strong>{email}</strong>
+                    </p>
+                  </div>
                 </div>
               </div>
+              
+              <div className="text-center">
+                <h3 className="text-lg font-medium text-gray-900 mb-2">One more step to go</h3>
+                <p className="text-gray-600 mb-6">
+                  Please check your email for the verification code and complete the sign-up process.
+                </p>
+                
+                <button
+                  onClick={continueToSignup}
+                  className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-electric-600 hover:bg-electric-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-500"
+                >
+                  Continue to verification
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </div>
             </div>
+          )}
+        </div>
+        
+        {/* Social Proof */}
+        <div className="mt-8">
+          <p className="text-center text-gray-500 mb-4">Trusted by marketing teams at</p>
+          <div className="flex flex-wrap justify-center gap-6 opacity-70">
+            <div className="text-sm font-medium text-gray-900">ACME Corp</div>
+            <div className="text-sm font-medium text-gray-900">TechFlow</div>
+            <div className="text-sm font-medium text-gray-900">GlobalSoft</div>
+            <div className="text-sm font-medium text-gray-900">DataHive</div>
           </div>
         </div>
       </div>

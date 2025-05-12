@@ -52,23 +52,25 @@ const AuthRoutes = [
 function Router() {
   return (
     <>
-      {/* Routes with main layout (header, footer) */}
-      <Layout>
-        <Switch>
-          {RoutesWithLayout.map(({ path, component }) => (
-            <Route key={path} path={path} component={component} />
-          ))}
-          
-          {/* 404 route - must be at the end within the layout */}
-          <Route component={NotFound} />
-        </Switch>
-      </Layout>
-      
       {/* Routes without layout (auth pages) */}
       <Switch>
         {AuthRoutes.map(({ path, component }) => (
           <Route key={path} path={path} component={component} />
         ))}
+        
+        {/* Routes with main layout (header, footer) */}
+        <Route>
+          <Layout>
+            <Switch>
+              {RoutesWithLayout.map(({ path, component }) => (
+                <Route key={path} path={path} component={component} />
+              ))}
+              
+              {/* 404 route - must be at the end within the layout */}
+              <Route component={NotFound} />
+            </Switch>
+          </Layout>
+        </Route>
       </Switch>
       
       <Toaster />
