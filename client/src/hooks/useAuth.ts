@@ -14,6 +14,7 @@ export interface LoginResponse {
   message: string;
   user: User;
   isNewUser: boolean;
+  token?: string;
 }
 
 export interface RequestOtpResponse {
@@ -74,7 +75,11 @@ export function useAuth() {
         },
       });
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      // Store token in localStorage if available
+      if (response.token) {
+        localStorage.setItem('authToken', response.token);
+      }
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
     },
   });

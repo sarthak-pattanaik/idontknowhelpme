@@ -136,13 +136,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt,
       });
       
-      // Set token in Authorization header
-      res.setHeader('Authorization', `Bearer ${token}`);
-      
+      // Return token in response body
       res.status(200).json({
         message: "Authentication successful",
         user,
         isNewUser,
+        token,
       });
       
     } catch (error) {

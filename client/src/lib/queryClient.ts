@@ -11,8 +11,18 @@ export async function apiRequest<T>(
   url: string, 
   options?: RequestInit
 ): Promise<T> {
+  // Get auth token from localStorage
+  const authToken = localStorage.getItem('authToken');
+  
+  // Add token to headers if available
+  const headers = {
+    ...options?.headers,
+    ...(authToken && { 'Authorization': `Bearer ${authToken}` }),
+  };
+
   const res = await fetch(url, {
     ...options,
+    headers,
     credentials: 'include',
   });
 
