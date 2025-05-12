@@ -84,11 +84,11 @@ const LoginPage: React.FC = () => {
   const onOtpSubmit = (data: OtpFormValues) => {
     verifyOtp({ email, otp: data.otp }, {
       onSuccess: (response) => {
+        // If new user, direct to complete profile 
+        // If existing user, take directly to product page
         if (response.isNewUser) {
-          // Redirect to profile completion page
           setLocation('/complete-profile');
         } else {
-          // Redirect to product access page
           setLocation('/product-access');
         }
       },
@@ -143,7 +143,7 @@ const LoginPage: React.FC = () => {
         <title>Log In | idontknowhelpme</title>
         <meta
           name="description"
-          content="Log in to access your idontknowhelpme account and get started with our AI tools."
+          content="Log in to your idontknowhelpme account and access your AI tools dashboard."
         />
       </Helmet>
       
@@ -151,7 +151,7 @@ const LoginPage: React.FC = () => {
         {/* Logo and Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Log in to your account to continue</p>
+          <p className="text-gray-600">Log in to your idontknowhelpme account</p>
         </div>
         
         {/* Card */}
@@ -271,7 +271,7 @@ const LoginPage: React.FC = () => {
                     Verifying...
                   </>
                 ) : (
-                  'Verify & Log In'
+                  'Log In'
                 )}
               </button>
               
