@@ -1,0 +1,74 @@
+Build a complete authentication flow for the **idontknowhelpme** SaaS website, connected to a real database.
+
+This is not a demo — this is for a production-ready product currently being built.
+
+---
+
+### ✅ Requirements:
+
+#### 1. Create a Database
+- Use **Supabase** or **Firebase** as the backend database
+- Set up a `users` table to collect:
+  - Full Name
+  - Email address
+  - Phone number
+  - Timestamp of registration
+  - Verified (boolean)
+
+---
+
+#### 2. Authentication Flow
+
+- Create the following pages:
+  - `/login`
+  - `/signup`
+  - `/start-free-trial`
+
+- Users should only sign up using their **email address + OTP**.
+  - No password is required
+  - Use **email-based OTP login via Supabase Auth** (or Firebase magic link as an alternative)
+  - After OTP verification, save user info to the database
+  - If user exists, update timestamp and redirect
+  - If new user, collect full name + phone on first login
+
+- Add basic validation and error handling (e.g., required fields, invalid email, etc.)
+
+---
+
+#### 3. Post-Login Redirect
+
+- After login or OTP verification, redirect the user to:
+  - `/product-access`
+
+- On the `/product-access` page, show:
+  - A welcome message: “Welcome, [Name]”
+  - A CTA banner or card that says:
+    > **“The full platform is coming soon. Stay tuned.”**
+  - Button to log out or return to homepage
+
+---
+
+### 🎨 Design Notes:
+- Keep all UI consistent with rest of site (Tailwind CSS)
+- Clean, centered form layout with labels and helper text
+- Use colored buttons for Submit, Resend OTP, etc.
+- Mobile-friendly layout
+- Use placeholder icons (not images) for visual feedback
+
+---
+
+🛡️ Security:
+- Never expose secret keys on frontend
+- Use serverless functions or environment variables for secure access
+- Validate OTP expiry and invalid codes
+
+---
+
+📁 Project Structure Suggestions:
+- `/pages/login.js`
+- `/pages/signup.js`
+- `/pages/start-free-trial.js`
+- `/pages/product-access.js`
+- `/lib/supabaseClient.js` or Firebase config
+- `/components/AuthForm.js`, `/components/ComingSoonCard.js`
+
