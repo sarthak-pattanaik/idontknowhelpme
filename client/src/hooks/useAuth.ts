@@ -35,6 +35,11 @@ export interface LogoutResponse {
 export function useAuth() {
   const queryClient = useQueryClient();
 
+  // Helper function to check if we have a token
+  const getStoredToken = () => {
+    return localStorage.getItem('authToken');
+  };
+
   // Get the current user
   const {
     data: user,
@@ -43,6 +48,7 @@ export function useAuth() {
   } = useQuery<User | null>({
     queryKey: ['/api/auth/user'],
     retry: false,
+    enabled: !!getStoredToken(), // Only run the query if we have a token
   });
 
   // Request OTP mutation
@@ -114,6 +120,10 @@ export function useAuth() {
       });
     },
     onSuccess: () => {
+      // Clear auth token from localStorage
+      localStorage.removeItem('authToken');
+      
+      // Clear user data from cache
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
       queryClient.setQueryData(['/api/auth/user'], null);
     },
@@ -122,7 +132,7 @@ export function useAuth() {
   return {
     user,
     isLoading,
-    isAuthenticated: !!user,
+    isAuthenticated: !!getStoredToken(),
     error,
     
     // Auth actions with loading states
