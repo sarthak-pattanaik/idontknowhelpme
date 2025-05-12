@@ -1,5 +1,29 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
+// Detect if we're in static mode (no backend)
+const isStaticMode = window.location.hostname === 'localhost' && window.location.search.includes('static=true') || 
+                     process.env.NODE_ENV === 'production' && !window.location.hostname.includes('replit');
+
+// Mock data for static builds
+const mockResponses: Record<string, any> = {
+  '/api/auth/user': {
+    id: 'static-user-123',
+    email: 'demo@example.com',
+    firstName: 'Demo',
+    lastName: 'User',
+    profileImageUrl: null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+};
+
+// Helper to get mock data
+function getMockResponse(url: string) {
+  // Extract base endpoint from URL with query params
+  const baseUrl = url.split('?')[0];
+  return mockResponses[baseUrl] || null;
+}
+
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
     const text = (await res.text()) || res.statusText;
@@ -11,6 +35,18 @@ export async function apiRequest<T>(
   url: string, 
   options?: RequestInit
 ): Promise<T> {
+  // Check if we're in static mode and return mock data if available
+  if (isStaticMode) {
+    console.log(`[Static Mode] Using mock data for: ${url}`);
+    const mockData = getMockResponse(url);
+    if (mockData) {
+      return mockData as T;
+    }
+    console.warn(`[Static Mode] No mock data available for: ${url}`);
+    // Return empty object to prevent errors
+    return {} as T;
+  }
+
   // Get auth token from localStorage
   const authToken = localStorage.getItem('authToken');
   
@@ -60,6 +96,18 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     const url = queryKey[0] as string;
+    
+    // Check if we're in static mode and return mock data if available
+    if (isStaticMode) {
+      console.log(`[Static Mode][Query] Using mock data for: ${url}`);
+      const mockData = getMockResponse(url);
+      if (mockData) {
+        return mockData as T;
+      }
+      console.warn(`[Static Mode][Query] No mock data available for: ${url}`);
+      // Return empty object to prevent errors in static mode
+      return null;
+    }
     
     // Get auth token from localStorage
     const authToken = localStorage.getItem('authToken');
