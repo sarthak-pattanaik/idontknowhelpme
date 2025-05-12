@@ -7,16 +7,12 @@ channel = "stable-24_05"
 
 [deployment]
 deploymentTarget = "static"
-build = ["sh", "-c", "node static-build.js && npm run build && cp static-index.html dist/index.html"]
+build = ["npm", "run", "build"]
 publicDir = "dist"
 
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[deployment.rewrites]]
-from = "/*"
-to = "/index.html"
 
 [workflows]
 runButton = "Project"

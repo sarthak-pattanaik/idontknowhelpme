@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import { isStaticMode } from '@/lib/staticMode';
 
 // Type definitions
 export interface User {
@@ -58,16 +57,6 @@ export function useAuth() {
     isPending: requestOtpLoading,
   } = useMutation({
     mutationFn: async (email: string) => {
-      if (isStaticMode()) {
-        console.log('[Static Mode] Simulating OTP request for:', email);
-        // Simulate API response in static mode
-        return {
-          message: 'OTP sent successfully',
-          email: email,
-          otp: '123456' // In static mode, we can use a fixed OTP
-        } as RequestOtpResponse;
-      }
-      
       return apiRequest<RequestOtpResponse>('/api/auth/request-otp', {
         method: 'POST',
         body: JSON.stringify({ email }),
@@ -84,27 +73,6 @@ export function useAuth() {
     isPending: verifyOtpLoading,
   } = useMutation({
     mutationFn: async (data: { email: string; otp: string }) => {
-      if (isStaticMode()) {
-        console.log('[Static Mode] Simulating OTP verification for:', data.email);
-        // In static mode, accept any OTP input with our test OTP
-        if (data.otp === '123456' || process.env.NODE_ENV === 'development') {
-          // Simulate successful login
-          return {
-            message: 'Login successful',
-            user: {
-              id: 123,
-              email: data.email,
-              fullName: 'Demo User',
-              verified: true
-            },
-            isNewUser: false,
-            token: 'static-auth-token-123'
-          } as LoginResponse;
-        } else {
-          throw new Error('Invalid OTP');
-        }
-      }
-      
       return apiRequest<LoginResponse>('/api/auth/verify-otp', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -136,21 +104,6 @@ export function useAuth() {
     isPending: completeProfileLoading,
   } = useMutation({
     mutationFn: async (data: { fullName: string; phoneNumber?: string }) => {
-      if (isStaticMode()) {
-        console.log('[Static Mode] Simulating profile completion:', data);
-        // Simulate successful profile update
-        return {
-          message: 'Profile updated successfully',
-          user: {
-            id: 123,
-            email: 'demo@example.com',
-            fullName: data.fullName,
-            phoneNumber: data.phoneNumber,
-            verified: true
-          }
-        } as CompleteProfileResponse;
-      }
-      
       return apiRequest<CompleteProfileResponse>('/api/auth/complete-profile', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -159,8 +112,7 @@ export function useAuth() {
         },
       });
     },
-    onSuccess: (response) => {
-      queryClient.setQueryData(['/api/auth/user'], response.user);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
     },
   });
@@ -171,11 +123,6 @@ export function useAuth() {
     isPending: logoutLoading,
   } = useMutation({
     mutationFn: async () => {
-      if (isStaticMode()) {
-        console.log('[Static Mode] Simulating logout');
-        return { message: 'Logged out successfully' } as LogoutResponse;
-      }
-      
       return apiRequest<LogoutResponse>('/api/auth/logout', {
         method: 'POST',
       });
@@ -187,10 +134,6 @@ export function useAuth() {
       // Clear user data from cache
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
       queryClient.setQueryData(['/api/auth/user'], null);
-      
-      if (isStaticMode()) {
-        console.log('[Static Mode] Cleared auth state');
-      }
     },
   });
 

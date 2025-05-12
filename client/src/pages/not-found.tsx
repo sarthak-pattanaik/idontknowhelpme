@@ -7,10 +7,10 @@ const NotFound: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
       <Helmet>
-        <title>Page Not Found | idkhelpme</title>
+        <title>Page Not Found | idontknowhelpme</title>
         <meta
           name="description"
-          content="We couldn't find the page you were looking for. Return to the idkhelpme homepage."
+          content="We couldn't find the page you were looking for."
         />
       </Helmet>
       
@@ -36,7 +36,7 @@ const NotFound: React.FC = () => {
           <Button href="/" variant="primary">
             Go back home
           </Button>
-          <Button href="/product-overview" variant="outline">
+          <Button href="/product" variant="outline">
             Explore products
           </Button>
         </div>

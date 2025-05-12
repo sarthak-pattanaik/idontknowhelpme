@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Switch, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
@@ -7,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Layout from "@/components/layout/Layout";
 import ScrollToTop from "@/components/common/ScrollToTop";
-import StaticModeIndicator from "@/components/common/StaticModeIndicator";
 
 // Import main site pages
 import Home from "@/pages/Home";
@@ -161,27 +159,10 @@ function Router() {
 }
 
 function App() {
-  // Handle static routing from 404.html page
-  React.useEffect(() => {
-    // For static deployment routing
-    const handleStaticRouting = () => {
-      const query = new URLSearchParams(window.location.search);
-      const path = query.get('p');
-      
-      if (path) {
-        window.history.replaceState(null, '', path);
-        console.log('[Static Routing] Redirected from 404.html to:', path);
-      }
-    };
-    
-    handleStaticRouting();
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Router />
-        <StaticModeIndicator />
       </TooltipProvider>
     </QueryClientProvider>
   );
