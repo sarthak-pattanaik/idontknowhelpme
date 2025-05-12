@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Layout from "@/components/layout/Layout";
 import ScrollToTop from "@/components/common/ScrollToTop";
+import StaticModeIndicator from "@/components/common/StaticModeIndicator";
 
 // Import main site pages
 import Home from "@/pages/Home";
@@ -163,6 +164,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Router />
+        <StaticModeIndicator />
       </TooltipProvider>
     </QueryClientProvider>
   );
