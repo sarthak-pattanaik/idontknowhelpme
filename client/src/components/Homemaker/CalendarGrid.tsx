@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContentCard, { ContentPost } from './ContentCard';
 
 interface CalendarGridProps {
@@ -7,125 +7,132 @@ interface CalendarGridProps {
   onDeletePost?: (post: ContentPost) => void;
 }
 
-const CalendarGrid: React.FC<CalendarGridProps> = ({
+const CalendarGrid: React.FC<CalendarGridProps> = ({ 
   posts,
   onEditPost,
-  onDeletePost,
+  onDeletePost
 }) => {
-  // Current week dates
-  const today = new Date();
-  const currentWeek = Array.from({ length: 5 }).map((_, index) => {
-    const date = new Date(today);
-    date.setDate(date.getDate() - date.getDay() + index + 1); // start from Monday
-    return date;
-  });
-
-  // Time slots for the working day
-  const timeSlots = Array.from({ length: 8 }).map((_, index) => {
-    const hour = index + 9; // Start from 9 AM
-    return `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
-  });
-
-  // Helper function to format date for display
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [weekDates, setWeekDates] = useState<Date[]>([]);
+  const timeSlots = ['9:00 AM', '12:00 PM', '3:00 PM', '6:00 PM'];
+  
+  // Generate array of dates for the current week
+  useEffect(() => {
+    const dates: Date[] = [];
+    const startDate = new Date(currentDate);
+    
+    // Set to the start of the week (Sunday)
+    const day = startDate.getDay();
+    startDate.setDate(startDate.getDate() - day);
+    
+    // Create array of 7 days
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i);
+      dates.push(date);
+    }
+    
+    setWeekDates(dates);
+  }, [currentDate]);
+  
   const formatDateHeader = (date: Date): string => {
-    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    return new Intl.DateTimeFormat('en-US', { 
+      weekday: 'short'
+    }).format(date);
   };
-
-  // Helper function to check if a post belongs to a specific day and time slot
+  
+  const formatDateNumber = (date: Date): string => {
+    return new Intl.DateTimeFormat('en-US', { 
+      day: 'numeric'
+    }).format(date);
+  };
+  
   const getPostsForSlot = (date: Date, timeSlot: string): ContentPost[] => {
-    const slotHour = parseInt(timeSlot.split(':')[0]);
-    const isPM = timeSlot.includes('PM');
-    const hour24 = isPM && slotHour !== 12 ? slotHour + 12 : slotHour;
-
     return posts.filter(post => {
-      const postDate = new Date(post.scheduledTime);
+      const postDate = new Date(post.scheduledTime.split(' ')[0]);
+      const postTime = post.scheduledTime.split(' ')[1] + ' ' + post.scheduledTime.split(' ')[2];
+      
       return (
         postDate.getDate() === date.getDate() &&
         postDate.getMonth() === date.getMonth() &&
         postDate.getFullYear() === date.getFullYear() &&
-        postDate.getHours() === hour24
+        postTime === timeSlot
       );
     });
   };
-
-  // Check if date is today
+  
   const isToday = (date: Date): boolean => {
-    const now = new Date();
+    const today = new Date();
     return (
-      date.getDate() === now.getDate() &&
-      date.getMonth() === now.getMonth() &&
-      date.getFullYear() === now.getFullYear()
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
     );
   };
-
+  
   return (
-    <div className="flex-1 overflow-auto bg-gray-50">
-      <div className="min-w-max">
-        {/* Day headers */}
-        <div className="flex border-b border-gray-200 bg-white">
-          <div className="w-20 flex-shrink-0"></div>
-          {currentWeek.map((date, dateIndex) => (
-            <div
-              key={dateIndex}
-              className={`flex-1 px-4 py-2 text-center border-l border-gray-200 ${
-                isToday(date) ? 'bg-electric-50' : ''
-              }`}
+    <div className="flex-1 overflow-auto bg-gray-50 p-4">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        {/* Calendar header with days */}
+        <div className="grid grid-cols-8 border-b border-gray-200">
+          {/* Time column header */}
+          <div className="p-3 text-center border-r border-gray-200"></div>
+          
+          {/* Day columns headers */}
+          {weekDates.map((date, index) => (
+            <div 
+              key={index} 
+              className={`p-3 text-center ${isToday(date) ? 'bg-blue-50' : ''}`}
             >
-              <div
-                className={`font-medium ${
-                  isToday(date) ? 'text-electric-600' : 'text-gray-700'
-                }`}
-              >
+              <div className="text-sm text-gray-500 font-medium">
                 {formatDateHeader(date)}
               </div>
-              {isToday(date) && (
-                <div className="text-xs text-electric-600 font-medium mt-0.5">Today</div>
-              )}
+              <div className={`text-lg font-semibold ${isToday(date) ? 'text-blue-600' : 'text-gray-800'}`}>
+                {formatDateNumber(date)}
+              </div>
             </div>
           ))}
         </div>
-
-        {/* Time slots and content */}
-        <div>
-          {timeSlots.map((timeSlot, timeIndex) => (
-            <div
-              key={timeIndex}
-              className={`flex border-b border-gray-200 ${
-                timeIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-              }`}
-            >
-              {/* Time indicator */}
-              <div className="w-20 flex-shrink-0 py-2 px-2 text-right text-xs text-gray-500 border-r border-gray-200">
-                {timeSlot}
+        
+        {/* Calendar body with time slots */}
+        <div className="grid grid-cols-8">
+          {/* Time slots column */}
+          <div className="border-r border-gray-200">
+            {timeSlots.map((slot, slotIndex) => (
+              <div 
+                key={slotIndex} 
+                className="h-48 p-3 border-b border-gray-200 flex items-center justify-center"
+              >
+                <span className="text-sm text-gray-500 font-medium">{slot}</span>
               </div>
-
-              {/* Day columns */}
-              {currentWeek.map((date, dateIndex) => {
-                const postsInSlot = getPostsForSlot(date, timeSlot);
-                const hasContent = postsInSlot.length > 0;
-
+            ))}
+          </div>
+          
+          {/* Day columns with content slots */}
+          {weekDates.map((date, dateIndex) => (
+            <div key={dateIndex} className={`${isToday(date) ? 'bg-blue-50' : ''}`}>
+              {timeSlots.map((slot, slotIndex) => {
+                const postsForSlot = getPostsForSlot(date, slot);
+                
                 return (
-                  <div
-                    key={dateIndex}
-                    className={`flex-1 min-h-[120px] border-l border-gray-200 p-2 ${
-                      isToday(date) ? 'bg-electric-50/20' : ''
-                    }`}
+                  <div 
+                    key={slotIndex} 
+                    className="h-48 p-2 border-b border-gray-200 overflow-auto"
                   >
-                    {/* Content cards for this slot */}
-                    {hasContent ? (
+                    {postsForSlot.length > 0 ? (
                       <div className="grid grid-cols-1 gap-2">
-                        {postsInSlot.map((post) => (
-                          <ContentCard
-                            key={post.id}
-                            post={post}
+                        {postsForSlot.map(post => (
+                          <ContentCard 
+                            key={post.id} 
+                            post={post} 
                             onEdit={onEditPost}
                             onDelete={onDeletePost}
                           />
                         ))}
                       </div>
                     ) : (
-                      <div className="h-full w-full rounded-md border border-dashed border-gray-300 flex items-center justify-center">
-                        <span className="text-xs text-gray-400">No content</span>
+                      <div className="h-full flex items-center justify-center text-gray-300 text-sm border-2 border-dashed border-gray-200 rounded-lg">
+                        No content scheduled
                       </div>
                     )}
                   </div>

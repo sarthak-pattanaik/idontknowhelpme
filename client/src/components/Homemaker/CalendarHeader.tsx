@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Filter, Plus, Calendar as CalendarIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Filter, Plus, Search } from 'lucide-react';
 
 interface CalendarHeaderProps {
   onDateChange?: (date: Date) => void;
@@ -7,124 +7,95 @@ interface CalendarHeaderProps {
   onNewPost?: () => void;
 }
 
-const CalendarHeader: React.FC<CalendarHeaderProps> = ({
-  onDateChange,
+const CalendarHeader: React.FC<CalendarHeaderProps> = ({ 
+  onDateChange, 
   onFilterChange,
-  onNewPost,
+  onNewPost
 }) => {
-  const [currentWeek, setCurrentWeek] = useState<Date>(new Date());
-
-  // Calculate current week's date range
-  const startOfWeek = new Date(currentWeek);
-  startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay() + 1); // Monday
-  
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(endOfWeek.getDate() + 4); // Friday
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
   
   const formatDate = (date: Date): string => {
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return new Intl.DateTimeFormat('en-US', { 
+      month: 'long', 
+      year: 'numeric' 
+    }).format(date);
   };
-
-  const weekRange = `${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}`;
-
-  // Handle navigation
-  const goToPreviousWeek = () => {
-    const prevWeek = new Date(currentWeek);
-    prevWeek.setDate(prevWeek.getDate() - 7);
-    setCurrentWeek(prevWeek);
-    if (onDateChange) onDateChange(prevWeek);
+  
+  const handlePreviousWeek = () => {
+    const newDate = new Date(currentDate);
+    newDate.setDate(newDate.getDate() - 7);
+    setCurrentDate(newDate);
+    if (onDateChange) onDateChange(newDate);
   };
-
-  const goToNextWeek = () => {
-    const nextWeek = new Date(currentWeek);
-    nextWeek.setDate(nextWeek.getDate() + 7);
-    setCurrentWeek(nextWeek);
-    if (onDateChange) onDateChange(nextWeek);
+  
+  const handleNextWeek = () => {
+    const newDate = new Date(currentDate);
+    newDate.setDate(newDate.getDate() + 7);
+    setCurrentDate(newDate);
+    if (onDateChange) onDateChange(newDate);
   };
-
-  const goToToday = () => {
+  
+  const handleTodayClick = () => {
     const today = new Date();
-    setCurrentWeek(today);
+    setCurrentDate(today);
     if (onDateChange) onDateChange(today);
   };
-
+  
   return (
-    <div className="bg-white border-b border-gray-200 sticky top-0 z-20 px-4 h-16">
-      <div className="h-full flex items-center justify-between">
-        <div className="flex items-center">
-          <h1 className="text-xl font-semibold text-gray-800 flex items-center">
-            <CalendarIcon className="w-5 h-5 mr-2 text-electric-600" />
-            <span>Calendar</span>
-          </h1>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {/* Week selector */}
-          <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden">
-            <button
-              onClick={goToPreviousWeek}
-              className="p-2 text-gray-600 hover:text-electric-600 hover:bg-gray-50"
-              aria-label="Previous week"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            
+    <div className="bg-white border-b border-gray-200 p-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        {/* Left side - Header and date navigation */}
+        <div className="mb-4 sm:mb-0">
+          <h1 className="text-xl font-bold text-gray-900 mb-1">Content Calendar</h1>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <button 
+                className="p-1 rounded-full hover:bg-gray-100"
+                onClick={handlePreviousWeek}
+              >
+                <ChevronLeft size={18} className="text-gray-600" />
+              </button>
+              <span className="text-gray-700 font-medium">{formatDate(currentDate)}</span>
+              <button 
+                className="p-1 rounded-full hover:bg-gray-100"
+                onClick={handleNextWeek}
+              >
+                <ChevronRight size={18} className="text-gray-600" />
+              </button>
+            </div>
             <button 
-              className="px-3 py-1.5 text-sm font-medium"
-              onClick={goToToday}
+              className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              onClick={handleTodayClick}
             >
-              {weekRange}
-            </button>
-            
-            <button
-              onClick={goToNextWeek}
-              className="p-2 text-gray-600 hover:text-electric-600 hover:bg-gray-50"
-              aria-label="Next week"
-            >
-              <ChevronRight className="w-4 h-4" />
+              Today
             </button>
           </div>
-
-          {/* Filter dropdowns */}
-          <div className="flex items-center gap-2">
-            {/* Account filter */}
-            <select className="text-sm border border-gray-200 rounded-md px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-electric-500 focus:border-electric-500">
-              <option value="">All Accounts</option>
-              <option value="instagram">Instagram</option>
-              <option value="linkedin">LinkedIn</option>
-              <option value="twitter">Twitter</option>
-              <option value="facebook">Facebook</option>
-            </select>
-
-            {/* Status filter */}
-            <select className="text-sm border border-gray-200 rounded-md px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-electric-500 focus:border-electric-500">
-              <option value="">All Status</option>
-              <option value="draft">Draft</option>
-              <option value="scheduled">Scheduled</option>
-              <option value="published">Published</option>
-            </select>
-
-            {/* Project filter */}
-            <select className="text-sm border border-gray-200 rounded-md px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-electric-500 focus:border-electric-500">
-              <option value="">All Projects</option>
-              <option value="q2-campaign">Q2 Campaign</option>
-              <option value="product-launch">Product Launch</option>
-              <option value="blog-posts">Blog Posts</option>
-            </select>
-
-            {/* Filter button */}
-            <button className="p-2 text-gray-600 hover:text-electric-600 border border-gray-200 rounded-md hover:bg-gray-50">
-              <Filter className="w-4 h-4" />
-            </button>
+        </div>
+        
+        {/* Right side - Actions */}
+        <div className="flex items-center space-x-3 w-full sm:w-auto">
+          <div className="relative flex-grow sm:flex-grow-0 max-w-xs">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search size={16} className="text-gray-400" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search content"
+              className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
+            />
           </div>
-
-          {/* New post button */}
-          <button
+          
+          <button className="flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md text-sm">
+            <Filter size={16} className="mr-2" />
+            Filter
+          </button>
+          
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm flex items-center"
             onClick={onNewPost}
-            className="flex items-center gap-1 bg-electric-600 hover:bg-electric-700 text-white rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
           >
-            <Plus className="w-4 h-4" />
-            <span>New Post</span>
+            <Plus size={16} className="mr-2" />
+            New Post
           </button>
         </div>
       </div>
