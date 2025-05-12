@@ -75,7 +75,7 @@ const CTASection: React.FC = () => {
                   </svg>
                 }
               >
-                Start your free trial
+                Start Dominating Today
               </Button>
               <Button
                 variant="outline"
@@ -83,7 +83,7 @@ const CTASection: React.FC = () => {
                 href="/demo"
                 fullWidth
               >
-                Request a demo
+                See Results in Action
               </Button>
             </motion.div>
             
@@ -94,15 +94,15 @@ const CTASection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <p>No credit card required. Free 14-day trial. Cancel anytime.</p>
+              <p>Start instantly. No credit card required. See measurable results in just 14 days or walk away.</p>
             </motion.div>
           </div>
           
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: "Top-tier Security",
-                description: "Enterprise-grade security with SOC 2 Type II compliance and end-to-end encryption.",
+                title: "Military-Grade Security",
+                description: "Bank-level protection with SOC 2 Type II compliance ensuring your data is more secure than Fort Knox.",
                 icon: (
                   <svg className="w-6 h-6 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -110,8 +110,8 @@ const CTASection: React.FC = () => {
                 ),
               },
               {
-                title: "24/7 Support",
-                description: "Our dedicated team is available around the clock to ensure your success.",
+                title: "Relentless 24/7 Support",
+                description: "Our elite team of AI experts works around the clock to ensure you're always crushing your targets.",
                 icon: (
                   <svg className="w-6 h-6 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -119,8 +119,8 @@ const CTASection: React.FC = () => {
                 ),
               },
               {
-                title: "99.9% Uptime",
-                description: "Reliable service with 99.9% guaranteed uptime and continuous monitoring.",
+                title: "Bulletproof Reliability",
+                description: "With 99.99% guaranteed uptime, our platform is more reliable than sunrise—your competitive edge never sleeps.",
                 icon: (
                   <svg className="w-6 h-6 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

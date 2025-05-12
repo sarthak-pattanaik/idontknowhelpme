@@ -9,7 +9,7 @@ const FunnelSection: React.FC = () => {
       id: 'homemaker',
       stage: 'Top of Funnel: Awareness',
       product: 'Homemaker',
-      description: 'Captivate your audience with AI content that ranks higher and converts better than competitors',
+      description: 'Dominate search results with AI content that outwits, outranks, and outconverts your competition in every channel',
       icon: <Lightbulb className="w-6 h-6" />,
       color: 'electric',
       gradient: 'from-electric-500 to-electric-400',
@@ -20,7 +20,7 @@ const FunnelSection: React.FC = () => {
       id: 'intelligence',
       stage: 'Middle of Funnel: Consideration',
       product: 'Intelligence',
-      description: 'Instantly identify high-value prospects with uncanny precision to focus only on deals that matter',
+      description: 'Slash sales cycles by 60% with AI that predicts purchase intent and identifies decision-makers with almost scary precision',
       icon: <Brain className="w-6 h-6" />,
       color: 'purple',
       gradient: 'from-purple-500 to-purple-400',
@@ -156,7 +156,7 @@ const FunnelStage: React.FC<FunnelStageProps> = ({ stage, index }) => {
   const isEven = index % 2 === 0;
   
   // Get color classes based on product color
-  const getColorClasses = (color: string) => {
+  const getColorClasses = (color: 'electric' | 'purple' | 'neon' | 'gray') => {
     switch(color) {
       case 'electric':
         return {
