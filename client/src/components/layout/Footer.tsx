@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
           {/* Logo and company info section */}
           <div className="col-span-2 md:col-span-4 space-y-6">
             <div>
-              <BrandLogo size="md" />
+              <BrandLogo size="md" className="scale-110 origin-left" />
             </div>
             
             <p className="text-gray-600 leading-relaxed">
