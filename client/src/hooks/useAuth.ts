@@ -82,10 +82,18 @@ export function useAuth() {
       });
     },
     onSuccess: (response) => {
+      console.log('OTP verification successful', response);
+      
       // Store token in localStorage if available
       if (response.token) {
         localStorage.setItem('authToken', response.token);
+        console.log('Auth token stored in localStorage');
+      } else {
+        console.warn('No auth token received from server');
       }
+      
+      // Update user in cache and refresh queries
+      queryClient.setQueryData(['/api/auth/user'], response.user);
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
     },
   });

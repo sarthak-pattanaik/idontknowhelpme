@@ -20,14 +20,37 @@ export async function apiRequest<T>(
     ...(authToken && { 'Authorization': `Bearer ${authToken}` }),
   };
 
+  // Debug log for auth requests
+  if (url.includes('/api/auth/')) {
+    console.log(`Making auth request to ${url}`, { 
+      hasToken: !!authToken, 
+      method: options?.method || 'GET' 
+    });
+  }
+
   const res = await fetch(url, {
     ...options,
     headers,
     credentials: 'include',
   });
 
+  // Log response status for debugging
+  if (url.includes('/api/auth/')) {
+    console.log(`Response from ${url}:`, { 
+      status: res.status, 
+      statusText: res.statusText 
+    });
+  }
+
   await throwIfResNotOk(res);
-  return await res.json();
+  const data = await res.json();
+  
+  // Log successful auth responses
+  if (url.includes('/api/auth/') && res.ok) {
+    console.log(`Successful response data from ${url}:`, data);
+  }
+  
+  return data;
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";
@@ -36,6 +59,8 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
+    const url = queryKey[0] as string;
+    
     // Get auth token from localStorage
     const authToken = localStorage.getItem('authToken');
     
@@ -44,17 +69,38 @@ export const getQueryFn: <T>(options: {
       ...(authToken && { 'Authorization': `Bearer ${authToken}` }),
     };
     
-    const res = await fetch(queryKey[0] as string, {
+    // Debug log for auth requests
+    if (url.includes('/api/auth/')) {
+      console.log(`[Query] Fetching ${url}`, { 
+        hasToken: !!authToken
+      });
+    }
+    
+    const res = await fetch(url, {
       headers,
       credentials: "include",
     });
-
-    if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-      return null;
+    
+    // Log unauthorized responses
+    if (res.status === 401) {
+      console.warn(`[Query] Unauthorized access to ${url}`);
+      if (unauthorizedBehavior === "returnNull") {
+        return null;
+      }
+    }
+    
+    // Log response status for auth endpoints
+    if (url.includes('/api/auth/')) {
+      console.log(`[Query] Response from ${url}:`, { 
+        status: res.status, 
+        statusText: res.statusText 
+      });
     }
 
     await throwIfResNotOk(res);
-    return await res.json();
+    const data = await res.json();
+    
+    return data;
   };
 
 export const queryClient = new QueryClient({
