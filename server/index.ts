@@ -67,11 +67,19 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
+  // Serve static files first
+  app.use(express.static(path.join(process.cwd(), 'client')));
+  
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
+  
+  // Fallback route for SPA
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'client/index.html'));
+  });
 
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
