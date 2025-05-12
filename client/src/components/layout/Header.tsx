@@ -91,8 +91,8 @@ const Header: React.FC = () => {
                   href="/product-access" 
                   variant="ghost" 
                   size="sm"
-                  icon={<User className="h-4 w-4" />}
                 >
+                  <User className="h-4 w-4 mr-2" />
                   Dashboard
                 </Button>
                 <Button 
@@ -103,8 +103,8 @@ const Header: React.FC = () => {
                   }} 
                   variant="outline" 
                   size="sm"
-                  icon={<LogOut className="h-4 w-4" />}
                 >
+                  <LogOut className="h-4 w-4 mr-2" />
                   Log out
                 </Button>
               </>
@@ -173,8 +173,8 @@ const Header: React.FC = () => {
                         variant="ghost" 
                         fullWidth 
                         className="mr-2"
-                        icon={<User className="h-4 w-4" />}
                       >
+                        <User className="h-4 w-4 mr-2" />
                         Dashboard
                       </Button>
                       <Button 
@@ -188,8 +188,8 @@ const Header: React.FC = () => {
                         }} 
                         variant="outline" 
                         fullWidth
-                        icon={<LogOut className="h-4 w-4" />}
                       >
+                        <LogOut className="h-4 w-4 mr-2" />
                         Log out
                       </Button>
                     </>
