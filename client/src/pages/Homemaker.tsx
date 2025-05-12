@@ -10,35 +10,46 @@ import { ContentPost } from '@/components/Homemaker/ContentCard';
 const HomemakerApp: React.FC = () => {
   const [location] = useLocation();
   
-  // Determine which tab is active based on URL
-  let activeItem = "Home";
-  if (location.includes("/calendar")) {
-    activeItem = "Calendar";
-  } else if (location.includes("/brand-ai")) {
-    activeItem = "Brand AI";
-  } else if (location.includes("/templates")) {
-    activeItem = "Templates";
-  } else if (location.includes("/analytics")) {
-    activeItem = "Analytics";
-  } else if (location.includes("/files")) {
-    activeItem = "Files";
-  }
+  // Set up routes and content
+  type RouteContent = {
+    [key: string]: {
+      content: React.ReactNode;
+      label: string;
+    }
+  };
   
-  // Render appropriate content based on URL
-  let content;
-  if (location === "/app/homemaker/calendar") {
-    content = <CalendarContent />;
-  } else if (location === "/app/homemaker/brand-ai") {
-    content = <BrandAIContent />;
-  } else if (location === "/app/homemaker/templates") {
-    content = <TemplatesContent />;
-  } else if (location === "/app/homemaker/analytics") {
-    content = <AnalyticsContent />;
-  } else if (location === "/app/homemaker/files") {
-    content = <FilesContent />;
-  } else {
-    content = <HomeContent />;
-  }
+  const routes: RouteContent = {
+    "/app/homemaker": {
+      content: <HomeContent />,
+      label: "Home"
+    },
+    "/app/homemaker/calendar": {
+      content: <CalendarContent />,
+      label: "Calendar"
+    },
+    "/app/homemaker/brand-ai": {
+      content: <BrandAIContent />,
+      label: "Brand AI"
+    },
+    "/app/homemaker/templates": {
+      content: <TemplatesContent />,
+      label: "Templates"
+    },
+    "/app/homemaker/analytics": {
+      content: <AnalyticsContent />,
+      label: "Analytics"
+    },
+    "/app/homemaker/files": {
+      content: <FilesContent />,
+      label: "Files"
+    }
+  };
+
+  // Determine active tab from current location
+  const activeItem = routes[location]?.label || "Home";
+  
+  // Get content for current route, defaulting to Home
+  const content = routes[location]?.content || <HomeContent />;
   
   return (
     <HomemakerLayout 

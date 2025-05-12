@@ -96,6 +96,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem = 'Home' }) => {
                     ? 'bg-blue-50 text-blue-700'
                     : 'text-gray-700 hover:bg-gray-50'
                 }`}
+                onClick={(e) => {
+                  // This ensures proper navigation
+                  e.preventDefault();
+                  window.location.href = item.path;
+                }}
               >
                 <span className={`mr-3 ${item.isActive ? 'text-blue-500' : 'text-gray-500 group-hover:text-gray-700'}`}>
                   {item.icon}
