@@ -30,13 +30,22 @@ const StartFreeTrialPage: React.FC = () => {
     },
   });
   
+  // State for displaying OTP during development
+  const [devOtp, setDevOtp] = useState<string | null>(null);
+  
   // Handle email submit
   const onEmailSubmit = (data: EmailFormValues) => {
     setEmail(data.email);
     
     requestOtp(data.email, {
-      onSuccess: () => {
+      onSuccess: (response) => {
         setStep('success');
+        
+        // Store OTP for dev mode display if available
+        if (response.otp) {
+          console.log('Development OTP:', response.otp);
+          setDevOtp(response.otp);
+        }
       },
       onError: (error) => {
         console.error('Error requesting OTP:', error);
@@ -147,6 +156,11 @@ const StartFreeTrialPage: React.FC = () => {
                     <p className="text-sm text-green-800">
                       Success! We've sent a verification code to <strong>{email}</strong>
                     </p>
+                    {devOtp && (
+                      <p className="mt-2 text-sm font-mono bg-gray-100 p-1 rounded">
+                        Development mode - OTP: <strong>{devOtp}</strong>
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
