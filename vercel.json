@@ -2,10 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "static-build.sh",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/static"
+        "distDir": "dist",
+        "buildCommand": "node static-build.js && npm run build && cp static-index.html dist/index.html"
       }
     }
   ],

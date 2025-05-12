@@ -3,10 +3,10 @@
   base = "./"
   
   # Directory containing the built static files
-  publish = "dist/static"
+  publish = "dist"
   
   # Build command
-  command = "chmod +x ./static-build.sh && ./static-build.sh"
+  command = "node static-build.js && npm run build && cp static-index.html dist/index.html"
 
 # Redirects and rewrites
 [[redirects]]
