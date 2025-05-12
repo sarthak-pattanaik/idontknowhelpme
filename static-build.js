@@ -1,6 +1,7 @@
+
 // Helper script for static builds
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Configuration
 const config = {
