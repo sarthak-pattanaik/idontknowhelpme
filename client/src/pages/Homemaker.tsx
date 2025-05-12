@@ -1,114 +1,64 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'wouter';
+import { Home, Calendar, FileText, BarChart2, File, Cpu } from 'lucide-react';
 import HomemakerLayout from '@/components/Homemaker/HomemakerLayout';
 import CalendarHeader from '@/components/Homemaker/CalendarHeader';
 import CalendarGrid from '@/components/Homemaker/CalendarGrid';
 import { ContentPost } from '@/components/Homemaker/ContentCard';
-import { Route, Switch, useLocation } from 'wouter';
 
-const HomemakerCalendar: React.FC = () => {
-  // Sample content posts data (would come from API in a real app)
-  const [posts, setPosts] = useState<ContentPost[]>([
-    {
-      id: "1",
-      title: "Product Launch Announcement",
-      caption: "We are excited to announce our new product line! Check out the features that will revolutionize your workflow.",
-      imageUrl: "https://images.unsplash.com/photo-1661956602116-aa6865609028",
-      platform: "linkedin",
-      scheduledTime: "2025-05-13T10:00:00",
-      status: "scheduled",
-    },
-    {
-      id: "2",
-      title: "Weekly Tip: Working from Home",
-      caption: "Maximize your productivity with these 5 essential tips for remote work. #productivity #remotework",
-      imageUrl: "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7",
-      platform: "twitter",
-      scheduledTime: "2025-05-13T14:00:00",
-      status: "draft",
-    },
-    {
-      id: "3",
-      title: "Behind the Scenes",
-      caption: "Take a peek behind the scenes of our latest product photoshoot! #behindthescenes",
-      imageUrl: "https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6",
-      platform: "instagram",
-      scheduledTime: "2025-05-14T11:00:00",
-      status: "scheduled",
-    },
-    {
-      id: "4",
-      title: "Monthly Newsletter: May Edition",
-      caption: "Catch up on all our updates from May including new product releases, community highlights, and upcoming events!",
-      imageUrl: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3",
-      platform: "email",
-      scheduledTime: "2025-05-15T09:00:00",
-      status: "draft",
-    },
-    {
-      id: "5",
-      title: "Product Demo Video",
-      caption: "Watch our quick 30-second demo showing how our platform can save you hours every week!",
-      imageUrl: "https://images.unsplash.com/photo-1616469829731-fb0bdd25d6ef",
-      platform: "facebook",
-      scheduledTime: "2025-05-16T13:00:00",
-      status: "published",
-    },
-    {
-      id: "6",
-      title: "Trending Topic Mashup",
-      caption: "Getting creative with the latest trends! Check out how we are putting our unique spin on what is hot right now.",
-      imageUrl: "https://images.unsplash.com/photo-1496717694304-b7cbd9d52f6a",
-      platform: "tiktok",
-      scheduledTime: "2025-05-17T15:00:00",
-      status: "scheduled",
-    },
-  ]);
-
-  // Event handlers
-  const handleEditPost = (post: ContentPost) => {
-    console.log('Edit post:', post);
-    // Would open edit modal in a real app
-  };
-
-  const handleDeletePost = (post: ContentPost) => {
-    // Simple implementation for demo purposes
-    if (window.confirm(`Are you sure you want to delete "${post.title}"?`)) {
-      setPosts(posts.filter((p) => p.id !== post.id));
-    }
-  };
-
-  const handleNewPost = () => {
-    console.log('Create new post');
-    // Would open create modal in a real app
-  };
-
+// Main App Component
+const HomemakerApp: React.FC = () => {
+  const [location] = useLocation();
+  
+  // Determine which tab is active based on URL
+  let activeItem = "Home";
+  if (location.includes("/calendar")) {
+    activeItem = "Calendar";
+  } else if (location.includes("/brand-ai")) {
+    activeItem = "Brand AI";
+  } else if (location.includes("/templates")) {
+    activeItem = "Templates";
+  } else if (location.includes("/analytics")) {
+    activeItem = "Analytics";
+  } else if (location.includes("/files")) {
+    activeItem = "Files";
+  }
+  
+  // Render appropriate content based on URL
+  let content;
+  if (location === "/app/homemaker/calendar") {
+    content = <CalendarContent />;
+  } else if (location === "/app/homemaker/brand-ai") {
+    content = <BrandAIContent />;
+  } else if (location === "/app/homemaker/templates") {
+    content = <TemplatesContent />;
+  } else if (location === "/app/homemaker/analytics") {
+    content = <AnalyticsContent />;
+  } else if (location === "/app/homemaker/files") {
+    content = <FilesContent />;
+  } else {
+    content = <HomeContent />;
+  }
+  
   return (
     <HomemakerLayout 
-      activeItem="Calendar"
-      title="Content Calendar"
-      description="Plan, create, and schedule your content with Homemaker's AI-powered content calendar."
+      activeItem={activeItem}
+      title={activeItem}
+      description={`Homemaker ${activeItem} - AI content management`}
     >
-      {/* Header with actions */}
-      <CalendarHeader onNewPost={handleNewPost} />
-
-      {/* Calendar grid */}
-      <CalendarGrid
-        posts={posts}
-        onEditPost={handleEditPost}
-        onDeletePost={handleDeletePost}
-      />
+      {content}
     </HomemakerLayout>
   );
 };
 
-// Placeholder components for other pages
-const HomemakerHome: React.FC = () => (
-  <HomemakerLayout activeItem="Home" title="Dashboard" description="Homemaker dashboard and overview">
+// Home/Dashboard page content
+const HomeContent: React.FC = () => {
+  return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Welcome to Homemaker</h2>
       <p className="text-gray-600">This is your content creation command center.</p>
       
-      {/* Dashboard content will go here */}
+      {/* Dashboard content */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
           <h3 className="font-semibold text-lg mb-2">Content Overview</h3>
@@ -128,24 +78,95 @@ const HomemakerHome: React.FC = () => (
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
           <h3 className="font-semibold text-lg mb-2">Quick Actions</h3>
           <div className="space-y-2">
-            <button className="w-full text-left px-3 py-2 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100">
-              Create new content
-            </button>
-            <button className="w-full text-left px-3 py-2 bg-purple-50 text-purple-600 rounded-md hover:bg-purple-100">
-              Generate with AI
-            </button>
-            <button className="w-full text-left px-3 py-2 bg-green-50 text-green-600 rounded-md hover:bg-green-100">
-              View analytics
-            </button>
+            <Link href="/app/homemaker/calendar">
+              <button className="w-full text-left px-3 py-2 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100">
+                Content Calendar
+              </button>
+            </Link>
+            <Link href="/app/homemaker/brand-ai">
+              <button className="w-full text-left px-3 py-2 bg-purple-50 text-purple-600 rounded-md hover:bg-purple-100">
+                Brand AI
+              </button>
+            </Link>
+            <Link href="/app/homemaker/analytics">
+              <button className="w-full text-left px-3 py-2 bg-green-50 text-green-600 rounded-md hover:bg-green-100">
+                View Analytics
+              </button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
-  </HomemakerLayout>
-);
+  );
+};
 
-const HomemakerBrandAI: React.FC = () => (
-  <HomemakerLayout activeItem="Brand AI" title="Brand AI" description="AI-powered brand voice customization">
+// Calendar page content
+const CalendarContent: React.FC = () => {
+  // Sample content posts data (would come from API in a real app)
+  const [posts, setPosts] = useState<ContentPost[]>([
+    {
+      id: "1",
+      title: "Product Launch Announcement",
+      caption: "We are excited to announce our new product line! Check out the features that will revolutionize your workflow.",
+      imageUrl: "https://images.unsplash.com/photo-1661956602116-aa6865609028",
+      platform: "linkedin",
+      scheduledTime: "May 13 9:00 AM",
+      status: "scheduled",
+    },
+    {
+      id: "2",
+      title: "Customer Success Story",
+      caption: "See how our platform helped ABC Corp increase their productivity by 35% in just two months.",
+      imageUrl: "https://images.unsplash.com/photo-1560179707-f14e90ef3623",
+      platform: "instagram",
+      scheduledTime: "May 14 12:00 PM",
+      status: "draft",
+    },
+    {
+      id: "3",
+      title: "Team Spotlight",
+      caption: "Meet our engineering team and learn about the innovative solutions they're building.",
+      imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+      platform: "twitter",
+      scheduledTime: "May 15 3:00 PM",
+      status: "published",
+    },
+  ]);
+  
+  const handleEditPost = (post: ContentPost) => {
+    console.log('Edit post:', post.id);
+    // Would open edit modal in a real app
+  };
+  
+  const handleDeletePost = (post: ContentPost) => {
+    console.log('Delete post:', post.id);
+    // Would confirm and delete in a real app
+    setPosts(posts.filter(p => p.id !== post.id));
+  };
+  
+  const handleNewPost = () => {
+    console.log('Create new post');
+    // Would open create modal in a real app
+  };
+  
+  return (
+    <>
+      {/* Header with actions */}
+      <CalendarHeader onNewPost={handleNewPost} />
+
+      {/* Calendar grid */}
+      <CalendarGrid
+        posts={posts}
+        onEditPost={handleEditPost}
+        onDeletePost={handleDeletePost}
+      />
+    </>
+  );
+};
+
+// Brand AI page content
+const BrandAIContent: React.FC = () => {
+  return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Brand AI</h2>
       <p className="text-gray-600 mb-8">Train AI to write in your brand's voice and style.</p>
@@ -188,11 +209,12 @@ const HomemakerBrandAI: React.FC = () => (
         </button>
       </div>
     </div>
-  </HomemakerLayout>
-);
+  );
+};
 
-const HomemakerTemplates: React.FC = () => (
-  <HomemakerLayout activeItem="Templates" title="Content Templates" description="Pre-made content templates">
+// Templates page content
+const TemplatesContent: React.FC = () => {
+  return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Content Templates</h2>
       <p className="text-gray-600 mb-8">Start with pre-made templates or create your own.</p>
@@ -236,11 +258,12 @@ const HomemakerTemplates: React.FC = () => (
         </div>
       </div>
     </div>
-  </HomemakerLayout>
-);
+  );
+};
 
-const HomemakerAnalytics: React.FC = () => (
-  <HomemakerLayout activeItem="Analytics" title="Content Analytics" description="Performance metrics and insights">
+// Analytics page content
+const AnalyticsContent: React.FC = () => {
+  return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Analytics</h2>
       <p className="text-gray-600 mb-8">Track and analyze your content performance.</p>
@@ -308,11 +331,12 @@ const HomemakerAnalytics: React.FC = () => (
         </div>
       </div>
     </div>
-  </HomemakerLayout>
-);
+  );
+};
 
-const HomemakerFiles: React.FC = () => (
-  <HomemakerLayout activeItem="Files" title="File Library" description="Manage your media assets">
+// Files page content
+const FilesContent: React.FC = () => {
+  return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">File Library</h2>
       <p className="text-gray-600 mb-8">Manage and organize your media assets.</p>
@@ -348,54 +372,6 @@ const HomemakerFiles: React.FC = () => (
         ))}
       </div>
     </div>
-  </HomemakerLayout>
-);
-
-const HomemakerApp: React.FC = () => {
-  return (
-    <HomemakerLayout 
-      activeItem="Home"
-      title="Dashboard"
-      description="Homemaker dashboard and overview"
-    >
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-4">Welcome to Homemaker</h2>
-        <p className="text-gray-600">This is your content creation command center.</p>
-        
-        {/* Dashboard content will go here */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-lg mb-2">Content Overview</h3>
-            <p className="text-gray-500 mb-4">You have 12 scheduled posts this week</p>
-            <div className="h-40 bg-gray-50 rounded flex items-center justify-center">
-              Content chart placeholder
-            </div>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-lg mb-2">Recent Activity</h3>
-            <ul className="space-y-3">
-              <li className="text-sm text-gray-600">New template created: "Product Launch"</li>
-              <li className="text-sm text-gray-600">4 posts scheduled for next week</li>
-              <li className="text-sm text-gray-600">Brand voice updated</li>
-            </ul>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-lg mb-2">Quick Actions</h3>
-            <div className="space-y-2">
-              <button className="w-full text-left px-3 py-2 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100">
-                Create new content
-              </button>
-              <button className="w-full text-left px-3 py-2 bg-purple-50 text-purple-600 rounded-md hover:bg-purple-100">
-                Generate with AI
-              </button>
-              <button className="w-full text-left px-3 py-2 bg-green-50 text-green-600 rounded-md hover:bg-green-100">
-                View analytics
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </HomemakerLayout>
   );
 };
 
