@@ -1,10 +1,19 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import path from "path";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Serve static files from the dist directory in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(process.cwd(), 'dist/public')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'dist/public/index.html'));
+  });
+}
 
 app.use((req, res, next) => {
   const start = Date.now();
