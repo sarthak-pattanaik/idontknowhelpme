@@ -43,21 +43,25 @@ const RoutesWithLayout = [
   { path: "/about", component: About },
 ];
 
-// Auth routes (without header/footer layout)
-const AuthRoutes = [
+// App routes (without header/footer layout)
+const StandaloneRoutes = [
+  // Auth routes
   { path: "/login", component: LoginPage },
   { path: "/signup", component: SignupPage },
   { path: "/start-free-trial", component: StartFreeTrialPage },
   { path: "/complete-profile", component: CompleteProfilePage },
   { path: "/product-access", component: ProductAccessPage },
+  
+  // Product app routes
+  { path: "/app/homemaker", component: Homemaker },
 ];
 
 function Router() {
   return (
     <>
-      {/* Routes without layout (auth pages) */}
+      {/* Routes without layout (auth & standalone app pages) */}
       <Switch>
-        {AuthRoutes.map(({ path, component }) => (
+        {StandaloneRoutes.map(({ path, component }) => (
           <Route key={path} path={path} component={component} />
         ))}
         

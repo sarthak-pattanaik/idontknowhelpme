@@ -133,10 +133,10 @@ const HomemakerProduct: React.FC = () => {
       <GlobalCTA
         title="Ready to transform your content strategy?"
         description="Join leading companies using Homemaker to scale their content production with AI."
-        primaryButtonText="Contact Sales"
-        primaryButtonLink="/contact"
-        secondaryButtonText="Explore Platform"
-        secondaryButtonLink="/platform"
+        primaryButtonText="Try Homemaker App"
+        primaryButtonLink="/app/homemaker"
+        secondaryButtonText="Contact Sales"
+        secondaryButtonLink="/contact"
         color="electric"
       />
     </>
