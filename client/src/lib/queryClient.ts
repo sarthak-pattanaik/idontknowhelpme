@@ -1,5 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
-import isStaticMode from './staticMode';
+import { isStaticMode } from './staticMode';
 
 // Mock data for static builds
 const mockResponses: Record<string, any> = {

@@ -4,7 +4,7 @@
  * and uses mock data for API responses
  */
 
-export const isStaticMode = (): boolean => {
+const isStaticMode = (): boolean => {
   return (
     // URL parameter for local testing
     (window.location.hostname === 'localhost' && 
@@ -37,3 +37,4 @@ export const staticModeInfo = {
 };
 
 export default isStaticMode;
+export { isStaticMode };

@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import isStaticMode from '@/lib/staticMode';
+import { isStaticMode } from '@/lib/staticMode';
 
 // Type definitions
 export interface User {
@@ -171,7 +171,7 @@ export function useAuth() {
     isPending: logoutLoading,
   } = useMutation({
     mutationFn: async () => {
-      if (isStaticMode) {
+      if (isStaticMode()) {
         console.log('[Static Mode] Simulating logout');
         return { message: 'Logged out successfully' } as LogoutResponse;
       }
@@ -188,7 +188,7 @@ export function useAuth() {
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
       queryClient.setQueryData(['/api/auth/user'], null);
       
-      if (isStaticMode) {
+      if (isStaticMode()) {
         console.log('[Static Mode] Cleared auth state');
       }
     },

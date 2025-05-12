@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import isStaticMode from '@/lib/staticMode';
+import { isStaticMode } from '@/lib/staticMode';
 
 const StaticModeIndicator: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
