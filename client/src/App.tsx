@@ -19,6 +19,9 @@ import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
 
+// Import product app pages
+import Homemaker from "@/pages/Homemaker";
+
 // Import auth pages
 import LoginPage from "@/pages/login";
 import SignupPage from "@/pages/signup";

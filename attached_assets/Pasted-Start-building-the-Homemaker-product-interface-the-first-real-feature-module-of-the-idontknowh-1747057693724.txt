@@ -1,0 +1,78 @@
+Start building the **Homemaker** product interface — the first real feature module of the idontknowhelpme SaaS platform.
+
+Use the reference UI layout from Blaze.ai as design inspiration (as shown in the provided screenshots), but keep all design and code original.
+
+---
+
+🎯 Objective:
+Create a sleek, drag-and-drop AI-powered content management interface where users can:
+- View and plan content by date
+- See different content formats (Instagram, LinkedIn, Email, etc.)
+- Organize posts visually in a timeline/calendar-like UI
+
+---
+
+🧱 Core Layout Requirements (Mimic Blaze-like UI from screenshot):
+
+1. **Left Sidebar**
+   - Fixed vertical sidebar with the following navigation items:
+     - Home
+     - Brand AI
+     - Templates
+     - Calendar (**active by default**)
+     - Analytics
+     - Files: Recent, Uploads, Documents
+   - Use flat icons for each item (Heroicons or Lucide)
+
+2. **Main View: Content Calendar Layout**
+   - Top navigation strip with:
+     - Calendar week picker (Today, Prev/Next arrows)
+     - Filter dropdowns: Account, Status, Project
+     - “+ New Post” button (primary, fixed style)
+
+   - **Weekly timeline layout**
+     - Days of the week as columns (Mon–Fri)
+     - Time slots (e.g. 10 AM to 5 PM)
+     - Each content post is shown as a **card** in a time slot
+       - Card includes: thumbnail, platform icon (Instagram, LinkedIn, etc.), caption preview
+       - On hover: Show “Edit” or “Delete” buttons
+
+3. **Content Post Card UI**
+   - Should contain:
+     - Thumbnail image (use a placeholder)
+     - Platform badge icon (flat: IG, X, LinkedIn, TikTok, etc.)
+     - Title/caption preview
+     - Hover state with a subtle shadow or lift
+
+4. **Sticky Header**
+   - Show “Calendar”, Filters, Profile icon
+   - Clean styling with shadow for separation
+
+---
+
+🧠 Additional Notes:
+- Do NOT use any Blaze code or assets
+- This is a real product under development — make the layout original, responsive, and production-grade
+- Use Tailwind CSS
+- Break it into modular components:
+  - `Sidebar.js`
+  - `CalendarHeader.js`
+  - `CalendarGrid.js`
+  - `ContentCard.js`
+
+📦 Folder:
+- Save in `/pages/product/homemaker.js`
+- Components in `/components/Homemaker/`
+
+---
+
+🚫 Do not:
+- Include AI content generation logic yet
+- Use lorem ipsum or blank placeholders
+- Copy Blaze design pixel-for-pixel — adapt with originality
+
+✅ Do:
+- Match UX patterns for usability
+- Keep it clean, readable, and easy to scan
+- Prep for later integration with AI-based content templates
+
