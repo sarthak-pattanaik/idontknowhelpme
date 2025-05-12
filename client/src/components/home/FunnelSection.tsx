@@ -11,7 +11,7 @@ const FunnelSection: React.FC = () => {
       product: 'Homemaker',
       description: 'Dominate search results with AI content that outwits, outranks, and outconverts your competition in every channel',
       icon: <Lightbulb className="w-6 h-6" />,
-      color: 'electric',
+      color: 'electric' as 'electric' | 'purple' | 'neon' | 'gray',
       gradient: 'from-electric-500 to-electric-400',
       buttonVariant: 'primary' as const,
       bgGradient: 'bg-gradient-to-br from-electric-500/20 via-electric-400/10 to-transparent',
@@ -22,7 +22,7 @@ const FunnelSection: React.FC = () => {
       product: 'Intelligence',
       description: 'Slash sales cycles by 60% with AI that predicts purchase intent and identifies decision-makers with almost scary precision',
       icon: <Brain className="w-6 h-6" />,
-      color: 'purple',
+      color: 'purple' as 'electric' | 'purple' | 'neon' | 'gray',
       gradient: 'from-purple-500 to-purple-400',
       buttonVariant: 'secondary' as const,
       bgGradient: 'bg-gradient-to-br from-purple-500/20 via-purple-400/10 to-transparent',
@@ -31,9 +31,9 @@ const FunnelSection: React.FC = () => {
       id: 'snipper',
       stage: 'Bottom of Funnel: Decision',
       product: 'Snipper',
-      description: 'Convert prospects at record rates with hyper-personalized messaging that feels human but performs superhuman',
+      description: 'Triple your close rates with AI-powered messaging that reads minds, handles objections, and closes deals while your competitors are still crafting emails',
       icon: <Send className="w-6 h-6" />,
-      color: 'neon',
+      color: 'neon' as 'electric' | 'purple' | 'neon' | 'gray',
       gradient: 'from-neon-500 to-neon-400',
       buttonVariant: 'accent' as const,
       bgGradient: 'bg-gradient-to-br from-neon-500/20 via-neon-400/10 to-transparent',
@@ -42,9 +42,9 @@ const FunnelSection: React.FC = () => {
       id: 'signals',
       stage: 'Retention & Growth',
       product: 'Signals',
-      description: 'Maximize customer lifetime value with AI that predicts needs before customers even know they have them',
+      description: 'Boost retention by 85% with our AI that identifies churn risks, reveals upsell opportunities, and turns satisfied customers into revenue-generating evangelists',
       icon: <Activity className="w-6 h-6" />,
-      color: 'gray',
+      color: 'gray' as 'electric' | 'purple' | 'neon' | 'gray',
       gradient: 'from-gray-700 to-gray-600',
       buttonVariant: 'primary' as const,
       bgGradient: 'bg-gradient-to-br from-gray-700/20 via-gray-600/10 to-transparent',
@@ -80,7 +80,7 @@ const FunnelSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Your Complete <span className="text-electric-500">Revenue Engine</span> from First Click to Loyal Customer
+            Your Unstoppable <span className="text-electric-500">Revenue Machine</span> that Outperforms at Every Stage
           </motion.h2>
           
           <motion.p 
@@ -90,7 +90,7 @@ const FunnelSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Crush your competition at every touchpoint with our military-grade AI arsenal that turns prospects into customers and customers into evangelists.
+            Leave competitors in the dust with our battle-tested AI suite that systematically conquers every stage of your funnel, turning cold prospects into revenue machines and brand defenders.
           </motion.p>
         </div>
 
