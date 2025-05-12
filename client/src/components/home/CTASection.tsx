@@ -43,7 +43,7 @@ const CTASection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                Ready to transform your GTM strategy?
+                Ready to Outperform Your Competition?
               </motion.h2>
               
               <motion.p
@@ -53,7 +53,7 @@ const CTASection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                Join thousands of teams using idontknowhelpme to power their go-to-market efforts.
+                Join the elite businesses using idkhelpme to crush their revenue targets and leave competitors wondering what happened.
               </motion.p>
             </div>
             

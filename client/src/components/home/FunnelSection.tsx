@@ -9,7 +9,7 @@ const FunnelSection: React.FC = () => {
       id: 'homemaker',
       stage: 'Top of Funnel: Awareness',
       product: 'Homemaker',
-      description: 'Create AI-powered content that attracts and engages your audience',
+      description: 'Captivate your audience with AI content that ranks higher and converts better than competitors',
       icon: <Lightbulb className="w-6 h-6" />,
       color: 'electric',
       gradient: 'from-electric-500 to-electric-400',
@@ -20,7 +20,7 @@ const FunnelSection: React.FC = () => {
       id: 'intelligence',
       stage: 'Middle of Funnel: Consideration',
       product: 'Intelligence',
-      description: 'Score and enrich leads to identify the most promising opportunities',
+      description: 'Instantly identify high-value prospects with uncanny precision to focus only on deals that matter',
       icon: <Brain className="w-6 h-6" />,
       color: 'purple',
       gradient: 'from-purple-500 to-purple-400',
@@ -31,7 +31,7 @@ const FunnelSection: React.FC = () => {
       id: 'snipper',
       stage: 'Bottom of Funnel: Decision',
       product: 'Snipper',
-      description: 'Personalize your outreach to drive conversions',
+      description: 'Convert prospects at record rates with hyper-personalized messaging that feels human but performs superhuman',
       icon: <Send className="w-6 h-6" />,
       color: 'neon',
       gradient: 'from-neon-500 to-neon-400',
@@ -42,7 +42,7 @@ const FunnelSection: React.FC = () => {
       id: 'signals',
       stage: 'Retention & Growth',
       product: 'Signals',
-      description: 'Monitor market signals to reduce churn and identify upsell opportunities',
+      description: 'Maximize customer lifetime value with AI that predicts needs before customers even know they have them',
       icon: <Activity className="w-6 h-6" />,
       color: 'gray',
       gradient: 'from-gray-700 to-gray-600',
@@ -70,7 +70,7 @@ const FunnelSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <span className="text-electric-600 font-semibold text-sm">COMPREHENSIVE SOLUTION</span>
+            <span className="text-electric-600 font-semibold text-sm">DOMINATE EVERY STAGE</span>
           </motion.div>
           
           <motion.h2 
@@ -80,7 +80,7 @@ const FunnelSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            End-to-End <span className="text-electric-500">AI Platform</span> for Your GTM Funnel
+            Your Complete <span className="text-electric-500">Revenue Engine</span> from First Click to Loyal Customer
           </motion.h2>
           
           <motion.p 
@@ -90,7 +90,7 @@ const FunnelSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Our integrated AI suite covers every stage of your go-to-market process—from awareness to retention.
+            Crush your competition at every touchpoint with our military-grade AI arsenal that turns prospects into customers and customers into evangelists.
           </motion.p>
         </div>
 
