@@ -1,64 +1,99 @@
-import { Link } from "wouter";
-import { motion } from "framer-motion";
-import ProductCard from "@/components/products/ProductCard";
-import { products } from "@/lib/data";
+import React from 'react';
+import { motion } from 'framer-motion';
+import ProductCard from '@/components/product/ProductCard';
+import { Lightbulb, Brain, Send, Activity } from 'lucide-react';
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
+const ProductSuite: React.FC = () => {
+  const products = [
+    {
+      id: 'homemaker',
+      title: 'Homemaker',
+      description: 'AI-powered content generation for websites, blogs, and marketing materials.',
+      features: ['Custom content briefs', 'SEO optimization', 'Brand voice adaptation', 'Multi-format output'],
+      color: 'electric' as const,
+      icon: <Lightbulb className="w-6 h-6" />,
+      href: '/product/homemaker',
+      delay: 0.1,
+    },
+    {
+      id: 'intelligence',
+      title: 'Intelligence',
+      description: 'Smart lead scoring and enrichment using machine learning algorithms.',
+      features: ['Predictive lead scoring', 'Data enrichment', 'Behavioral insights', 'Integration with CRMs'],
+      color: 'purple' as const,
+      icon: <Brain className="w-6 h-6" />,
+      href: '/product/intelligence',
+      delay: 0.2,
+    },
+    {
+      id: 'snipper',
+      title: 'Snipper',
+      description: 'AI-assisted outreach campaigns for personalized communications.',
+      features: ['Personalized templates', 'Sentiment analysis', 'Response predictions', 'A/B testing'],
+      color: 'neon' as const,
+      icon: <Send className="w-6 h-6" />,
+      href: '/product/snipper',
+      delay: 0.3,
+    },
+    {
+      id: 'signals',
+      title: 'Signals',
+      description: 'Real-time market signal tracking to identify buying intent.',
+      features: ['Intent data collection', 'Competitor monitoring', 'Market trend analysis', 'Alert notifications'],
+      color: 'gray' as const,
+      icon: <Activity className="w-6 h-6" />,
+      href: '/product/signals',
+      delay: 0.4,
+    },
+  ];
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
-};
-
-const ProductSuite = () => {
   return (
-    <section id="products" className="py-20 bg-gradient-to-b from-slate-50 to-slate-100 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary-50 to-transparent opacity-70"></div>
-      <div className="absolute -bottom-16 -right-16 w-64 h-64 rounded-full bg-primary-100 opacity-50"></div>
-      <div className="absolute top-32 -left-16 w-48 h-48 rounded-full bg-accent-100 opacity-40"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
-          className="max-w-3xl mx-auto text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="bg-primary-100 text-primary-700 text-sm font-medium py-1 px-3 rounded-full inline-block mb-4">Our Products</span>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600">All-in-one GTM AI Platform</h2>
-          <p className="text-xl text-gray-700">Four powerful tools to supercharge your sales and marketing efforts</p>
-        </motion.div>
+    <section id="products" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <motion.p 
+            className="text-electric-600 font-semibold mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            PRODUCT SUITE
+          </motion.p>
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Four powerful AI tools for modern GTM teams
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Each product in our suite addresses a specific challenge in the GTM process, 
+            working together or independently to drive results.
+          </motion.p>
+        </div>
 
-        <motion.div 
-          className="grid md:grid-cols-2 gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product) => (
-            <motion.div key={product.id} variants={item} className="h-full">
-              <ProductCard 
-                icon={product.icon} 
-                title={product.title} 
-                description={product.description}
-                features={product.features}
-                colorClass={product.colorClass}
-                href={`/product/${product.id}`}
-              />
-            </motion.div>
+            <ProductCard
+              key={product.id}
+              title={product.title}
+              description={product.description}
+              features={product.features}
+              icon={product.icon}
+              color={product.color}
+              href={product.href}
+            />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,324 +1,211 @@
-import { Link } from "wouter";
-import GradientText from "@/components/common/GradientText";
-import { motion } from "framer-motion";
-import Button from "@/components/common/Button";
+import React from 'react';
+import { motion } from 'framer-motion';
+import Button from '@/components/ui/Button';
 
-// Background abstract curves SVG component
-const BackgroundCurves = () => (
-  <motion.div 
-    className="absolute inset-0 overflow-hidden"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 0.07 }}
-    transition={{ duration: 1.5 }}
-  >
-    <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <motion.path 
-        d="M-301.5 475.5C-73.5 315.5 301.5 543.5 579 317.5C856.5 91.5 1138 -111 1323 86.9999C1508 285 1720 698.5 1437 789C1154 879.5 1220.5 552 1027 650.5C833.5 749 481 836.5 247 650.5C13 464.5 -69.5 858 -301.5 475.5Z" 
-        fill="url(#paint0_linear)"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 2, ease: "easeInOut" }}
-      />
-      <motion.path 
-        d="M1740.5 624.5C1512.5 784.5 1137.5 556.5 860 782.5C582.5 1008.5 301 1211 116 1013C-69 815 -281 401.5 2 311C285 220.5 218.5 548 412 449.5C605.5 351 958 263.5 1192 449.5C1426 635.5 1508.5 242 1740.5 624.5Z" 
-        fill="url(#paint1_linear)"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
-      />
-      <defs>
-        <linearGradient id="paint0_linear" x1="0" y1="0" x2="1440" y2="900" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#6366F1" />
-          <stop offset="1" stopColor="#F59E0B" />
-        </linearGradient>
-        <linearGradient id="paint1_linear" x1="1440" y1="900" x2="0" y2="0" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#8B5CF6" />
-          <stop offset="1" stopColor="#10B981" />
-        </linearGradient>
-      </defs>
-    </svg>
-  </motion.div>
-);
-
-// Floating elements for visual interest
-const FloatingElements = () => {
-  const floatingVariants = {
-    animate1: {
-      y: [0, -15, 0],
-      scale: [1, 1.05, 1],
-      transition: {
-        repeat: Infinity,
-        duration: 5,
-        ease: "easeInOut"
-      }
-    },
-    animate2: {
-      y: [0, 20, 0],
-      scale: [1, 1.08, 1],
-      transition: {
-        repeat: Infinity,
-        duration: 7,
-        ease: "easeInOut",
-        delay: 1
-      }
-    },
-    animate3: {
-      y: [0, -25, 0],
-      scale: [1, 1.1, 1],
-      transition: {
-        repeat: Infinity,
-        duration: 6,
-        ease: "easeInOut",
-        delay: 2
-      }
-    }
-  };
-
-  return (
-    <>
-      <motion.div 
-        className="absolute top-20 right-[10%] h-12 w-12 rounded-full bg-primary-100 opacity-60"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 0.6, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        variants={floatingVariants}
-        whileInView="animate1"
-        viewport={{ once: false }}
-      />
-      <motion.div 
-        className="absolute bottom-40 left-[5%] h-20 w-20 rounded-full bg-accent-100 opacity-60"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 0.6, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        variants={floatingVariants}
-        whileInView="animate2"
-        viewport={{ once: false }}
-      />
-      <motion.div 
-        className="absolute top-1/2 right-[15%] h-16 w-16 rounded-full bg-secondary-100 opacity-50"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 0.5, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        variants={floatingVariants}
-        whileInView="animate3"
-        viewport={{ once: false }}
-      />
-    </>
-  );
-};
-
-const Hero = () => {
+const Hero: React.FC = () => {
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
         staggerChildren: 0.2,
-        duration: 0.5,
-        ease: "easeInOut"
-      }
-    }
+        delayChildren: 0.3,
+      },
+    },
   };
-  
+
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-  
-  const buttonVariants = {
-    hover: { scale: 1.05, boxShadow: "0 10px 20px rgba(124, 58, 237, 0.15)" },
-    tap: { scale: 0.98 }
+    hidden: { y: 30, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] } },
   };
 
   return (
-    <section className="relative py-16 sm:py-24 overflow-hidden min-h-[90vh] flex items-center">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-secondary-50 opacity-40"></div>
-      <BackgroundCurves />
-      <FloatingElements />
-      
-      {/* Decorative accent circles */}
-      <div className="absolute top-20 left-[5%] h-64 w-64 rounded-full bg-primary-600/5 blur-2xl"></div>
-      <div className="absolute bottom-20 right-[5%] h-96 w-96 rounded-full bg-accent-600/5 blur-3xl"></div>
-      
+    <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50 pt-32 pb-20 md:pb-32">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        {/* Electric blue circle */}
+        <motion.div
+          className="absolute top-[10%] right-[5%] w-72 h-72 rounded-full bg-electric-500 opacity-10 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.15, 0.1],
+          }}
+          transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse' }}
+        />
+        
+        {/* Deep purple circle */}
+        <motion.div
+          className="absolute bottom-[10%] left-[5%] w-96 h-96 rounded-full bg-purple-500 opacity-10 blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', delay: 1 }}
+        />
+        
+        {/* Neon accent */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-neon-500 opacity-20 blur-xl"
+          animate={{
+            scale: [1, 2, 1],
+            opacity: [0.2, 0.1, 0.2],
+          }}
+          transition={{ duration: 5, repeat: Infinity, repeatType: 'reverse', delay: 0.5 }}
+        />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] z-0"></div>
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           className="max-w-4xl mx-auto text-center"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
+          {/* Badge */}
           <motion.div
-            className="inline-block mb-4 px-4 py-1 rounded-full bg-white/80 backdrop-blur-sm shadow-sm border border-primary-100"
+            className="inline-block mb-6"
             variants={itemVariants}
           >
-            <span className="text-primary-700 font-medium text-sm flex items-center">
-              <span className="inline-block w-2 h-2 rounded-full bg-primary-500 mr-2"></span>
-              New: Introducing idontknowhelpme 2.0 — Enhanced AI capabilities
-            </span>
+            <div className="bg-white/80 backdrop-blur-sm rounded-full py-1 px-4 border border-electric-100 shadow-sm">
+              <span className="text-electric-600 font-medium text-sm inline-flex items-center">
+                <span className="w-2 h-2 bg-electric-500 rounded-full mr-2"></span>
+                Introducing idontknowhelpme 2.0
+              </span>
+            </div>
           </motion.div>
-          
-          <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6"
+
+          {/* Headline */}
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6"
             variants={itemVariants}
           >
-            <span className="block mb-2">AI that builds your <span className="relative">
-              pipeline
-              <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" preserveAspectRatio="none">
-                <motion.path 
-                  d="M3,9 C50,5 100,1 150,9 C200,12 250,9 297,6" 
-                  stroke="url(#text-underline)" 
-                  strokeWidth="3" 
-                  strokeLinecap="round" 
-                  fill="none"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1, delay: 1.2 }}
-                />
-                <defs>
-                  <linearGradient id="text-underline" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#7c3aed" />
-                    <stop offset="100%" stopColor="#ec4899" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </span>.</span>
-            <GradientText className="block relative">
-              <motion.span
-                className="inline-block"
-                variants={itemVariants}
-              >
-                And drives your momentum.
-              </motion.span>
-              <motion.div 
-                className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-accent-500 opacity-60"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1, delay: 0.6, ease: "easeInOut" }}
-              />
-            </GradientText>
+            AI that powers your 
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-electric-500 to-purple-500 mx-2">entire GTM</span> 
+            strategy
           </motion.h1>
-          
-          <motion.p 
-            className="text-xl sm:text-2xl text-gray-700 mb-6"
+
+          {/* Subtitle */}
+          <motion.p
+            className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
             variants={itemVariants}
           >
             The modern AI toolkit to enhance your content creation, lead generation, 
             outreach campaigns, and market signal analysis.
           </motion.p>
-          
-          <motion.div 
-            className="flex flex-wrap justify-center gap-3 mb-10"
+
+          {/* Feature badges */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-2 mb-10"
             variants={itemVariants}
           >
-            {["Advanced ML Models", "Time-Saving Automation", "Personalized Results", "Actionable Insights"].map((feature, index) => (
-              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                <svg className="w-4 h-4 mr-1 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {['Advanced ML Models', 'Time-Saving Automation', 'Personalized Results', 'Actionable Insights'].map((feature, index) => (
+              <span 
+                key={index} 
+                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white text-gray-800 border border-gray-200 shadow-sm"
+              >
+                <svg className="w-4 h-4 mr-1 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
                 {feature}
               </span>
             ))}
           </motion.div>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-            <Button 
-              href="/pricing" 
-              size="xl" 
+
+          {/* CTA buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center gap-4"
+            variants={itemVariants}
+          >
+            <Button
               variant="primary"
-              icon={
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              size="xl"
+              href="/signup"
+              iconRight={
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               }
-              fullWidth
             >
-              Start Free Trial
+              Start free trial
             </Button>
-            
-            <Button 
-              href="#products" 
-              size="xl" 
-              variant="secondary"
-              fullWidth
+            <Button
+              variant="outline"
+              size="xl"
+              href="#products"
             >
-              Explore Platform
+              Explore platform
             </Button>
-          </div>
+          </motion.div>
         </motion.div>
 
-        <motion.div 
-          className="mt-16 sm:mt-24 max-w-5xl mx-auto rounded-2xl bg-white p-4 shadow-xl relative overflow-hidden"
+        {/* Hero visual - Dashboard preview */}
+        <motion.div
+          className="mt-16 mx-auto max-w-5xl"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
         >
-          {/* Decorative elements */}
-          <div className="absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br from-primary-200 to-accent-200 rounded-full opacity-30"></div>
-          <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-br from-accent-200 to-secondary-200 rounded-full opacity-30"></div>
-          
-          <div className="aspect-[16/9] rounded-xl bg-gray-100 overflow-hidden flex items-center justify-center relative">
-            {/* Gridlines for depth */}
-            <div className="absolute inset-0 grid grid-cols-12 grid-rows-6 gap-4 opacity-5">
-              {Array.from({ length: 13 }).map((_, i) => (
-                <div key={`col-${i}`} className="absolute h-full w-px bg-gray-900" style={{ left: `${(i / 12) * 100}%` }}></div>
-              ))}
-              {Array.from({ length: 7 }).map((_, i) => (
-                <div key={`row-${i}`} className="absolute w-full h-px bg-gray-900" style={{ top: `${(i / 6) * 100}%` }}></div>
-              ))}
+          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-gray-200">
+            {/* UI frame */}
+            <div className="h-7 bg-gray-800 flex items-center px-4 gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-400"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+              <div className="w-3 h-3 rounded-full bg-green-400"></div>
+              <div className="ml-4 bg-gray-700 rounded h-4 w-48"></div>
             </div>
             
-            <div className="p-8 text-center relative z-10">
-              <motion.div 
-                className="bg-gradient-to-r from-primary-600 to-accent-600 inline-flex items-center justify-center rounded-full p-3 mb-4"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <i className="ri-rocket-2-fill text-white text-2xl"></i>
-              </motion.div>
-              
-              <motion.h2 
-                className="text-2xl font-bold text-gray-900 mb-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-              >
-                Complete GTM AI Platform
-              </motion.h2>
-              
-              <motion.p 
-                className="text-gray-600 mb-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.4 }}
-              >
-                Transform your sales and marketing operations with our AI-powered suite
-              </motion.p>
-              
-              <motion.div 
-                className="w-full h-10 bg-gray-200 rounded-full relative overflow-hidden"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 1.6 }}
-              >
-                <motion.div 
-                  className="absolute inset-0 h-full bg-gradient-to-r from-primary-600 to-accent-600 flex items-center px-4"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "75%" }}
-                  transition={{ duration: 1.5, delay: 1.8, ease: "easeInOut" }}
-                >
-                  <span className="text-white text-sm font-medium">Automating your workflow...</span>
-                </motion.div>
-              </motion.div>
+            {/* Dashboard content frame */}
+            <div className="bg-gray-50 h-[320px] sm:h-[400px] md:h-[460px] flex items-center justify-center overflow-hidden">
+              <div className="w-full h-full p-4 flex flex-col">
+                <div className="bg-white w-full h-full rounded-lg shadow-sm p-5 flex flex-col">
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="flex flex-col">
+                      <h3 className="text-lg font-bold text-gray-900">AI Campaign Dashboard</h3>
+                      <p className="text-sm text-gray-500">Monitoring key metrics and performance</p>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <div className="h-8 w-8 rounded-full bg-electric-500 flex items-center justify-center">
+                        <span className="text-white font-medium text-sm">+</span>
+                      </div>
+                      <div className="h-8 w-20 bg-electric-100 rounded-md"></div>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-4 gap-4 mb-6">
+                    {[
+                      { label: 'Content Generated', value: '243', color: 'bg-electric-100' },
+                      { label: 'Leads Scored', value: '1,482', color: 'bg-purple-100' },
+                      { label: 'Email Opens', value: '68.2%', color: 'bg-neon-100' },
+                      { label: 'Buying Signals', value: '57', color: 'bg-gray-100' },
+                    ].map((metric, idx) => (
+                      <div key={idx} className={`${metric.color} rounded-lg p-3 flex flex-col justify-center`}>
+                        <p className="text-sm text-gray-600 mb-1">{metric.label}</p>
+                        <p className="text-xl font-bold text-gray-900">{metric.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="flex-grow bg-gray-50 rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-full h-32 flex items-end justify-around px-6">
+                        <div className="h-1/3 w-6 rounded-t-md bg-electric-300"></div>
+                        <div className="h-2/3 w-6 rounded-t-md bg-electric-400"></div>
+                        <div className="h-4/5 w-6 rounded-t-md bg-electric-500"></div>
+                        <div className="h-full w-6 rounded-t-md bg-electric-600"></div>
+                        <div className="h-3/4 w-6 rounded-t-md bg-electric-500"></div>
+                        <div className="h-1/2 w-6 rounded-t-md bg-electric-400"></div>
+                        <div className="h-2/5 w-6 rounded-t-md bg-electric-300"></div>
+                      </div>
+                      <div className="mt-4 text-gray-600 font-medium text-sm">Weekly Performance Trend</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>

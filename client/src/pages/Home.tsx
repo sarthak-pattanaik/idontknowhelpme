@@ -1,24 +1,40 @@
-import Hero from "@/components/home/Hero";
-import ProductSuite from "@/components/home/ProductSuite";
-import WorkflowSection from "@/components/home/WorkflowSection";
-import TestimonialsSection from "@/components/home/TestimonialsSection";
-import UseCaseSection from "@/components/home/UseCaseSection";
-import CTASection from "@/components/home/CTASection";
-import { useEffect } from "react";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import Hero from '@/components/home/Hero';
+import ProductSuite from '@/components/home/ProductSuite';
 
-const Home = () => {
-  useEffect(() => {
-    document.title = "idontknowhelpme | AI GTM Platform";
-  }, []);
-  
+// Import additional sections as they're built
+// import TestimonialsSection from '@/components/home/TestimonialsSection';
+// import WorkflowSection from '@/components/home/WorkflowSection';
+// import UseCaseSection from '@/components/home/UseCaseSection';
+// import CTASection from '@/components/home/CTASection';
+
+const Home: React.FC = () => {
   return (
     <>
+      <Helmet>
+        <title>idontknowhelpme | AI-powered GTM Suite</title>
+        <meta
+          name="description"
+          content="The modern AI toolkit to enhance your content creation, lead generation, outreach campaigns, and market signal analysis."
+        />
+        <meta property="og:title" content="idontknowhelpme | AI-powered GTM Suite" />
+        <meta
+          property="og:description"
+          content="The modern AI toolkit for GTM teams with AI content creation, lead scoring, outreach campaigns and market signals."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://idontknowhelpme.ai" />
+      </Helmet>
+
       <Hero />
       <ProductSuite />
-      <WorkflowSection />
-      <TestimonialsSection />
-      <UseCaseSection />
-      <CTASection />
+      
+      {/* Uncomment as these components are built */}
+      {/* <WorkflowSection /> */}
+      {/* <UseCaseSection /> */}
+      {/* <TestimonialsSection /> */}
+      {/* <CTASection /> */}
     </>
   );
 };
