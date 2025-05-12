@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import GradientText from "@/components/common/GradientText";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "@/components/common/Logo";
+import BrandLogo from "@/components/common/BrandLogo";
 import { X, Menu } from "lucide-react";
 
 const Header = () => {
@@ -65,7 +65,7 @@ const Header = () => {
             whileTap="tap"
             variants={buttonVariants}
           >
-            <Logo size="md" />
+            <BrandLogo size="md" />
           </motion.div>
 
           {/* Desktop Navigation */}

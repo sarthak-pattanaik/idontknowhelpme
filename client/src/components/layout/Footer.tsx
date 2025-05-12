@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import GradientText from "@/components/common/GradientText";
 import { motion } from "framer-motion";
+import BrandLogo from "@/components/common/BrandLogo";
 
 // SVG Background with abstract curves and waves
 const FooterBackground = () => (
@@ -51,14 +52,8 @@ const Footer = () => {
           viewport={{ once: true, margin: "-100px" }}
         >
           <motion.div className="md:col-span-2" variants={itemVariants}>
-            <div className="flex items-center mb-4">
-              <div className="h-8 w-8 relative mr-2 rounded-full bg-gradient-to-br from-primary-600 via-accent-500 to-secondary-600 flex items-center justify-center overflow-hidden">
-                <div className="absolute -left-2 -top-2 w-8 h-8 bg-white opacity-20 rounded-full"></div>
-                <span className="text-white font-bold text-lg">i</span>
-              </div>
-              <h3 className="text-xl font-bold">
-                <GradientText>dontknowhelpme</GradientText>
-              </h3>
+            <div className="mb-4">
+              <BrandLogo size="md" colorMode="dark" />
             </div>
             <p className="text-gray-400 mb-6">The modern toolkit for content, leads, outreach, and signals.</p>
             
