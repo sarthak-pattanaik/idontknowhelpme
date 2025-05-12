@@ -50,7 +50,7 @@ const ProductAccessPage: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Welcome, {user?.fullName || user?.email.split('@')[0]}!
+            Welcome, {user?.fullName || (user?.email ? user.email.split('@')[0] : 'User')}!
           </h1>
           <p className="text-xl text-gray-600">
             You're now logged into the idontknowhelpme platform.

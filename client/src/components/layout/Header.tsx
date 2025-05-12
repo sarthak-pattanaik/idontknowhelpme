@@ -3,6 +3,8 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
 import BrandLogo from '@/components/common/BrandLogo';
+import { useAuth } from '@/hooks/useAuth';
+import { LogOut, User } from 'lucide-react';
 
 type NavLink = {
   name: string;
@@ -11,8 +13,10 @@ type NavLink = {
 
 const Header: React.FC = () => {
   const [location] = useLocation();
+  const [, setLocation] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
   // Navigation links
   const navLinks: NavLink[] = [
@@ -81,12 +85,39 @@ const Header: React.FC = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button href="/login" variant="ghost" size="sm">
-              Log in
-            </Button>
-            <Button href="/signup" variant="primary" size="sm">
-              Sign up
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <Button 
+                  href="/product-access" 
+                  variant="ghost" 
+                  size="sm"
+                  icon={<User className="h-4 w-4" />}
+                >
+                  Dashboard
+                </Button>
+                <Button 
+                  onClick={() => {
+                    logout(undefined, {
+                      onSuccess: () => setLocation('/')
+                    });
+                  }} 
+                  variant="outline" 
+                  size="sm"
+                  icon={<LogOut className="h-4 w-4" />}
+                >
+                  Log out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button href="/login" variant="ghost" size="sm">
+                  Log in
+                </Button>
+                <Button href="/signup" variant="primary" size="sm">
+                  Sign up
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -135,12 +166,43 @@ const Header: React.FC = () => {
               ))}
               <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center justify-between">
-                  <Button href="/login" variant="ghost" fullWidth className="mr-2">
-                    Log in
-                  </Button>
-                  <Button href="/signup" variant="primary" fullWidth>
-                    Sign up
-                  </Button>
+                  {isAuthenticated ? (
+                    <>
+                      <Button 
+                        href="/product-access" 
+                        variant="ghost" 
+                        fullWidth 
+                        className="mr-2"
+                        icon={<User className="h-4 w-4" />}
+                      >
+                        Dashboard
+                      </Button>
+                      <Button 
+                        onClick={() => {
+                          logout(undefined, {
+                            onSuccess: () => {
+                              setIsMenuOpen(false);
+                              setLocation('/');
+                            }
+                          });
+                        }} 
+                        variant="outline" 
+                        fullWidth
+                        icon={<LogOut className="h-4 w-4" />}
+                      >
+                        Log out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button href="/login" variant="ghost" fullWidth className="mr-2">
+                        Log in
+                      </Button>
+                      <Button href="/signup" variant="primary" fullWidth>
+                        Sign up
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

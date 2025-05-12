@@ -42,7 +42,7 @@ const CompleteProfilePage: React.FC = () => {
   
   // Redirect if already verified
   useEffect(() => {
-    if (user?.verified) {
+    if (user && user.verified) {
       setLocation('/product-access');
     }
   }, [user, setLocation]);

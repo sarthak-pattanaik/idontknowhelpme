@@ -27,6 +27,10 @@ export interface CompleteProfileResponse {
   user: User;
 }
 
+export interface LogoutResponse {
+  message: string;
+}
+
 export function useAuth() {
   const queryClient = useQueryClient();
 
@@ -35,7 +39,7 @@ export function useAuth() {
     data: user,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<User | null>({
     queryKey: ['/api/auth/user'],
     retry: false,
   });
@@ -46,14 +50,13 @@ export function useAuth() {
     isPending: requestOtpLoading,
   } = useMutation({
     mutationFn: async (email: string) => {
-      const response = await apiRequest<RequestOtpResponse>('/api/auth/request-otp', {
+      return apiRequest<RequestOtpResponse>('/api/auth/request-otp', {
         method: 'POST',
         body: JSON.stringify({ email }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      return response;
     },
   });
 
@@ -63,14 +66,13 @@ export function useAuth() {
     isPending: verifyOtpLoading,
   } = useMutation({
     mutationFn: async (data: { email: string; otp: string }) => {
-      const response = await apiRequest<LoginResponse>('/api/auth/verify-otp', {
+      return apiRequest<LoginResponse>('/api/auth/verify-otp', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
@@ -83,14 +85,13 @@ export function useAuth() {
     isPending: completeProfileLoading,
   } = useMutation({
     mutationFn: async (data: { fullName: string; phoneNumber?: string }) => {
-      const response = await apiRequest<CompleteProfileResponse>('/api/auth/complete-profile', {
+      return apiRequest<CompleteProfileResponse>('/api/auth/complete-profile', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
@@ -103,10 +104,9 @@ export function useAuth() {
     isPending: logoutLoading,
   } = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest<{ message: string }>('/api/auth/logout', {
+      return apiRequest<LogoutResponse>('/api/auth/logout', {
         method: 'POST',
       });
-      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
