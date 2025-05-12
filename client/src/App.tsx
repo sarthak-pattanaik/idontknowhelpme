@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Layout from "@/components/layout/Layout";
+import ScrollToTop from "@/components/common/ScrollToTop";
 
 // Import main site pages
 import Home from "@/pages/Home";
@@ -128,6 +129,9 @@ const StandaloneRoutes = [
 function Router() {
   return (
     <>
+      {/* Component that scrolls to top on route changes */}
+      <ScrollToTop />
+      
       {/* Routes without layout (auth & standalone app pages) */}
       <Switch>
         {StandaloneRoutes.map(({ path, component }) => (
