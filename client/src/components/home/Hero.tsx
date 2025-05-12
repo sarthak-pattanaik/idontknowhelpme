@@ -107,6 +107,28 @@ const FloatingElements = () => {
 };
 
 const Hero = () => {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  };
+  
+  const buttonVariants = {
+    hover: { scale: 1.05, boxShadow: "0 10px 20px rgba(124, 58, 237, 0.15)" },
+    tap: { scale: 0.98 }
+  };
+
   return (
     <section className="relative py-16 sm:py-24 overflow-hidden min-h-[90vh] flex items-center">
       {/* Background elements */}
@@ -114,32 +136,58 @@ const Hero = () => {
       <BackgroundCurves />
       <FloatingElements />
       
+      {/* Decorative accent circles */}
+      <div className="absolute top-20 left-[5%] h-64 w-64 rounded-full bg-primary-600/5 blur-2xl"></div>
+      <div className="absolute bottom-20 right-[5%] h-96 w-96 rounded-full bg-accent-600/5 blur-3xl"></div>
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
+          <motion.div
+            className="inline-block mb-4 px-4 py-1 rounded-full bg-white/80 backdrop-blur-sm shadow-sm border border-primary-100"
+            variants={itemVariants}
+          >
+            <span className="text-primary-700 font-medium text-sm flex items-center">
+              <span className="inline-block w-2 h-2 rounded-full bg-primary-500 mr-2"></span>
+              New: Introducing idontknowhelpme 2.0 — Enhanced AI capabilities
+            </span>
+          </motion.div>
+          
           <motion.h1 
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 }
-            }}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.5, delay: 0.2 }}
+            variants={itemVariants}
           >
-            <span className="block mb-2">AI that builds your pipeline.</span>
+            <span className="block mb-2">AI that builds your <span className="relative">
+              pipeline
+              <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" preserveAspectRatio="none">
+                <motion.path 
+                  d="M3,9 C50,5 100,1 150,9 C200,12 250,9 297,6" 
+                  stroke="url(#text-underline)" 
+                  strokeWidth="3" 
+                  strokeLinecap="round" 
+                  fill="none"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1, delay: 1.2 }}
+                />
+                <defs>
+                  <linearGradient id="text-underline" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#7c3aed" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>.</span>
             <GradientText className="block relative">
               <motion.span
                 className="inline-block"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                variants={itemVariants}
               >
-                And momentum.
+                And drives your momentum.
               </motion.span>
               <motion.div 
                 className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-accent-500 opacity-60"
@@ -151,37 +199,48 @@ const Hero = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-xl sm:text-2xl text-gray-700 mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            className="text-xl sm:text-2xl text-gray-700 mb-6"
+            variants={itemVariants}
           >
-            The modern toolkit for content, leads, outreach, and signals.
+            The modern AI toolkit to enhance your content creation, lead generation, 
+            outreach campaigns, and market signal analysis.
           </motion.p>
           
           <motion.div 
+            className="flex flex-wrap justify-center gap-3 mb-10"
+            variants={itemVariants}
+          >
+            {["Advanced ML Models", "Time-Saving Automation", "Personalized Results", "Actionable Insights"].map((feature, index) => (
+              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                <svg className="w-4 h-4 mr-1 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </span>
+            ))}
+          </motion.div>
+          
+          <motion.div 
             className="flex flex-col sm:flex-row justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
+            variants={itemVariants}
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              whileHover="hover"
+              whileTap="tap"
+              variants={buttonVariants}
             >
               <Link 
                 href="#" 
                 className="bg-gradient-to-r from-primary-600 to-accent-600 text-white font-medium px-8 py-4 rounded-xl text-lg hover:shadow-lg transition-all duration-300 shadow-lg shadow-primary-500/20 border border-transparent hover:border-white/10 inline-block"
               >
-                Start Free
+                Start Free Trial
               </Link>
             </motion.div>
             
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              whileHover="hover"
+              whileTap="tap"
+              variants={buttonVariants}
             >
               <Link 
                 href="#products" 
