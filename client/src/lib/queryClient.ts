@@ -1,10 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
-
-// Detect if we're in static mode (no backend)
-const isStaticMode = window.location.hostname === 'localhost' && window.location.search.includes('static=true') || 
-                     import.meta.env.VITE_STATIC_MODE === 'true' ||
-                     process.env.NODE_ENV === 'production' && !window.location.hostname.includes('replit') || 
-                     (window as any).IS_STATIC_BUILD === true;
+import isStaticMode from './staticMode';
 
 // Mock data for static builds
 const mockResponses: Record<string, any> = {
@@ -38,7 +33,7 @@ export async function apiRequest<T>(
   options?: RequestInit
 ): Promise<T> {
   // Check if we're in static mode and return mock data if available
-  if (isStaticMode) {
+  if (isStaticMode()) {
     console.log(`[Static Mode] Using mock data for: ${url}`);
     const mockData = getMockResponse(url);
     if (mockData) {
@@ -100,7 +95,7 @@ export const getQueryFn: <T>(options: {
     const url = queryKey[0] as string;
     
     // Check if we're in static mode and return mock data if available
-    if (isStaticMode) {
+    if (isStaticMode()) {
       console.log(`[Static Mode][Query] Using mock data for: ${url}`);
       const mockData = getMockResponse(url);
       if (mockData) {

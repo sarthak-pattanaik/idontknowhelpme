@@ -1,11 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-
-// Detect if we're in static mode (no backend)
-const isStaticMode = window.location.hostname === 'localhost' && window.location.search.includes('static=true') || 
-                     import.meta.env.VITE_STATIC_MODE === 'true' ||
-                     process.env.NODE_ENV === 'production' && !window.location.hostname.includes('replit') || 
-                     (window as any).IS_STATIC_BUILD === true;
+import isStaticMode from '@/lib/staticMode';
 
 // Type definitions
 export interface User {
@@ -63,7 +58,7 @@ export function useAuth() {
     isPending: requestOtpLoading,
   } = useMutation({
     mutationFn: async (email: string) => {
-      if (isStaticMode) {
+      if (isStaticMode()) {
         console.log('[Static Mode] Simulating OTP request for:', email);
         // Simulate API response in static mode
         return {
@@ -89,7 +84,7 @@ export function useAuth() {
     isPending: verifyOtpLoading,
   } = useMutation({
     mutationFn: async (data: { email: string; otp: string }) => {
-      if (isStaticMode) {
+      if (isStaticMode()) {
         console.log('[Static Mode] Simulating OTP verification for:', data.email);
         // In static mode, accept any OTP input with our test OTP
         if (data.otp === '123456' || process.env.NODE_ENV === 'development') {
@@ -141,7 +136,7 @@ export function useAuth() {
     isPending: completeProfileLoading,
   } = useMutation({
     mutationFn: async (data: { fullName: string; phoneNumber?: string }) => {
-      if (isStaticMode) {
+      if (isStaticMode()) {
         console.log('[Static Mode] Simulating profile completion:', data);
         // Simulate successful profile update
         return {
