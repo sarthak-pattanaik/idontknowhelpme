@@ -40,8 +40,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8 relative">
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white pt-16 pb-8 relative overflow-hidden">
       <FooterBackground />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-primary-500 opacity-10 blur-3xl"></div>
+      <div className="absolute bottom-10 left-10 w-60 h-60 rounded-full bg-accent-500 opacity-10 blur-3xl"></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
@@ -55,18 +59,18 @@ const Footer = () => {
             <div className="mb-4">
               <BrandLogo size="md" colorMode="dark" />
             </div>
-            <p className="text-gray-400 mb-6">The modern toolkit for content, leads, outreach, and signals.</p>
+            <p className="text-gray-300 mb-6">The modern toolkit for content, leads, outreach, and signals.</p>
             
             <div className="mb-6">
-              <div className="inline-block bg-gray-800 rounded-md p-2">
-                <p className="text-gray-300 text-sm mb-2">Join our newsletter</p>
+              <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-4 shadow-lg border border-gray-700">
+                <p className="text-gray-200 text-sm mb-3 font-medium">Join our newsletter</p>
                 <div className="flex">
                   <input 
                     type="email" 
                     placeholder="Enter your email" 
-                    className="bg-gray-700 text-white px-3 py-2 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary-500 text-sm flex-grow"
+                    className="bg-gray-700 text-white px-3 py-2 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary-400 text-sm flex-grow"
                   />
-                  <button className="bg-primary-600 hover:bg-primary-700 text-white px-3 py-2 rounded-r-md text-sm transition-colors">
+                  <button className="bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white px-4 py-2 rounded-r-md text-sm transition-colors font-medium">
                     Subscribe
                   </button>
                 </div>
@@ -75,16 +79,16 @@ const Footer = () => {
             
             <div className="flex space-x-4">
               {[
-                { icon: "ri-twitter-x-line", color: "hover:text-blue-400" },
-                { icon: "ri-linkedin-box-line", color: "hover:text-blue-500" },
-                { icon: "ri-facebook-box-line", color: "hover:text-blue-600" },
-                { icon: "ri-instagram-line", color: "hover:text-pink-500" }
+                { icon: "ri-twitter-x-line", gradient: "from-blue-400 to-blue-600" },
+                { icon: "ri-linkedin-box-line", gradient: "from-blue-500 to-blue-700" },
+                { icon: "ri-facebook-box-line", gradient: "from-blue-600 to-blue-800" },
+                { icon: "ri-instagram-line", gradient: "from-pink-500 to-purple-600" }
               ].map((social, index) => (
                 <motion.a 
                   key={index}
                   href="#" 
-                  className={`flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 text-gray-400 ${social.color} transition-all hover:scale-110`}
-                  whileHover={{ y: -3 }}
+                  className={`flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 text-white transition-all hover:bg-gradient-to-r ${social.gradient}`}
+                  whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <i className={`${social.icon} text-xl`}></i>
@@ -96,6 +100,7 @@ const Footer = () => {
           {[
             {
               title: "Products",
+              color: "primary",
               links: [
                 { label: "Homemaker", href: "/product/homemaker" },
                 { label: "Intelligence", href: "/product/intelligence" },
@@ -105,6 +110,7 @@ const Footer = () => {
             },
             {
               title: "Company",
+              color: "secondary",
               links: [
                 { label: "About", href: "/about" },
                 { label: "Blog", href: "/blog" },
@@ -114,6 +120,7 @@ const Footer = () => {
             },
             {
               title: "Resources",
+              color: "accent",
               links: [
                 { label: "Documentation", href: "#" },
                 { label: "Help Center", href: "#" },
@@ -123,15 +130,28 @@ const Footer = () => {
             }
           ].map((section, sectionIndex) => (
             <motion.div key={sectionIndex} variants={itemVariants}>
-              <h4 className="font-medium text-lg mb-4 pb-2 border-b border-gray-800">{section.title}</h4>
+              <h4 className={`font-semibold text-lg mb-4 pb-2 border-b border-gray-800 ${
+                section.color === 'primary' ? 'text-primary-400' : 
+                section.color === 'secondary' ? 'text-secondary-400' : 
+                'text-accent-400'
+              }`}>
+                {section.title}
+              </h4>
               <ul className="space-y-3">
                 {section.links.map((link, linkIndex) => (
-                  <motion.li key={linkIndex} whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 300 }}>
+                  <motion.li key={linkIndex} 
+                    whileHover={{ x: 5 }} 
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     <Link 
                       href={link.href} 
-                      className="text-gray-400 hover:text-white transition flex items-center"
+                      className="text-gray-300 hover:text-white transition flex items-center group"
                     >
-                      <span className="mr-2 text-xs text-primary-500">●</span>
+                      <span className={`mr-2 w-1.5 h-1.5 rounded-full ${
+                        section.color === 'primary' ? 'bg-primary-500' : 
+                        section.color === 'secondary' ? 'bg-secondary-500' : 
+                        'bg-accent-500'
+                      } group-hover:w-2 group-hover:h-2 transition-all duration-300`}></span>
                       {link.label}
                     </Link>
                   </motion.li>
