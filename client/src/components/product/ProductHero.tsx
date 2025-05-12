@@ -81,9 +81,9 @@ const ProductHero: React.FC<ProductHeroProps> = ({
               <Button 
                 variant={color === 'electric' ? 'primary' : color === 'purple' ? 'secondary' : color === 'neon' ? 'accent' : 'primary'} 
                 size="lg"
-                href="/contact"
+                href="/signup"
               >
-                Contact Sales
+                Sign Up
               </Button>
               <Button 
                 variant="outline" 

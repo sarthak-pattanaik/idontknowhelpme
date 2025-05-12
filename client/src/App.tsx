@@ -21,6 +21,9 @@ import NotFound from "@/pages/not-found";
 
 // Import product app pages
 import HomemakerApp from "@/pages/HomemakerApp";
+import IntelligenceApp from "@/pages/IntelligenceApp";
+import SnipperApp from "@/pages/SnipperApp";
+import SignalsApp from "@/pages/SignalsApp";
 
 // Import auth pages
 import LoginPage from "@/pages/login";
@@ -79,6 +82,45 @@ const StandaloneRoutes = [
         return null;
       }
       return <HomemakerApp />;
+    } 
+  },
+  { 
+    path: "/app/intelligence", 
+    component: () => {
+      // Check if user is authenticated
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        // Redirect to signup if not authenticated
+        window.location.href = '/signup';
+        return null;
+      }
+      return <IntelligenceApp />;
+    } 
+  },
+  { 
+    path: "/app/snipper", 
+    component: () => {
+      // Check if user is authenticated
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        // Redirect to signup if not authenticated
+        window.location.href = '/signup';
+        return null;
+      }
+      return <SnipperApp />;
+    } 
+  },
+  { 
+    path: "/app/signals", 
+    component: () => {
+      // Check if user is authenticated
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        // Redirect to signup if not authenticated
+        window.location.href = '/signup';
+        return null;
+      }
+      return <SignalsApp />;
     } 
   },
 ];
