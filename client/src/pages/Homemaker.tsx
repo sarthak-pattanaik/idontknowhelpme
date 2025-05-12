@@ -352,7 +352,51 @@ const HomemakerFiles: React.FC = () => (
 );
 
 const HomemakerApp: React.FC = () => {
-  return <HomemakerCalendar />;
+  return (
+    <HomemakerLayout 
+      activeItem="Home"
+      title="Dashboard"
+      description="Homemaker dashboard and overview"
+    >
+      <div className="p-6">
+        <h2 className="text-2xl font-bold mb-4">Welcome to Homemaker</h2>
+        <p className="text-gray-600">This is your content creation command center.</p>
+        
+        {/* Dashboard content will go here */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="font-semibold text-lg mb-2">Content Overview</h3>
+            <p className="text-gray-500 mb-4">You have 12 scheduled posts this week</p>
+            <div className="h-40 bg-gray-50 rounded flex items-center justify-center">
+              Content chart placeholder
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="font-semibold text-lg mb-2">Recent Activity</h3>
+            <ul className="space-y-3">
+              <li className="text-sm text-gray-600">New template created: "Product Launch"</li>
+              <li className="text-sm text-gray-600">4 posts scheduled for next week</li>
+              <li className="text-sm text-gray-600">Brand voice updated</li>
+            </ul>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="font-semibold text-lg mb-2">Quick Actions</h3>
+            <div className="space-y-2">
+              <button className="w-full text-left px-3 py-2 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100">
+                Create new content
+              </button>
+              <button className="w-full text-left px-3 py-2 bg-purple-50 text-purple-600 rounded-md hover:bg-purple-100">
+                Generate with AI
+              </button>
+              <button className="w-full text-left px-3 py-2 bg-green-50 text-green-600 rounded-md hover:bg-green-100">
+                View analytics
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </HomemakerLayout>
+  );
 };
 
 export default HomemakerApp;

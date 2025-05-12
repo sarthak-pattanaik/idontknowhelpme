@@ -53,7 +53,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ post, onEdit, onDelete }) => 
       case 'facebook':
         return <Facebook {...iconProps} />;
       case 'tiktok':
-        return <VideoCamera {...iconProps} />;
+        return <Video {...iconProps} />;
       case 'email':
         return <Mail {...iconProps} />;
       default:
