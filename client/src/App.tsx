@@ -20,7 +20,7 @@ import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
 
 // Import product app pages
-import Homemaker from "@/pages/Homemaker";
+import HomemakerApp from "@/pages/HomemakerApp";
 
 // Import auth pages
 import LoginPage from "@/pages/login";
@@ -52,8 +52,9 @@ const StandaloneRoutes = [
   { path: "/complete-profile", component: CompleteProfilePage },
   { path: "/product-access", component: ProductAccessPage },
   
-  // Product app routes
-  { path: "/app/homemaker", component: Homemaker },
+  // Product app routes - includes child routes
+  { path: "/app/homemaker", component: HomemakerApp },
+  { path: "/app/homemaker/:subpage", component: HomemakerApp },
 ];
 
 function Router() {
