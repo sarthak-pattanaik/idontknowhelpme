@@ -19,9 +19,14 @@ NODE_ENV=production npm run build
 # Create output directory if it doesn't exist
 mkdir -p dist
 
+# Move files from dist/public to dist
+echo "Organizing static files..."
+cp -r dist/public/* dist/
+rm -rf dist/public
+
 # Copy static assets
 echo "Copying static assets..."
-cp -r public/* dist/
+cp public/* dist/
 cp generated-icon.png dist/
 
 # Create necessary static files
