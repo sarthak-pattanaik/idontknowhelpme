@@ -5,8 +5,10 @@ echo "🚀 Starting static build process..."
 # Create dist directory if it doesn't exist
 mkdir -p dist/static
 
-# Build the client
-echo "📦 Building client application..."
+# Build the client with static environment
+echo "📦 Building client application in static mode..."
+echo "Using .env.static configuration for static mode"
+cp .env.static .env.production.local
 npm run build
 
 # Check if build succeeded

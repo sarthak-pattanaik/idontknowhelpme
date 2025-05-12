@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
-// Detect if we're in static mode (no backend)
-const isStaticMode = window.location.hostname === 'localhost' && window.location.search.includes('static=true') || 
-                     process.env.NODE_ENV === 'production' && !window.location.hostname.includes('replit') || 
-                     (window as any).IS_STATIC_BUILD === true;
+import React, { useState } from 'react';
+import isStaticMode from '@/lib/staticMode';
 
 const StaticModeIndicator: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
   
   // Only show the indicator in static mode
-  if (!isStaticMode) {
+  if (!isStaticMode()) {
     return null;
   }
   

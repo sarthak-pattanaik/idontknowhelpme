@@ -3,7 +3,9 @@ import { apiRequest } from '@/lib/queryClient';
 
 // Detect if we're in static mode (no backend)
 const isStaticMode = window.location.hostname === 'localhost' && window.location.search.includes('static=true') || 
-                     process.env.NODE_ENV === 'production' && !window.location.hostname.includes('replit');
+                     import.meta.env.VITE_STATIC_MODE === 'true' ||
+                     process.env.NODE_ENV === 'production' && !window.location.hostname.includes('replit') || 
+                     (window as any).IS_STATIC_BUILD === true;
 
 // Type definitions
 export interface User {
