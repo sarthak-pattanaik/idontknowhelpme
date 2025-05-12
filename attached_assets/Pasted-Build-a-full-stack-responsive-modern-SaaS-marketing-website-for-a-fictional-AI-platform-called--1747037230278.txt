@@ -1,0 +1,112 @@
+Build a full-stack, responsive, modern SaaS marketing website for a fictional AI platform called **"idontknowhelpme"**.
+
+🛠 Tech Stack:
+- Frontend: **Next.js** with **Tailwind CSS**
+- Backend: None required (static site only)
+- Assets: Use **flat icons only**, no stock images or illustrations
+- Design style: Bright, clean, bold SaaS aesthetic with vibrant gradients and smooth interactions
+
+---
+
+🎯 Business Purpose:
+idontknowhelpme is an all-in-one GTM AI platform for high-velocity sales and marketing teams. It includes 4 distinct AI products:
+
+---
+
+### 🧩 Product Suite & Naming:
+
+1. **Homemaker** (Content AI)  
+   → *Create high-quality content instantly for blogs, landing pages, social media, and more.*
+
+2. **Intelligence** (Lead Scoring & Enrichment)  
+   → *Turn raw data into enriched, ranked, and qualified leads.*
+
+3. **Snipper** (Outreach Automation)  
+   → *Autogenerate cold emails, follow-up sequences, and phone scripts with AI.*
+
+4. **Signals** (Buyer Intent Engine)  
+   → *Real-time activity tracking from LinkedIn, email opens, and site visits – surfaced directly in your inbox or CRM.*
+
+---
+
+### 🧱 Page Structure:
+
+#### 1. `/` – Homepage
+- Hero: “AI that builds your pipeline. And momentum.”
+  - Subhead: “The modern toolkit for content, leads, outreach, and signals.”
+  - CTA: [Start Free] [Explore Platform]
+- Product overview: Cards for Homemaker, Intelligence, Snipper, and Signals
+- Workflow visual: Create → Qualify → Automate → Monitor
+- Testimonials
+- Use case callouts: Founders, Growth Teams, SDRs
+- Sticky CTA footer bar
+
+#### 2. `/product` – Platform Overview
+- Overview of the 4-product suite with jump links
+- Diagram of the sales/marketing funnel each product serves
+- Competitive comparison (vs. Jasper, Apollo, Clay)
+- CTA for each product
+
+#### 3. `/product/homemaker` – Content Generation
+- Use cases: Blogs, Ads, LinkedIn, Product Pages
+- Demo block: Input → AI Output
+- Features: Speed, Accuracy, Tone Customization
+- CTA: [Generate Content Now]
+
+#### 4. `/product/intelligence` – Lead Enrichment + Scoring
+- Upload CSV demo block
+- Features: Data Enrichment, ICP Match Scoring, CRM Export
+- CTA: [Try Lead Scoring]
+
+#### 5. `/product/snipper` – SDR Outreach Automation
+- Input-based personalization form (Name, Company, Pain Point)
+- Email & Call Script Output sections
+- CTA: [Start Automating Outreach]
+
+#### 6. `/product/signals` – Intent Signal Detection
+- Overlay-style UI demo (mocked)
+- Use cases: Email alerts, CRM overlays, LinkedIn plugin
+- CTA: [Request Early Access]
+
+#### 7. `/pricing`
+- 3 Plans: Free, Pro, Scale
+- Monthly/Annual toggle
+- Feature comparison grid
+- FAQ
+
+#### 8. `/blog`
+- SEO-focused blog grid
+- `/blog/[slug]` for single articles
+
+#### 9. `/about`
+- Founding story, team, mission
+- Optional: Careers
+
+---
+
+### 🎨 Design Guidelines:
+- Use Tailwind CSS with no external UI kits
+- Bright, bold CTAs and rounded card elements
+- Animations: smooth scroll fade-ins, form interactions
+- Mobile-first layout
+
+---
+
+### 📁 File Structure:
+- `/pages/index.js` — Homepage  
+- `/pages/product/index.js` — Overview page  
+- `/pages/product/homemaker.js`  
+- `/pages/product/intelligence.js`  
+- `/pages/product/snipper.js`  
+- `/pages/product/signals.js`  
+- `/pages/pricing.js`  
+- `/pages/blog/index.js`  
+- `/pages/blog/[slug].js`  
+- `/pages/about.js`  
+
+Reusable components in `/components/` for Header, Footer, ProductCards, Testimonials, and CTA blocks.
+
+---
+
+This site should be **fully structured and launch-ready** on Replit or Vercel, with real-time navigation and modern SaaS styling. Please create modular code that allows me to expand features later.
+
