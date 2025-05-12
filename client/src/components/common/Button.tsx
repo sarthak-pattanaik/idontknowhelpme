@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 // Define the types for the button props
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
@@ -55,10 +56,7 @@ const Button: React.FC<ButtonProps> = ({
   const disabledStyle = disabled ? 'opacity-50 cursor-not-allowed' : '';
   
   // Define full width style
-  const widthStyle = fullWidth ? 'w-full flex justify-center' : 'inline-flex';
-
-  // Combine all styles
-  const buttonStyle = `${variantStyles[variant]} ${sizeStyles[size]} ${disabledStyle} ${widthStyle} items-center justify-center gap-2 font-medium transition-all ${className}`;
+  const widthStyle = fullWidth ? 'w-full' : 'inline-block';
 
   // Animation variants
   const buttonVariants = {
@@ -71,6 +69,19 @@ const Button: React.FC<ButtonProps> = ({
     disabled: { opacity: 0.7 }
   };
 
+  // Content for the button
+  const content = (
+    <>
+      {iconPosition === 'left' && icon && (
+        <span className="mr-2 inline-flex">{icon}</span>
+      )}
+      <span>{children}</span>
+      {iconPosition === 'right' && icon && (
+        <span className="ml-2 inline-flex">{icon}</span>
+      )}
+    </>
+  );
+
   // Render the button inside a Link if href is provided, otherwise render as a button
   if (href) {
     return (
@@ -80,12 +91,19 @@ const Button: React.FC<ButtonProps> = ({
         whileHover={disabled ? "disabled" : "hover"}
         whileTap={disabled ? "disabled" : "tap"}
         variants={buttonVariants}
-        className="inline-block"
+        className={widthStyle}
       >
-        <Link href={disabled ? '#' : href} className={buttonStyle}>
-          {iconPosition === 'left' && icon && <span>{icon}</span>}
-          {children}
-          {iconPosition === 'right' && icon && <span>{icon}</span>}
+        <Link 
+          href={disabled ? '#' : href} 
+          className={cn(
+            variantStyles[variant],
+            sizeStyles[size],
+            disabledStyle,
+            "flex items-center justify-center",
+            className
+          )}
+        >
+          {content}
         </Link>
       </motion.div>
     );
@@ -101,11 +119,16 @@ const Button: React.FC<ButtonProps> = ({
       whileHover={disabled ? "disabled" : "hover"}
       whileTap={disabled ? "disabled" : "tap"}
       variants={buttonVariants}
-      className={buttonStyle}
+      className={cn(
+        variantStyles[variant],
+        sizeStyles[size],
+        disabledStyle,
+        "flex items-center justify-center",
+        fullWidth && "w-full",
+        className
+      )}
     >
-      {iconPosition === 'left' && icon && <span>{icon}</span>}
-      {children}
-      {iconPosition === 'right' && icon && <span>{icon}</span>}
+      {content}
     </motion.button>
   );
 };

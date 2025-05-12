@@ -115,14 +115,23 @@ const Hero = () => {
       opacity: 1,
       transition: {
         delayChildren: 0.3,
-        staggerChildren: 0.2
+        staggerChildren: 0.2,
+        duration: 0.5,
+        ease: "easeInOut"
       }
     }
   };
   
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
   };
   
   const buttonVariants = {
@@ -221,47 +230,30 @@ const Hero = () => {
             ))}
           </motion.div>
           
-          <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4 mt-6"
-            variants={itemVariants}
-          >
-            <motion.div
-              whileHover="hover"
-              whileTap="tap"
-              variants={buttonVariants}
-              className="z-10"
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <Button 
+              href="/pricing" 
+              size="xl" 
+              variant="primary"
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              }
+              fullWidth
             >
-              <Button 
-                href="/pricing" 
-                size="xl" 
-                variant="primary"
-                icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                }
-                fullWidth
-              >
-                Start Free Trial
-              </Button>
-            </motion.div>
+              Start Free Trial
+            </Button>
             
-            <motion.div
-              whileHover="hover"
-              whileTap="tap"
-              variants={buttonVariants}
-              className="z-10"
+            <Button 
+              href="#products" 
+              size="xl" 
+              variant="secondary"
+              fullWidth
             >
-              <Button 
-                href="#products" 
-                size="xl" 
-                variant="secondary"
-                fullWidth
-              >
-                Explore Platform
-              </Button>
-            </motion.div>
-          </motion.div>
+              Explore Platform
+            </Button>
+          </div>
         </motion.div>
 
         <motion.div 
