@@ -4,10 +4,27 @@ import { motion } from "framer-motion";
 
 // Background abstract curves SVG component
 const BackgroundCurves = () => (
-  <div className="absolute inset-0 overflow-hidden">
-    <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.07 }}>
-      <path d="M-301.5 475.5C-73.5 315.5 301.5 543.5 579 317.5C856.5 91.5 1138 -111 1323 86.9999C1508 285 1720 698.5 1437 789C1154 879.5 1220.5 552 1027 650.5C833.5 749 481 836.5 247 650.5C13 464.5 -69.5 858 -301.5 475.5Z" fill="url(#paint0_linear)" />
-      <path d="M1740.5 624.5C1512.5 784.5 1137.5 556.5 860 782.5C582.5 1008.5 301 1211 116 1013C-69 815 -281 401.5 2 311C285 220.5 218.5 548 412 449.5C605.5 351 958 263.5 1192 449.5C1426 635.5 1508.5 242 1740.5 624.5Z" fill="url(#paint1_linear)" />
+  <motion.div 
+    className="absolute inset-0 overflow-hidden"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 0.07 }}
+    transition={{ duration: 1.5 }}
+  >
+    <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <motion.path 
+        d="M-301.5 475.5C-73.5 315.5 301.5 543.5 579 317.5C856.5 91.5 1138 -111 1323 86.9999C1508 285 1720 698.5 1437 789C1154 879.5 1220.5 552 1027 650.5C833.5 749 481 836.5 247 650.5C13 464.5 -69.5 858 -301.5 475.5Z" 
+        fill="url(#paint0_linear)"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 2, ease: "easeInOut" }}
+      />
+      <motion.path 
+        d="M1740.5 624.5C1512.5 784.5 1137.5 556.5 860 782.5C582.5 1008.5 301 1211 116 1013C-69 815 -281 401.5 2 311C285 220.5 218.5 548 412 449.5C605.5 351 958 263.5 1192 449.5C1426 635.5 1508.5 242 1740.5 624.5Z" 
+        fill="url(#paint1_linear)"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+      />
       <defs>
         <linearGradient id="paint0_linear" x1="0" y1="0" x2="1440" y2="900" gradientUnits="userSpaceOnUse">
           <stop stopColor="#6366F1" />
@@ -19,29 +36,75 @@ const BackgroundCurves = () => (
         </linearGradient>
       </defs>
     </svg>
-  </div>
+  </motion.div>
 );
 
 // Floating elements for visual interest
-const FloatingElements = () => (
-  <>
-    <motion.div 
-      className="absolute top-20 right-[10%] h-12 w-12 rounded-full bg-primary-100 opacity-60"
-      animate={{ y: [0, -15, 0], scale: [1, 1.05, 1] }}
-      transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-    />
-    <motion.div 
-      className="absolute bottom-40 left-[5%] h-20 w-20 rounded-full bg-accent-100 opacity-60"
-      animate={{ y: [0, 20, 0], scale: [1, 1.08, 1] }}
-      transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1 }}
-    />
-    <motion.div 
-      className="absolute top-1/2 right-[15%] h-16 w-16 rounded-full bg-secondary-100 opacity-50"
-      animate={{ y: [0, -25, 0], scale: [1, 1.1, 1] }}
-      transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 2 }}
-    />
-  </>
-);
+const FloatingElements = () => {
+  const floatingVariants = {
+    animate1: {
+      y: [0, -15, 0],
+      scale: [1, 1.05, 1],
+      transition: {
+        repeat: Infinity,
+        duration: 5,
+        ease: "easeInOut"
+      }
+    },
+    animate2: {
+      y: [0, 20, 0],
+      scale: [1, 1.08, 1],
+      transition: {
+        repeat: Infinity,
+        duration: 7,
+        ease: "easeInOut",
+        delay: 1
+      }
+    },
+    animate3: {
+      y: [0, -25, 0],
+      scale: [1, 1.1, 1],
+      transition: {
+        repeat: Infinity,
+        duration: 6,
+        ease: "easeInOut",
+        delay: 2
+      }
+    }
+  };
+
+  return (
+    <>
+      <motion.div 
+        className="absolute top-20 right-[10%] h-12 w-12 rounded-full bg-primary-100 opacity-60"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 0.6, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        variants={floatingVariants}
+        whileInView="animate1"
+        viewport={{ once: false }}
+      />
+      <motion.div 
+        className="absolute bottom-40 left-[5%] h-20 w-20 rounded-full bg-accent-100 opacity-60"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 0.6, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        variants={floatingVariants}
+        whileInView="animate2"
+        viewport={{ once: false }}
+      />
+      <motion.div 
+        className="absolute top-1/2 right-[15%] h-16 w-16 rounded-full bg-secondary-100 opacity-50"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 0.5, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        variants={floatingVariants}
+        whileInView="animate3"
+        viewport={{ once: false }}
+      />
+    </>
+  );
+};
 
 const Hero = () => {
   return (
