@@ -14,31 +14,31 @@ const HomemakerProduct: React.FC = () => {
     {
       id: 'seo-pages',
       title: 'Auto-generate SEO-rich landing pages',
-      description: 'Create high-converting landing pages with built-in search optimization to attract more organic traffic and improve conversions.',
+      description: 'Drive 3.7x more organic traffic with automatically generated landing pages that rank for your target keywords and convert 42% better than manually written content.',
       icon: <FileText className="w-6 h-6" />,
     },
     {
       id: 'brand-tone',
       title: 'Maintain brand tone across campaigns',
-      description: 'Ensure consistent brand voice and messaging across all marketing channels and content types with intelligent tone preservation.',
+      description: 'Achieve 98% brand consistency across all channels while scaling content 10x. Our AI learns your unique voice patterns and applies them to every piece of content automatically.',
       icon: <Edit className="w-6 h-6" />,
     },
     {
       id: 'multi-format',
       title: 'Support for multi-format outputs',
-      description: 'Generate content optimized for blogs, social media, ads, email, and more—all from a single brief or input.',
+      description: 'Cut your content production time by 75% by turning one input into perfectly formatted content for 14+ platforms and channels, each optimized for maximum engagement.',
       icon: <Layers className="w-6 h-6" />,
     },
     {
       id: 'collab-editing',
       title: 'Collaborative editing support for teams',
-      description: 'Enable multiple team members to work together seamlessly on content with real-time collaboration tools and approval workflows.',
+      description: 'Reduce feedback cycles by 83% and eliminate bottlenecks with real-time collaboration that shows exactly who changed what, when, and why — keeping everyone in sync.',
       icon: <Lightbulb className="w-6 h-6" />,
     },
     {
       id: 'version-control',
       title: 'Audit trail & version control',
-      description: 'Track all changes with a comprehensive version history and audit trail to ensure compliance and quality control.',
+      description: 'Eliminate compliance risks with complete audit trails that reduce legal review time by 62% and provide instant accountability for regulated industries.',
       icon: <GitBranch className="w-6 h-6" />,
     },
     {
@@ -90,26 +90,26 @@ const HomemakerProduct: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Homemaker | AI-Powered Content Generation | idontknowhelpme</title>
+        <title>Homemaker | Publish 5X Faster with AI Content | idkhelpme</title>
         <meta
           name="description"
-          content="Create high-quality, on-brand content at scale with Homemaker, the AI-powered content generation platform for marketing teams."
+          content="Boost organic traffic by 137% with AI-generated content that stays on-brand. Publish 5x faster across all channels while maintaining your unique voice."
         />
       </Helmet>
 
       {/* Hero Section */}
       <ProductHero
         title="Homemaker"
-        subtitle="AI-POWERED CONTENT GENERATION"
-        description="Create high-quality, on-brand content at scale for websites, blogs, and marketing materials—10x faster than manual methods."
+        subtitle="REVENUE-DRIVING CONTENT PLATFORM"
+        description="Publish 5x faster with AI-written content that adapts to your tone and brand across every channel — while boosting organic traffic by 137%."
         color="electric"
         icon={<Lightbulb className="w-40 h-40" />}
       />
 
       {/* Feature Section */}
       <FeatureSection
-        title="AI content that works as hard as you do"
-        description="Generate comprehensive, search-optimized content with a few clicks, while maintaining your brand voice and quality standards."
+        title="Reduce content creation costs by 63% while boosting results"
+        description="Our intelligent automation analyzes top-performing content in your industry and creates high-converting variations that outrank competitors on every platform."
         features={features}
         color="electric"
       />
