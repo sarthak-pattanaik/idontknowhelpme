@@ -66,8 +66,8 @@ const SnipperProduct: React.FC = () => {
     {
       id: 'meetings-booked',
       value: '58%',
-      label: 'More meetings booked',
-      description: 'Increase in qualified meetings set by sales teams',
+      label: 'Pipeline acceleration',
+      description: 'Average reduction in time from first touch to qualified meeting',
     },
   ];
 
@@ -123,20 +123,20 @@ const SnipperProduct: React.FC = () => {
 
       {/* Trust Section */}
       <TrustSection
-        title="Trusted by sales development teams worldwide"
-        subtitle="From startups to enterprise companies, sales teams rely on Snipper to drive engagement and book more meetings"
+        title="6,450+ Top SDR Teams Choose Snipper"
+        subtitle="Companies using our AI outreach platform average 68% faster response times and 3.8x higher conversion to meetings"
         useCaseGroups={useCaseGroups}
         color="neon"
       />
 
       {/* Global CTA */}
       <GlobalCTA
-        title="Ready to revolutionize your outreach?"
-        description="Join hundreds of sales teams using Snipper to personalize their communications and increase response rates."
-        primaryButtonText="Contact Sales"
-        primaryButtonLink="/contact"
-        secondaryButtonText="Explore Platform"
-        secondaryButtonLink="/platform"
+        title="Want to book 3.8x more meetings from the same effort?"
+        description="Our 14-day free trial includes 500 AI-generated messages. No credit card required - see results first."
+        primaryButtonText="Start Free Trial"
+        primaryButtonLink="/signup"
+        secondaryButtonText="Watch 3-Minute Demo"
+        secondaryButtonLink="/demo"
         color="neon"
       />
     </>

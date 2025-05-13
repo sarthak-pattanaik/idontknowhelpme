@@ -54,20 +54,20 @@ const SignalsProduct: React.FC = () => {
     {
       id: 'opportunity-prediction',
       value: '93%',
-      label: 'Opportunity prediction accuracy',
-      description: 'Success rate in identifying prospects ready to buy',
+      label: 'Buying intent detection',
+      description: 'Proven accuracy rate identifying active prospects before competitors',
     },
     {
       id: 'deal-cycle',
       value: '37%',
-      label: 'Shorter sales cycles',
-      description: 'Average reduction in days from first touch to close',
+      label: 'Accelerated revenue cycle',
+      description: 'Average reduction in days from opportunity to closed-won',
     },
     {
       id: 'win-rate',
       value: '2.4x',
-      label: 'Higher win rates',
-      description: 'Increase in deal win rates when engaging signal-active leads',
+      label: 'Deal conversion impact',
+      description: 'Average improvement in win rates by targeting intent-active accounts',
     },
   ];
 
@@ -123,8 +123,8 @@ const SignalsProduct: React.FC = () => {
 
       {/* Trust Section */}
       <TrustSection
-        title="Trusted by revenue teams worldwide"
-        subtitle="From growing startups to enterprise organizations, teams rely on Signals to identify hot prospects"
+        title="4,800+ Revenue Teams Depend on Signals for Pipeline Growth"
+        subtitle="Companies using our buyer intent platform report finding 2.7x more active buying opportunities and 37% faster deal cycles"
         useCaseGroups={useCaseGroups}
         color="gray"
       />
