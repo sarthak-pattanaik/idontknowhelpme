@@ -8,7 +8,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'homemaker',
       title: 'Homemaker',
-      description: 'Generate high-converting content at scale that outperforms competitors and drives traffic.',
+      description: 'Publish 5x faster with AI-written content that adapts to your tone and brand — across every touchpoint.',
       features: ['Custom content briefs', 'SEO optimization', 'Brand voice adaptation', 'Multi-format output'],
       color: 'electric' as const,
       icon: <Lightbulb className="w-6 h-6" />,
@@ -18,7 +18,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'intelligence',
       title: 'Intelligence',
-      description: 'Identify your highest-value prospects instantly with AI that predicts buying intent with uncanny accuracy.',
+      description: 'Prioritize the 3% of leads that actually close. Our AI models enrich and score every inbound instantly — so your reps stop wasting time.',
       features: ['Predictive lead scoring', 'Data enrichment', 'Behavioral insights', 'Integration with CRMs'],
       color: 'purple' as const,
       icon: <Brain className="w-6 h-6" />,
@@ -28,7 +28,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'snipper',
       title: 'Snipper',
-      description: 'Supercharge your outreach with hyper-personalized messaging that converts at unprecedented rates.',
+      description: 'Automate high-touch outbound at scale — without sounding robotic. 87% of users say Snipper emails outperform their manual sequences.',
       features: ['Personalized templates', 'Sentiment analysis', 'Response predictions', 'A/B testing'],
       color: 'neon' as const,
       icon: <Send className="w-6 h-6" />,
@@ -38,7 +38,7 @@ const ProductSuite: React.FC = () => {
     {
       id: 'signals',
       title: 'Signals',
-      description: 'Gain an unfair advantage with real-time intelligence that reveals precisely when prospects are ready to buy.',
+      description: "Know who's ready to buy — before they raise their hand. Real-time signals from LinkedIn, email, and site visits help your SDRs strike early.",
       features: ['Intent data collection', 'Competitor monitoring', 'Market trend analysis', 'Alert notifications'],
       color: 'gray' as const,
       icon: <Activity className="w-6 h-6" />,
@@ -58,7 +58,7 @@ const ProductSuite: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            GAME-CHANGING SOLUTIONS
+            REVENUE ACCELERATION SUITE
           </motion.p>
           <motion.h2 
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
@@ -67,7 +67,7 @@ const ProductSuite: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Unleash the Ultimate AI Arsenal for GTM Excellence
+            First-Touch to Follow-Up: Your Complete Revenue Stack
           </motion.h2>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -76,8 +76,9 @@ const ProductSuite: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Deploy our battle-tested suite of AI tools to conquer every aspect of your go-to-market
-            strategy. Outperform competitors and drive explosive business growth with unmatched efficiency.
+            Our integrated AI platform drives measurable results at every pipeline stage. 
+            Companies using idkhelpme see 43% more qualified leads, 68% faster deal cycles, 
+            and 2.5X higher conversion rates from first touch to closed deal.
           </motion.p>
         </div>
 
