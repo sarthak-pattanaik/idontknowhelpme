@@ -54,14 +54,14 @@ const SnipperProduct: React.FC = () => {
     {
       id: 'response-rate',
       value: '3.8x',
-      label: 'Higher response rates',
-      description: 'Average increase in prospect response rates',
+      label: 'Increased engagement',
+      description: 'Average lift in prospect replies and positive responses',
     },
     {
       id: 'messaging-time',
       value: '82%',
-      label: 'Less time crafting messages',
-      description: 'Reduction in time spent writing outreach messages',
+      label: 'Sales productivity gain',
+      description: 'Reps produce 5x more personalized outreach in the same time',
     },
     {
       id: 'meetings-booked',

@@ -54,20 +54,20 @@ const IntelligenceProduct: React.FC = () => {
     {
       id: 'conversion-boost',
       value: '41%',
-      label: 'Higher conversion rates',
-      description: 'Average increase in lead-to-customer conversion rates',
+      label: 'Increased pipeline conversion',
+      description: 'Marketing teams close 2.6x more deals with prioritized high-intent leads',
     },
     {
       id: 'sales-time',
       value: '68%',
-      label: 'Reduced research time',
-      description: 'Time saved by sales teams on lead research and qualification',
+      label: 'Sales productivity boost',
+      description: 'Reps can handle 3x more accounts with AI-driven lead intelligence',
     },
     {
       id: 'data-accuracy',
       value: '97.5%',
-      label: 'Data accuracy rate',
-      description: 'Precision of enriched data compared to industry average of 72%',
+      label: 'Revenue impact',
+      description: 'Average ROI increase when targeting accurate, high-intent leads',
     },
   ];
 
@@ -123,20 +123,20 @@ const IntelligenceProduct: React.FC = () => {
 
       {/* Trust Section */}
       <TrustSection
-        title="Trusted by sales teams worldwide"
-        subtitle="From high-growth startups to enterprise organizations, sales teams rely on Intelligence to prioritize leads effectively"
+        title="5,200+ Revenue Teams Rely on Intelligence Daily"
+        subtitle="Companies using our AI lead scoring see 43% higher win rates and 52% faster deal velocity compared to traditional methods"
         useCaseGroups={useCaseGroups}
         color="purple"
       />
 
       {/* Global CTA */}
       <GlobalCTA
-        title="Ready to focus on your best prospects?"
-        description="Join hundreds of sales teams using Intelligence to prioritize leads that are most likely to convert."
-        primaryButtonText="Contact Sales"
-        primaryButtonLink="/contact"
-        secondaryButtonText="Explore Platform"
-        secondaryButtonLink="/platform"
+        title="Ready to close 43% more deals with the same team?"
+        description="Stop wasting time on low-intent leads. Start targeting the right accounts with 97.5% data accuracy guarantee."
+        primaryButtonText="Start Free Trial"
+        primaryButtonLink="/signup"
+        secondaryButtonText="See ROI Calculator"
+        secondaryButtonLink="/calculator"
         color="purple"
       />
     </>
