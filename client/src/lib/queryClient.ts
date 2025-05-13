@@ -7,6 +7,12 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
+// Helper function to get the base API URL
+const getApiBaseUrl = () => {
+  // Use the environment variable if available (for production)
+  return import.meta.env.VITE_API_URL || '';
+};
+
 export async function apiRequest<T>(
   url: string, 
   options?: RequestInit
@@ -28,7 +34,13 @@ export async function apiRequest<T>(
     });
   }
 
-  const res = await fetch(url, {
+  // Construct full URL with base URL if it's an API call and has a base URL configured
+  const apiBaseUrl = getApiBaseUrl();
+  const fullUrl = url.startsWith('/api/') && apiBaseUrl 
+    ? `${apiBaseUrl}${url}` 
+    : url;
+
+  const res = await fetch(fullUrl, {
     ...options,
     headers,
     credentials: 'include',
@@ -76,7 +88,13 @@ export const getQueryFn: <T>(options: {
       });
     }
     
-    const res = await fetch(url, {
+    // Construct full URL with base URL if it's an API call and has a base URL configured
+    const apiBaseUrl = getApiBaseUrl();
+    const fullUrl = url.startsWith('/api/') && apiBaseUrl 
+      ? `${apiBaseUrl}${url}` 
+      : url;
+      
+    const res = await fetch(fullUrl, {
       headers,
       credentials: "include",
     });
