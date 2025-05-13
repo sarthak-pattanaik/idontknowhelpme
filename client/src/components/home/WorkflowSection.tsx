@@ -32,7 +32,7 @@ const WorkflowSection: React.FC = () => {
     {
       id: 'decision',
       label: 'Bottom of Funnel: Decision',
-      product: 'Snipper',
+      product: 'Sniper',
       description: 'Convert prospects with personalized outreach at scale',
       gradient: 'from-electric-500 to-neon-500',
       productPosition: 'right',

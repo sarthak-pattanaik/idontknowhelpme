@@ -26,13 +26,13 @@ const ProductSuite: React.FC = () => {
       delay: 0.2,
     },
     {
-      id: 'snipper',
-      title: 'Snipper',
-      description: 'Automate high-touch outbound at scale — without sounding robotic. 87% of users say Snipper emails outperform their manual sequences.',
+      id: 'sniper',
+      title: 'Sniper',
+      description: 'Automate high-touch outbound at scale — without sounding robotic. 87% of users say Sniper emails outperform their manual sequences.',
       features: ['Personalized templates', 'Sentiment analysis', 'Response predictions', 'A/B testing'],
       color: 'neon' as const,
       icon: <Send className="w-6 h-6" />,
-      href: '/product/snipper',
+      href: '/product/sniper',
       delay: 0.3,
     },
     {

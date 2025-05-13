@@ -28,9 +28,9 @@ const FunnelSection: React.FC = () => {
       bgGradient: 'bg-gradient-to-br from-purple-500/20 via-purple-400/10 to-transparent',
     },
     {
-      id: 'snipper',
+      id: 'sniper',
       stage: 'Bottom of Funnel: Decision',
-      product: 'Snipper',
+      product: 'Sniper',
       description: 'Triple your close rates with AI-powered messaging that reads minds, handles objections, and closes deals while your competitors are still crafting emails',
       icon: <Send className="w-6 h-6" />,
       color: 'neon' as 'electric' | 'purple' | 'neon' | 'gray',
