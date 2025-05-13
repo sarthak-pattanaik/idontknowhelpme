@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
             <div className="bg-white/80 backdrop-blur-sm rounded-full py-1 px-4 border border-electric-100 shadow-sm">
               <span className="text-electric-600 font-medium text-sm inline-flex items-center">
                 <span className="w-2 h-2 bg-electric-500 rounded-full mr-2"></span>
-                The Future of GTM is Here
+                Revenue Acceleration Platform
               </span>
             </div>
           </motion.div>
@@ -83,9 +83,8 @@ const Hero: React.FC = () => {
             className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6"
             variants={itemVariants}
           >
-            Dominate Your Market with 
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-electric-500 to-purple-500 mx-2">Next-Gen AI</span> 
-            Technology
+            From Cold Lead to Closed Deal —
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-electric-500 to-purple-500 mx-2">In Half the Time</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -93,9 +92,8 @@ const Hero: React.FC = () => {
             className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
             variants={itemVariants}
           >
-            Transform your GTM strategy with our powerful suite of AI tools that deliver 
-            game-changing results for content creation, lead scoring, customer acquisition, 
-            and market intelligence.
+            idkhelpme gives you AI for content, leads, outreach, and buying signals — all in one flow. 
+            Cut sales cycles by 40% and boost conversion rates by 67% with our intelligent automation.
           </motion.p>
 
           {/* Feature badges */}
@@ -103,7 +101,7 @@ const Hero: React.FC = () => {
             className="flex flex-wrap justify-center gap-2 mb-10"
             variants={itemVariants}
           >
-            {['10x Productivity Boost', 'Enterprise-Grade AI', 'Proven ROI Results', 'Seamless Integration'].map((feature, index) => (
+            {['5X Faster Time-to-Revenue', '3X Pipeline Velocity', '87% Higher Conversion Rates', 'Seamless CRM Integration'].map((feature, index) => (
               <span 
                 key={index} 
                 className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white text-gray-800 border border-gray-200 shadow-sm"
@@ -131,14 +129,14 @@ const Hero: React.FC = () => {
                 </svg>
               }
             >
-              Start Transforming Today
+              Unleash Your Pipeline
             </Button>
             <Button
               variant="outline"
               size="xl"
               href="#products"
             >
-              See How It Works
+              Explore The Platform
             </Button>
           </motion.div>
         </motion.div>
@@ -165,8 +163,8 @@ const Hero: React.FC = () => {
                 <div className="bg-white w-full h-full rounded-lg shadow-sm p-5 flex flex-col">
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex flex-col">
-                      <h3 className="text-lg font-bold text-gray-900">Revenue Command Center</h3>
-                      <p className="text-sm text-gray-500">Your complete GTM performance at a glance</p>
+                      <h3 className="text-lg font-bold text-gray-900">Revenue Acceleration Dashboard</h3>
+                      <p className="text-sm text-gray-500">Real-time pipeline velocity metrics at a glance</p>
                     </div>
                     
                     <div className="flex gap-2">
@@ -179,10 +177,10 @@ const Hero: React.FC = () => {
                   
                   <div className="grid grid-cols-4 gap-4 mb-6">
                     {[
-                      { label: 'Content Generated', value: '243', color: 'bg-electric-100' },
-                      { label: 'Leads Scored', value: '1,482', color: 'bg-purple-100' },
-                      { label: 'Email Opens', value: '68.2%', color: 'bg-neon-100' },
-                      { label: 'Buying Signals', value: '57', color: 'bg-gray-100' },
+                      { label: 'Content ROI', value: '+317%', color: 'bg-electric-100' },
+                      { label: 'Time Savings', value: '14.3hrs', color: 'bg-purple-100' },
+                      { label: 'Response Rate', value: '68.2%', color: 'bg-neon-100' },
+                      { label: 'Decision Makers', value: '57', color: 'bg-gray-100' },
                     ].map((metric, idx) => (
                       <div key={idx} className={`${metric.color} rounded-lg p-3 flex flex-col justify-center`}>
                         <p className="text-sm text-gray-600 mb-1">{metric.label}</p>
