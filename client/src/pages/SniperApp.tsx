@@ -9,10 +9,10 @@ const SniperApp: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Helmet>
-        <title>Snipper App | idkhelpme</title>
+        <title>Sniper App | idkhelpme</title>
         <meta
           name="description"
-          content="Use Snipper for AI-powered outreach and messaging"
+          content="Use Sniper for AI-powered outreach and messaging"
         />
       </Helmet>
 
@@ -28,7 +28,7 @@ const SniperApp: React.FC = () => {
             <div className="p-2 bg-green-100 rounded-full">
               <MessageSquare className="h-6 w-6 text-green-600" />
             </div>
-            <h1 className="text-xl font-semibold text-gray-900">Snipper</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Sniper</h1>
           </div>
         </div>
         <div>
@@ -50,9 +50,9 @@ const SniperApp: React.FC = () => {
             <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
               <MessageSquare className="h-10 w-10 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">Snipper App</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">Sniper App</h2>
             <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-              This is a placeholder for the Snipper app interface. In a real implementation, this would contain AI-powered outreach and messaging tools.
+              This is a placeholder for the Sniper app interface. In a real implementation, this would contain AI-powered outreach and messaging tools.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
               <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">

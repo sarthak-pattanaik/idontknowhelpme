@@ -90,10 +90,10 @@ const SniperProduct: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Snipper | AI-Powered Outreach | idontknowhelpme</title>
+        <title>Sniper | AI-Powered Outreach | idkhelpme</title>
         <meta
           name="description"
-          content="Increase your response rates and book more meetings with Snipper, the AI-powered platform for highly personalized sales outreach at scale."
+          content="Increase your response rates and book more meetings with Sniper, the AI-powered platform for highly personalized sales outreach at scale."
         />
       </Helmet>
 
@@ -116,14 +116,14 @@ const SniperProduct: React.FC = () => {
 
       {/* Stats Section */}
       <StatSection
-        title="Why leading sales teams choose Snipper"
+        title="Why leading sales teams choose Sniper"
         stats={stats}
         color="neon"
       />
 
       {/* Trust Section */}
       <TrustSection
-        title="6,450+ Top SDR Teams Choose Snipper"
+        title="6,450+ Top SDR Teams Choose Sniper"
         subtitle="Companies using our AI outreach platform average 68% faster response times and 3.8x higher conversion to meetings"
         useCaseGroups={useCaseGroups}
         color="neon"

@@ -40,7 +40,7 @@ const RoutesWithLayout = [
   { path: "/product", component: ProductOverview },
   { path: "/product/homemaker", component: HomemakerProduct },
   { path: "/product/intelligence", component: IntelligenceProduct },
-  { path: "/product/snipper", component: SnipperProduct },
+  { path: "/product/sniper", component: SnipperProduct },
   { path: "/product/signals", component: SignalsProduct },
   { path: "/pricing", component: Pricing },
   { path: "/blog", component: Blog },

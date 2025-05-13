@@ -36,13 +36,13 @@ const ProductAccessPage: React.FC = () => {
       link: '/product/intelligence',
     },
     {
-      id: 'snipper',
-      name: 'Snipper',
+      id: 'sniper',
+      name: 'Sniper',
       description: 'AI-powered outreach and conversation helper',
       icon: <Zap className="h-6 w-6 text-amber-500" />,
       color: 'bg-amber-50 border-amber-100',
       textColor: 'text-amber-600',
-      link: '/product/snipper',
+      link: '/product/sniper',
     },
     {
       id: 'signals',
