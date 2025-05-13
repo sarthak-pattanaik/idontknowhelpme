@@ -43,14 +43,14 @@ const ProductSelectionPage: React.FC = () => {
       route: '/app/intelligence'
     },
     {
-      id: 'snipper',
-      name: 'Snipper',
+      id: 'sniper',
+      name: 'Sniper',
       description: 'AI-powered outreach and messaging platform',
       icon: <MessageSquare className="h-10 w-10 text-green-600" />,
       color: 'bg-green-50 border-green-200',
       textColor: 'text-green-700',
       buttonColor: 'bg-green-600 hover:bg-green-700',
-      route: '/app/snipper'
+      route: '/app/sniper'
     },
     {
       id: 'signals',

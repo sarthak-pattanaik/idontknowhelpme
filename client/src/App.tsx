@@ -12,7 +12,7 @@ import Home from "@/pages/Home";
 import ProductOverview from "@/pages/ProductOverview";
 import HomemakerProduct from "@/pages/HomeakerProduct";
 import IntelligenceProduct from "@/pages/IntelligenceProduct";
-import SnipperProduct from "@/pages/SniperProduct";
+import SniperProduct from "@/pages/SniperProduct";
 import SignalsProduct from "@/pages/SignalsProduct";
 import Pricing from "@/pages/Pricing";
 import Blog from "@/pages/Blog";
@@ -23,7 +23,7 @@ import NotFound from "@/pages/not-found";
 // Import product app pages
 import HomemakerApp from "@/pages/HomemakerApp";
 import IntelligenceApp from "@/pages/IntelligenceApp";
-import SnipperApp from "@/pages/SniperApp";
+import SniperApp from "@/pages/SniperApp";
 import SignalsApp from "@/pages/SignalsApp";
 
 // Import auth pages
@@ -40,7 +40,7 @@ const RoutesWithLayout = [
   { path: "/product", component: ProductOverview },
   { path: "/product/homemaker", component: HomemakerProduct },
   { path: "/product/intelligence", component: IntelligenceProduct },
-  { path: "/product/sniper", component: SnipperProduct },
+  { path: "/product/sniper", component: SniperProduct },
   { path: "/product/signals", component: SignalsProduct },
   { path: "/pricing", component: Pricing },
   { path: "/blog", component: Blog },
@@ -108,7 +108,7 @@ const StandaloneRoutes = [
         window.location.href = '/signup';
         return null;
       }
-      return <SnipperApp />;
+      return <SniperApp />;
     } 
   },
   { 
