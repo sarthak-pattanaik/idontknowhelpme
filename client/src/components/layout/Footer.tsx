@@ -10,7 +10,7 @@ const footerLinks = [
     links: [
       { name: 'Homemaker', href: '/product/homemaker', badge: 'Popular' },
       { name: 'Intelligence', href: '/product/intelligence' },
-      { name: 'Snipper', href: '/product/snipper' },
+      { name: 'Sniper', href: '/product/sniper' },
       { name: 'Signals', href: '/product/signals', badge: 'New' },
     ],
   },

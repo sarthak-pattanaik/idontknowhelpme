@@ -30,7 +30,7 @@ const Header: React.FC = () => {
   const productItems = [
     { name: 'Homemaker', path: '/product/homemaker', description: 'AI-powered content generation' },
     { name: 'Intelligence', path: '/product/intelligence', description: 'Smart lead scoring and enrichment' },
-    { name: 'Snipper', path: '/product/snipper', description: 'AI-assisted outreach campaigns' },
+    { name: 'Sniper', path: '/product/sniper', description: 'AI-assisted outreach campaigns' },
     { name: 'Signals', path: '/product/signals', description: 'Market signal tracking' },
   ];
 

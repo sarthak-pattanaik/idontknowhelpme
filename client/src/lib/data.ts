@@ -33,8 +33,8 @@ export const products = [
     ]
   },
   {
-    id: "snipper",
-    title: "Snipper",
+    id: "sniper",
+    title: "Sniper",
     description: "Autogenerate cold emails, follow-up sequences, and phone scripts with AI.",
     icon: "ri-scissors-cut-line",
     colorClass: {

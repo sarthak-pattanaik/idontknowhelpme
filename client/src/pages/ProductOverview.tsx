@@ -46,11 +46,11 @@ const ProductOverview: React.FC = () => {
       delay: 0.2,
     },
     {
-      title: 'Snipper',
+      title: 'Sniper',
       description: 'AI-assisted outreach campaigns for personalized communications.',
       icon: <Send className="w-10 h-10" />,
       color: 'neon',
-      href: '/product/snipper',
+      href: '/product/sniper',
       features: [
         'Auto-personalized outbound email copy',
         'Call script generation with role-based tonality',
