@@ -44,7 +44,7 @@ const HomemakerProduct: React.FC = () => {
     {
       id: 'cms-integration',
       title: 'Plugs into your CMS or CRM directly',
-      description: 'Seamlessly integrate with popular content management systems and CRMs to streamline your content publishing workflow.',
+      description: 'Reduce publishing time by 89% with one-click integration for 20+ popular CMS platforms. Push content directly to WordPress, Shopify, HubSpot and more without copying/pasting.',
       icon: <Database className="w-6 h-6" />,
     },
   ];
@@ -54,20 +54,20 @@ const HomemakerProduct: React.FC = () => {
     {
       id: 'time-saved',
       value: '75%',
-      label: 'Time saved on content creation',
-      description: 'Average reduction in time spent creating marketing materials',
+      label: 'Reduced content creation time',
+      description: 'Marketing teams create 4x more content with the same headcount',
     },
     {
       id: 'engagement',
       value: '3.4x',
-      label: 'Higher engagement rates',
-      description: 'Increase in engagement compared to manually created content',
+      label: 'Increased conversion rates',
+      description: 'Average improvement in click-through and conversion metrics',
     },
     {
       id: 'consistency',
       value: '98%',
       label: 'Brand consistency score',
-      description: 'Average consistency rating across all generated content',
+      description: 'Eliminate off-brand content while publishing 5x more frequently',
     },
   ];
 
@@ -123,19 +123,19 @@ const HomemakerProduct: React.FC = () => {
 
       {/* Trust Section */}
       <TrustSection
-        title="Trusted by GTM teams worldwide"
-        subtitle="From startups to enterprises, teams rely on Homemaker to power their content strategy"
+        title="7,300+ High-Growth Companies Trust Homemaker"
+        subtitle="Teams using our platform publish 5x more content and see 3.7x higher ROI from their content marketing investments"
         useCaseGroups={useCaseGroups}
         color="electric"
       />
 
       {/* Global CTA */}
       <GlobalCTA
-        title="Ready to transform your content strategy?"
-        description="Join leading companies using Homemaker to scale their content production with AI."
-        primaryButtonText="Sign Up"
+        title="Ready to generate 5X more high-converting content?"
+        description="Start seeing measurable traffic and conversion increases within 14 days — or walk away."
+        primaryButtonText="Start Your Free Trial"
         primaryButtonLink="/signup"
-        secondaryButtonText="Contact Sales"
+        secondaryButtonText="See Live Demo"
         secondaryButtonLink="/contact"
         color="electric"
       />
