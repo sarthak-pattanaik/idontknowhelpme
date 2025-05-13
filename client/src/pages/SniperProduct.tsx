@@ -8,7 +8,7 @@ import TrustSection from '@/components/product/TrustSection';
 import StatSection from '@/components/product/StatSection';
 import GlobalCTA from '@/components/product/GlobalCTA';
 
-const SnipperProduct: React.FC = () => {
+const SniperProduct: React.FC = () => {
   // Product features
   const features = [
     {
@@ -99,7 +99,7 @@ const SnipperProduct: React.FC = () => {
 
       {/* Hero Section */}
       <ProductHero
-        title="Snipper"
+        title="Sniper"
         subtitle="AI-POWERED OUTREACH"
         description="Create highly personalized sales communications that drive engagement and response rates across email, calls, and social."
         color="neon"
@@ -143,4 +143,4 @@ const SnipperProduct: React.FC = () => {
   );
 };
 
-export default SnipperProduct;
+export default SniperProduct;

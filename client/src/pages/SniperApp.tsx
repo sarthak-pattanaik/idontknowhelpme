@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { MessageSquare, ArrowLeft } from 'lucide-react';
 import { useLocation } from 'wouter';
 
-const SnipperApp: React.FC = () => {
+const SniperApp: React.FC = () => {
   const [, setLocation] = useLocation();
 
   return (
@@ -71,4 +71,4 @@ const SnipperApp: React.FC = () => {
   );
 };
 
-export default SnipperApp;
+export default SniperApp;
